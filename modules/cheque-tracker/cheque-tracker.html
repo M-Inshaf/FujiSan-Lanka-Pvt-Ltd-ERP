@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheque Tracker - Hummingbird ERP</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/forms.css">
+    <link rel="stylesheet" href="../../assets/css/tables.css">
+    <link rel="stylesheet" href="../../assets/css/modals.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+    <link rel="stylesheet" href="cheque-tracker.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="brand">🐦 Hummingbird</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-item" data-module="dashboard">
+                    <span class="icon">📊</span>
+                    <span class="label">Dashboard</span>
+                </a>
+                <a href="../sub-garments/sub-garments.html" class="nav-item" data-module="sub-garments">
+                    <span class="icon">✂</span>
+                    <span class="label">Sub Garments</span>
+                </a>
+                <a href="../customers/customers.html" class="nav-item" data-module="customers">
+                    <span class="icon">👥</span>
+                    <span class="label">Customers</span>
+                </a>
+                <a href="../suppliers/suppliers.html" class="nav-item" data-module="suppliers">
+                    <span class="icon">🏭</span>
+                    <span class="label">Suppliers</span>
+                </a>
+                <a href="../inventory/inventory.html" class="nav-item" data-module="inventory">
+                    <span class="icon">📦</span>
+                    <span class="label">Inventory</span>
+                </a>
+                <a href="../production-costing/production-costing.html" class="nav-item" data-module="production-costing">
+                    <span class="icon">💰</span>
+                    <span class="label">Production Costing</span>
+                </a>
+                <a href="../expenses/expenses.html" class="nav-item" data-module="expenses">
+                    <span class="icon">💸</span>
+                    <span class="label">Expenses</span>
+                </a>
+                <a href="../staff/staff.html" class="nav-item" data-module="staff">
+                    <span class="icon">👨‍💼</span>
+                    <span class="label">Staff</span>
+                </a>
+                <a href="../reports/reports.html" class="nav-item" data-module="reports">
+                    <span class="icon">📈</span>
+                    <span class="label">Reports</span>
+                </a>
+                <a href="../cheque-tracker/cheque-tracker.html" class="nav-item active" data-module="cheque-tracker">
+                    <span class="icon">🏦</span>
+                    <span class="label">Cheque Tracker</span>
+                </a>
+                <a href="../settings/settings.html" class="nav-item" data-module="settings">
+                    <span class="icon">⚙️</span>
+                    <span class="label">Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">☰</button>
+                    <h2 class="page-title">Cheque Tracker</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="search" id="globalSearch" class="search-input" placeholder="Search cheques...">
+                    </div>
+                    <button class="header-btn" id="notificationsBtn" aria-label="Notifications">🔔</button>
+                    <button class="header-btn" id="profileBtn" aria-label="Profile">👤</button>
+                </div>
+            </header>
+
+            <!-- Tab Navigation -->
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="issued-cheques">
+                    <span class="icon">📤</span> Issued Cheques
+                </button>
+                <button class="tab-btn" data-tab="received-cheques">
+                    <span class="icon">📥</span> Received Cheques
+                </button>
+                <button class="tab-btn" data-tab="cheque-status">
+                    <span class="icon">✓</span> Status Overview
+                </button>
+                <button class="tab-btn" data-tab="reconciliation">
+                    <span class="icon">🔄</span> Reconciliation
+                </button>
+                <button class="tab-btn" data-tab="cheque-reports">
+                    <span class="icon">🖨️</span> Reports
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-wrapper">
+
+                <!-- ISSUED CHEQUES TAB -->
+                <section class="tab-content active" id="issued-cheques">
+                    <div class="tab-header">
+                        <h3>Issued Cheques</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-primary" id="newIssuedChequeBtn">
+                                <span class="icon">➕</span> New Cheque
+                            </button>
+                            <button class="btn btn-secondary" id="filterIssuedBtn">
+                                <span class="icon">🔍</span> Filter
+                            </button>
+                            <button class="btn btn-secondary" id="exportIssuedBtn">
+                                <span class="icon">📥</span> Export
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Filters -->
+                    <div class="filters-bar">
+                        <select class="form-select" id="filterIssuedStatus">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="cleared">Cleared</option>
+                            <option value="bounced">Bounced</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <select class="form-select" id="filterIssuedBank">
+                            <option value="">All Banks</option>
+                        </select>
+                        <input type="date" id="filterIssuedFromDate" class="form-input" placeholder="From Date">
+                        <input type="date" id="filterIssuedToDate" class="form-input" placeholder="To Date">
+                        <button class="btn btn-secondary" id="applyIssuedFiltersBtn">Apply</button>
+                        <button class="btn btn-secondary" id="resetIssuedFiltersBtn">Reset</button>
+                    </div>
+
+                    <!-- Issued Cheques Table -->
+                    <div class="table-container">
+                        <table class="data-table" id="issuedChequesTable">
+                            <thead>
+                                <tr>
+                                    <th data-sortable="true">Cheque No</th>
+                                    <th data-sortable="true">Bank</th>
+                                    <th data-sortable="true">Date Issued</th>
+                                    <th data-sortable="true">Payee</th>
+                                    <th data-sortable="true">Amount</th>
+                                    <th data-sortable="true">Cheque Date</th>
+                                    <th data-sortable="true">Status</th>
+                                    <th data-sortable="true">Cleared Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="issuedChequesTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="issuedPagination">
+                        <button class="pagination-btn" id="prevIssuedPage">← Previous</button>
+                        <span class="pagination-info" id="issuedPageInfo">Page 1 of 1</span>
+                        <button class="pagination-btn" id="nextIssuedPage">Next →</button>
+                    </div>
+                </section>
+
+                <!-- RECEIVED CHEQUES TAB -->
+                <section class="tab-content" id="received-cheques">
+                    <div class="tab-header">
+                        <h3>Received Cheques</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-primary" id="newReceivedChequeBtn">
+                                <span class="icon">➕</span> New Cheque
+                            </button>
+                            <button class="btn btn-secondary" id="filterReceivedBtn">
+                                <span class="icon">🔍</span> Filter
+                            </button>
+                            <button class="btn btn-secondary" id="exportReceivedBtn">
+                                <span class="icon">📥</span> Export
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Filters -->
+                    <div class="filters-bar">
+                        <select class="form-select" id="filterReceivedStatus">
+                            <option value="">All Status</option>
+                            <option value="received">Received</option>
+                            <option value="deposited">Deposited</option>
+                            <option value="cleared">Cleared</option>
+                            <option value="returned">Returned</option>
+                            <option value="dishonoured">Dishonoured</option>
+                        </select>
+                        <select class="form-select" id="filterReceivedBank">
+                            <option value="">All Banks</option>
+                        </select>
+                        <input type="date" id="filterReceivedFromDate" class="form-input" placeholder="From Date">
+                        <input type="date" id="filterReceivedToDate" class="form-input" placeholder="To Date">
+                        <button class="btn btn-secondary" id="applyReceivedFiltersBtn">Apply</button>
+                        <button class="btn btn-secondary" id="resetReceivedFiltersBtn">Reset</button>
+                    </div>
+
+                    <!-- Received Cheques Table -->
+                    <div class="table-container">
+                        <table class="data-table" id="receivedChequesTable">
+                            <thead>
+                                <tr>
+                                    <th data-sortable="true">Cheque No</th>
+                                    <th data-sortable="true">Bank</th>
+                                    <th data-sortable="true">Date Received</th>
+                                    <th data-sortable="true">Drawer</th>
+                                    <th data-sortable="true">Amount</th>
+                                    <th data-sortable="true">Cheque Date</th>
+                                    <th data-sortable="true">Status</th>
+                                    <th data-sortable="true">Cleared Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="receivedChequesTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="receivedPagination">
+                        <button class="pagination-btn" id="prevReceivedPage">← Previous</button>
+                        <span class="pagination-info" id="receivedPageInfo">Page 1 of 1</span>
+                        <button class="pagination-btn" id="nextReceivedPage">Next →</button>
+                    </div>
+                </section>
+
+                <!-- CHEQUE STATUS OVERVIEW TAB -->
+                <section class="tab-content" id="cheque-status">
+                    <div class="tab-header">
+                        <h3>Cheque Status Overview</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-secondary" id="refreshStatusBtn">
+                                <span class="icon">🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Status Summary Cards -->
+                    <div class="status-cards" id="statusSummaryCards">
+                        <div class="status-card">
+                            <div class="card-label">Issued - Pending</div>
+                            <div class="card-value" id="issuedPending">0</div>
+                            <div class="card-amount" id="issuedPendingAmount">0.00</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="card-label">Issued - Cleared</div>
+                            <div class="card-value" id="issuedCleared">0</div>
+                            <div class="card-amount" id="issuedClearedAmount">0.00</div>
+                        </div>
+                        <div class="status-card alert">
+                            <div class="card-label">Issued - Bounced</div>
+                            <div class="card-value" id="issuedBounced">0</div>
+                            <div class="card-amount" id="issuedBouncedAmount">0.00</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="card-label">Received - Pending</div>
+                            <div class="card-value" id="receivedPending">0</div>
+                            <div class="card-amount" id="receivedPendingAmount">0.00</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="card-label">Received - Cleared</div>
+                            <div class="card-value" id="receivedCleared">0</div>
+                            <div class="card-amount" id="receivedClearedAmount">0.00</div>
+                        </div>
+                        <div class="status-card alert">
+                            <div class="card-label">Received - Dishonoured</div>
+                            <div class="card-value" id="receivedDishonoured">0</div>
+                            <div class="card-amount" id="receivedDishonouredAmount">0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Cheques Section -->
+                    <div class="pending-section">
+                        <h4>Pending Cheques (Action Required)</h4>
+                        <div class="alert-box">
+                            <p id="pendingChequeInfo">No pending cheques</p>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table" id="pendingChequesTable">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true">Type</th>
+                                        <th data-sortable="true">Cheque No</th>
+                                        <th data-sortable="true">Amount</th>
+                                        <th data-sortable="true">Cheque Date</th>
+                                        <th data-sortable="true">Days Pending</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pendingChequesTableBody">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <div id="chequeStatusChart" class="chart-placeholder">
+                            <p>Cheque status distribution chart will be rendered here</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RECONCILIATION TAB -->
+                <section class="tab-content" id="reconciliation">
+                    <div class="tab-header">
+                        <h3>Bank Reconciliation</h3>
+                        <div class="tab-actions">
+                            <select class="form-select" id="reconciliationBank">
+                                <option value="">-- Select Bank Account --</option>
+                            </select>
+                            <input type="month" id="reconciliationMonth" class="form-input">
+                            <button class="btn btn-primary" id="startReconciliationBtn">
+                                <span class="icon">⚙️</span> Start Reconciliation
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Reconciliation Summary -->
+                    <div class="reconciliation-summary">
+                        <div class="summary-section">
+                            <h4>Book Balance</h4>
+                            <div class="summary-card">
+                                <div class="card-label">Opening Balance</div>
+                                <div class="card-value" id="bookOpeningBalance">0.00</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="card-label">Deposits</div>
+                                <div class="card-value positive" id="bookDeposits">0.00</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="card-label">Withdrawals</div>
+                                <div class="card-value negative" id="bookWithdrawals">0.00</div>
+                            </div>
+                            <div class="summary-card highlight">
+                                <div class="card-label">Closing Balance</div>
+                                <div class="card-value" id="bookClosingBalance">0.00</div>
+                            </div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h4>Bank Statement Balance</h4>
+                            <div class="summary-card">
+                                <div class="card-label">Statement Opening</div>
+                                <div class="card-value" id="bankOpeningBalance">0.00</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="card-label">Deposits</div>
+                                <div class="card-value positive" id="bankDeposits">0.00</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="card-label">Withdrawals</div>
+                                <div class="card-value negative" id="bankWithdrawals">0.00</div>
+                            </div>
+                            <div class="summary-card highlight">
+                                <div class="card-label">Statement Closing</div>
+                                <div class="card-value" id="bankClosingBalance">0.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outstanding Cheques -->
+                    <div class="outstanding-section">
+                        <h4>Outstanding Cheques</h4>
+                        <div class="table-container">
+                            <table class="data-table" id="outstandingChequesTable">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true">Cheque No</th>
+                                        <th data-sortable="true">Date</th>
+                                        <th data-sortable="true">Payee</th>
+                                        <th data-sortable="true">Amount</th>
+                                        <th data-sortable="true">Days Outstanding</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="outstandingChequesTableBody">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Reconciliation Actions -->
+                    <div class="reconciliation-actions">
+                        <button class="btn btn-primary" id="generateReconciliationBtn">
+                            <span class="icon">✓</span> Complete Reconciliation
+                        </button>
+                        <button class="btn btn-secondary" id="printReconciliationBtn">
+                            <span class="icon">🖨️</span> Print
+                        </button>
+                    </div>
+                </section>
+
+                <!-- REPORTS TAB -->
+                <section class="tab-content" id="cheque-reports">
+                    <div class="tab-header">
+                        <h3>Cheque Reports</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-secondary" id="newReportBtn">
+                                <span class="icon">➕</span> New Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Report Types Grid -->
+                    <div class="reports-grid" id="reportsGrid">
+                        <!-- Cheque Register -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Cheque Register</h4>
+                                <span class="icon">📋</span>
+                            </div>
+                            <p class="report-description">Complete listing of all cheques issued and received</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cheque-register">View</button>
+                                <button class="btn-small" data-report="cheque-register" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Cheque Status Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Cheque Status Report</h4>
+                                <span class="icon">✓</span>
+                            </div>
+                            <p class="report-description">Detailed status of all cheques</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cheque-status-rep">View</button>
+                                <button class="btn-small" data-report="cheque-status-rep" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Cheque Clearing Status -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Clearing Status Report</h4>
+                                <span class="icon">🔄</span>
+                            </div>
+                            <p class="report-description">Track cheque clearing timeline</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="clearing-status">View</button>
+                                <button class="btn-small" data-report="clearing-status" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Bounced Cheques Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Bounced Cheques Report</h4>
+                                <span class="icon">⚠️</span>
+                            </div>
+                            <p class="report-description">All bounced cheques tracking</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="bounced-cheques">View</button>
+                                <button class="btn-small" data-report="bounced-cheques" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Bank-wise Summary -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Bank-wise Summary</h4>
+                                <span class="icon">🏦</span>
+                            </div>
+                            <p class="report-description">Cheque distribution by bank</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="bank-summary">View</button>
+                                <button class="btn-small" data-report="bank-summary" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Reconciliation Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Reconciliation Report</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Bank reconciliation details</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="reconciliation-rep">View</button>
+                                <button class="btn-small" data-report="reconciliation-rep" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recently Generated Reports -->
+                    <div class="recent-reports-section">
+                        <h4>Recently Generated Reports</h4>
+                        <div class="table-container">
+                            <table class="data-table" id="recentReportsTable">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true">Report Type</th>
+                                        <th data-sortable="true">Generated Date</th>
+                                        <th data-sortable="true">Period</th>
+                                        <th data-sortable="true">Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentReportsTableBody">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- New Issued Cheque Modal -->
+    <div class="modal" id="newIssuedChequeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Issue New Cheque</h3>
+                <button class="modal-close" data-modal="newIssuedChequeModal">&times;</button>
+            </div>
+            <form id="newIssuedChequeForm" class="form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="issuedChequeNo">Cheque Number</label>
+                        <input type="text" id="issuedChequeNo" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="issuedBank">Bank</label>
+                        <select id="issuedBank" class="form-select" required>
+                            <option value="">-- Select Bank --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="payeeName">Payee Name</label>
+                    <input type="text" id="payeeName" class="form-input" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="issuedAmount">Amount</label>
+                        <input type="number" id="issuedAmount" class="form-input" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chequeDate">Cheque Date</label>
+                        <input type="date" id="chequeDate" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="issuedDate">Date Issued</label>
+                    <input type="date" id="issuedDate" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="issuedPurpose">Purpose</label>
+                    <input type="text" id="issuedPurpose" class="form-input" placeholder="Payment purpose">
+                </div>
+                <div class="form-group">
+                    <label for="issuedRemarks">Remarks</label>
+                    <textarea id="issuedRemarks" class="form-textarea" rows="2"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Issue Cheque</button>
+                    <button type="button" class="btn btn-secondary" data-modal="newIssuedChequeModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Received Cheque Modal -->
+    <div class="modal" id="newReceivedChequeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Record Received Cheque</h3>
+                <button class="modal-close" data-modal="newReceivedChequeModal">&times;</button>
+            </div>
+            <form id="newReceivedChequeForm" class="form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="receivedChequeNo">Cheque Number</label>
+                        <input type="text" id="receivedChequeNo" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="receivedBank">Bank</label>
+                        <select id="receivedBank" class="form-select" required>
+                            <option value="">-- Select Bank --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="drawerName">Drawer Name</label>
+                    <input type="text" id="drawerName" class="form-input" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="receivedAmount">Amount</label>
+                        <input type="number" id="receivedAmount" class="form-input" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="receivedChequeDate">Cheque Date</label>
+                        <input type="date" id="receivedChequeDate" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="receivedDate">Date Received</label>
+                    <input type="date" id="receivedDate" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="receivedFor">Received For</label>
+                    <input type="text" id="receivedFor" class="form-input" placeholder="Purpose/Invoice">
+                </div>
+                <div class="form-group">
+                    <label for="receivedRemarks">Remarks</label>
+                    <textarea id="receivedRemarks" class="form-textarea" rows="2"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Record Cheque</button>
+                    <button type="button" class="btn btn-secondary" data-modal="newReceivedChequeModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Update Cheque Status Modal -->
+    <div class="modal" id="updateChequeStatusModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Cheque Status</h3>
+                <button class="modal-close" data-modal="updateChequeStatusModal">&times;</button>
+            </div>
+            <form id="updateChequeStatusForm" class="form">
+                <input type="hidden" id="updateChequeId">
+                <input type="hidden" id="updateChequeType">
+                <div class="form-group">
+                    <label for="updateStatus">Status</label>
+                    <select id="updateStatus" class="form-select" required>
+                        <option value="">-- Select Status --</option>
+                        <option value="pending">Pending</option>
+                        <option value="cleared">Cleared</option>
+                        <option value="bounced">Bounced</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="updateStatusDate">Status Date</label>
+                    <input type="date" id="updateStatusDate" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateStatusRemarks">Remarks</label>
+                    <textarea id="updateStatusRemarks" class="form-textarea" rows="2"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                    <button type="button" class="btn btn-secondary" data-modal="updateChequeStatusModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Report Modal -->
+    <div class="modal" id="viewReportModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="reportTitle">Report</h3>
+                <button class="modal-close" data-modal="viewReportModal">&times;</button>
+            </div>
+            <div class="report-content" id="reportContent">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="printReportBtn">🖨️ Print</button>
+                <button class="btn btn-secondary" id="exportReportBtn">📥 Export to Excel</button>
+                <button class="btn btn-secondary" data-modal="viewReportModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal" id="confirmDeleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button class="modal-close" data-modal="confirmDeleteModal">&times;</button>
+            </div>
+            <p id="deleteMessage">Are you sure you want to delete this cheque record?</p>
+            <div class="form-actions">
+                <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                <button class="btn btn-secondary" data-modal="confirmDeleteModal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cheque-tracker.js"></script>
+</body>
+</html>
