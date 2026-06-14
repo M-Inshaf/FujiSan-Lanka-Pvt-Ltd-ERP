@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppliers - Hummingbird Clothing ERP</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/forms.css">
+    <link rel="stylesheet" href="../../assets/css/tables.css">
+    <link rel="stylesheet" href="../../assets/css/modals.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+    <link rel="stylesheet" href="suppliers.css">
+</head>
+<body>
+    <div class="suppliers-container">
+        
+        <!-- Header -->
+        <header class="suppliers-header">
+            <div class="header-top">
+                <h2 class="page-title">Suppliers Management</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="newSupplierBtn">
+                        ➕ New Supplier
+                    </button>
+                    <button class="btn btn-secondary" id="newPurchaseBtn">
+                        📦 New Purchase Order
+                    </button>
+                    <button class="btn btn-secondary" id="recordPaymentBtn">
+                        💳 Record Payment
+                    </button>
+                    <button class="btn btn-secondary" id="exportSuppliersBtn">
+                        📥 Export Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <nav class="supplier-tabs">
+                <button class="tab-btn active" data-tab="fabric-suppliers">🧵 Fabric Suppliers</button>
+                <button class="tab-btn" data-tab="accessories-suppliers">📌 Accessories Suppliers</button>
+                <button class="tab-btn" data-tab="purchase-orders">📦 Purchase Orders</button>
+                <button class="tab-btn" data-tab="supplier-ledger">📊 Payables Ledger</button>
+                <button class="tab-btn" data-tab="supplier-returns">↩️ Returns</button>
+                <button class="tab-btn" data-tab="supplier-statements">📋 Statements</button>
+                <button class="tab-btn" data-tab="reports">📈 Reports</button>
+            </nav>
+        </header>
+
+        <!-- Tab Content -->
+        <main class="suppliers-content">
+
+            <!-- TAB 1: Fabric Suppliers -->
+            <section class="tab-pane active" id="fabric-suppliers">
+                <div class="tab-header">
+                    <h3>Fabric Suppliers Directory</h3>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="fabricSearch" placeholder="Search by name, code, contact...">
+                    <select class="filter-select" id="fabricStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="fabricSuppliersTable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Supplier Name</th>
+                                <th>Contact Person</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Total Purchases (Rs)</th>
+                                <th>Outstanding Balance (Rs)</th>
+                                <th>Payment Terms</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fabricSuppliersTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 2: Accessories Suppliers -->
+            <section class="tab-pane" id="accessories-suppliers">
+                <div class="tab-header">
+                    <h3>Accessories Suppliers Directory</h3>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="accessoriesSearch" placeholder="Search by name, code, contact...">
+                    <select class="filter-select" id="accessoriesStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="accessoriesSuppliersTable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Supplier Name</th>
+                                <th>Contact Person</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Total Purchases (Rs)</th>
+                                <th>Outstanding Balance (Rs)</th>
+                                <th>Payment Terms</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accessoriesSuppliersTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 3: Purchase Orders -->
+            <section class="tab-pane" id="purchase-orders">
+                <div class="tab-header">
+                    <h3>Purchase Orders</h3>
+                    <button class="btn btn-primary" id="createPOBtn">📦 Create New PO</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="poSearch" placeholder="Search by PO number, supplier...">
+                    <input type="date" class="filter-input" id="poDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="poDateTo">
+                    <select class="filter-select" id="poStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="draft">Draft</option>
+                        <option value="ordered">Ordered</option>
+                        <option value="received">Received</option>
+                        <option value="invoiced">Invoiced</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                    <select class="filter-select" id="poTypeFilter">
+                        <option value="">All Types</option>
+                        <option value="fabric">Fabric</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                </div>
+
+                <div class="po-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total Ordered</p>
+                        <p class="summary-value" id="totalOrdered">Rs. 0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Total Received</p>
+                        <p class="summary-value" id="totalReceived">Rs. 0</p>
+                    </div>
+                    <div class="summary-card highlight">
+                        <p class="summary-label">Pending Delivery</p>
+                        <p class="summary-value" id="totalPending">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="poTable">
+                        <thead>
+                            <tr>
+                                <th>PO No</th>
+                                <th>Supplier</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Due Date</th>
+                                <th>Items</th>
+                                <th>Amount (Rs)</th>
+                                <th>Received (Rs)</th>
+                                <th>Balance (Rs)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="poTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 4: Payables Ledger -->
+            <section class="tab-pane" id="supplier-ledger">
+                <div class="tab-header">
+                    <h3>Supplier Payables Ledger</h3>
+                </div>
+
+                <div class="ledger-filters">
+                    <select class="filter-select" id="ledgerSupplierFilter">
+                        <option value="">All Suppliers</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                    <input type="date" class="filter-input" id="ledgerDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="ledgerDateTo">
+                    <select class="filter-select" id="ledgerTypeFilter">
+                        <option value="">All Types</option>
+                        <option value="debit">Debit (Purchase)</option>
+                        <option value="credit">Credit (Payment)</option>
+                    </select>
+                </div>
+
+                <div class="ledger-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total Purchases (Debit)</p>
+                        <p class="summary-value" id="totalLedgerDebit">Rs. 0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Total Payments (Credit)</p>
+                        <p class="summary-value" id="totalLedgerCredit">Rs. 0</p>
+                    </div>
+                    <div class="summary-card highlight">
+                        <p class="summary-label">Payable Balance</p>
+                        <p class="summary-value" id="totalLedgerBalance">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="ledgerTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Supplier</th>
+                                <th>Reference</th>
+                                <th>Type</th>
+                                <th>Amount (Rs)</th>
+                                <th>Balance (Rs)</th>
+                                <th>Remarks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledgerTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 5: Returns & Adjustments -->
+            <section class="tab-pane" id="supplier-returns">
+                <div class="tab-header">
+                    <h3>Purchase Returns & Adjustments</h3>
+                    <button class="btn btn-primary" id="createReturnBtn">↩️ Record Return</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="returnSearch" placeholder="Search by return number...">
+                    <input type="date" class="filter-input" id="returnDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="returnDateTo">
+                    <select class="filter-select" id="returnTypeFilter">
+                        <option value="">All Types</option>
+                        <option value="return">Return</option>
+                        <option value="adjustment">Adjustment</option>
+                        <option value="discount">Discount</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="returnsTable">
+                        <thead>
+                            <tr>
+                                <th>Reference No</th>
+                                <th>Supplier</th>
+                                <th>PO Reference</th>
+                                <th>Type</th>
+                                <th>Amount (Rs)</th>
+                                <th>Date</th>
+                                <th>Remarks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="returnsTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 6: Supplier Statements -->
+            <section class="tab-pane" id="supplier-statements">
+                <div class="tab-header">
+                    <h3>Supplier Statements</h3>
+                </div>
+
+                <div class="statement-selector">
+                    <select class="filter-select" id="statementSupplierSelect">
+                        <option value="">Select Supplier to View Statement</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                    <input type="date" class="filter-input" id="statementDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="statementDateTo">
+                    <button class="btn btn-secondary" id="generateStatementBtn">📄 Generate Statement</button>
+                    <button class="btn btn-secondary" id="printStatementBtn">🖨️ Print Statement</button>
+                </div>
+
+                <div class="statement-preview" id="statementPreview">
+                    <!-- Statement HTML generated here -->
+                </div>
+            </section>
+
+            <!-- TAB 7: Reports -->
+            <section class="tab-pane" id="reports">
+                <div class="tab-header">
+                    <h3>Supplier Reports</h3>
+                </div>
+
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">👥</div>
+                        <h4>Supplier Summary</h4>
+                        <p>All suppliers with payables</p>
+                        <button class="btn btn-secondary" id="supplierSummaryBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📊</div>
+                        <h4>Purchase Analysis</h4>
+                        <p>Purchases per supplier</p>
+                        <button class="btn btn-secondary" id="purchaseAnalysisBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">⏰</div>
+                        <h4>Ageing Report</h4>
+                        <p>Overdue payments analysis</p>
+                        <button class="btn btn-secondary" id="ageingReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">💰</div>
+                        <h4>Payable Balances</h4>
+                        <p>Outstanding payments due</p>
+                        <button class="btn btn-secondary" id="payablesReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📈</div>
+                        <h4>Monthly Purchases</h4>
+                        <p>Monthly purchase trends</p>
+                        <button class="btn btn-secondary" id="monthlyPurchasesBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">🏆</div>
+                        <h4>Top Suppliers</h4>
+                        <p>Most frequent suppliers</p>
+                        <button class="btn btn-secondary" id="topSuppliersBtn">View Report</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Add/Edit Supplier Modal -->
+    <div class="modal" id="supplierModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="supplierModalTitle">Add New Supplier</h3>
+                <button class="modal-close" data-modal="supplierModal">✕</button>
+            </div>
+            <form class="modal-form" id="supplierForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Supplier Code</label>
+                        <input type="text" name="supplierCode" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Supplier Name</label>
+                        <input type="text" name="supplierName" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Supplier Type</label>
+                        <select name="supplierType" class="form-input" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="fabric">Fabric</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Person</label>
+                        <input type="text" name="contactPerson" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phoneNumber" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" name="city" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" name="country" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="address" class="form-input"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Payment Terms (days)</label>
+                        <input type="number" name="paymentTerms" class="form-input" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Bank Account</label>
+                        <input type="text" name="bankAccount" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" class="form-input">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="supplierModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Supplier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Purchase Order Modal -->
+    <div class="modal" id="poModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Create Purchase Order</h3>
+                <button class="modal-close" data-modal="poModal">✕</button>
+            </div>
+            <form class="modal-form" id="poForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Select Supplier</label>
+                        <select name="supplier" class="form-input" id="poSupplier" required>
+                            <option value="">-- Select Supplier --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>PO Date</label>
+                        <input type="date" name="poDate" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="po-items">
+                    <h4>Line Items</h4>
+                    <div id="poItemsContainer">
+                        <div class="po-item">
+                            <input type="text" class="form-input" placeholder="Item Description" name="itemDescription">
+                            <input type="text" class="form-input" placeholder="Unit" name="itemUnit">
+                            <input type="number" class="form-input" placeholder="Qty" name="itemQty" min="1">
+                            <input type="number" class="form-input" placeholder="Unit Price (Rs)" name="itemPrice" step="0.01">
+                            <input type="number" class="form-input" placeholder="Amount (Rs)" name="itemAmount" readonly>
+                            <button type="button" class="btn btn-small" id="removeItemBtn">✕</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="addItemBtn">➕ Add Line Item</button>
+                </div>
+
+                <div class="po-totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="poSubtotal">Rs. 0</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Tax %</label>
+                        <input type="number" name="taxPercent" class="form-input" min="0" step="0.01" value="0">
+                    </div>
+                    <div class="total-row">
+                        <span>Tax:</span>
+                        <span id="poTax">Rs. 0</span>
+                    </div>
+                    <div class="total-row highlight">
+                        <span>Total:</span>
+                        <span id="poTotal">Rs. 0</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Expected Delivery Date</label>
+                    <input type="date" name="expectedDelivery" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="poModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create PO</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Record Supplier Payment</h3>
+                <button class="modal-close" data-modal="paymentModal">✕</button>
+            </div>
+            <form class="modal-form" id="paymentForm">
+                <div class="form-group">
+                    <label>Select Supplier</label>
+                    <select name="supplier" class="form-input" id="paymentSupplier" required>
+                        <option value="">-- Select Supplier --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Outstanding Balance (Rs)</label>
+                    <input type="number" name="balance" class="form-input" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Amount (Rs)</label>
+                    <input type="number" name="paymentAmount" class="form-input" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select name="paymentMethod" class="form-input" required>
+                        <option value="">-- Select Method --</option>
+                        <option value="cash">Cash</option>
+                        <option value="cheque">Cheque</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Cheque Number (if applicable)</label>
+                    <input type="text" name="chequeNumber" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Date</label>
+                    <input type="date" name="paymentDate" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="paymentModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Record Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="suppliers.js"></script>
+</body>
+</html>
