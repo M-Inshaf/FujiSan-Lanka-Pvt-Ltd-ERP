@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - Hummingbird Clothing ERP</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/forms.css">
+    <link rel="stylesheet" href="../../assets/css/tables.css">
+    <link rel="stylesheet" href="../../assets/css/modals.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+    <link rel="stylesheet" href="customers.css">
+</head>
+<body>
+    <div class="customers-container">
+        
+        <!-- Header -->
+        <header class="customers-header">
+            <div class="header-top">
+                <h2 class="page-title">Customers Management</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="newCustomerBtn">
+                        ➕ New Customer
+                    </button>
+                    <button class="btn btn-secondary" id="newInvoiceBtn">
+                        📄 Create Invoice
+                    </button>
+                    <button class="btn btn-secondary" id="recordPaymentBtn">
+                        💳 Record Payment
+                    </button>
+                    <button class="btn btn-secondary" id="exportCustomersBtn">
+                        📥 Export Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <nav class="customer-tabs">
+                <button class="tab-btn active" data-tab="customer-profiles">👥 Customers</button>
+                <button class="tab-btn" data-tab="invoices">📄 Invoices</button>
+                <button class="tab-btn" data-tab="customer-ledger">📊 Ledger</button>
+                <button class="tab-btn" data-tab="receipts">💰 Receipts</button>
+                <button class="tab-btn" data-tab="returns">↩️ Returns</button>
+                <button class="tab-btn" data-tab="statements">📋 Statements</button>
+                <button class="tab-btn" data-tab="reports">📈 Reports</button>
+            </nav>
+        </header>
+
+        <!-- Tab Content -->
+        <main class="customers-content">
+
+            <!-- TAB 1: Customer Profiles -->
+            <section class="tab-pane active" id="customer-profiles">
+                <div class="tab-header">
+                    <h3>Customer Directory</h3>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="customerSearch" placeholder="Search by name, code, contact...">
+                    <select class="filter-select" id="customerTypeFilter">
+                        <option value="">All Types</option>
+                        <option value="retail">Retail</option>
+                        <option value="wholesale">Wholesale</option>
+                        <option value="distributor">Distributor</option>
+                    </select>
+                    <select class="filter-select" id="customerStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="customersTable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Customer Name</th>
+                                <th>Type</th>
+                                <th>Contact</th>
+                                <th>City</th>
+                                <th>Total Invoices</th>
+                                <th>Outstanding Balance (Rs)</th>
+                                <th>Credit Limit (Rs)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customersTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 2: Sales Invoices -->
+            <section class="tab-pane" id="invoices">
+                <div class="tab-header">
+                    <h3>Sales Invoices</h3>
+                    <button class="btn btn-primary" id="createInvoiceBtn">📄 Create New Invoice</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="invoiceSearch" placeholder="Search by invoice number, customer...">
+                    <input type="date" class="filter-input" id="invoiceDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="invoiceDateTo">
+                    <select class="filter-select" id="invoiceStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="draft">Draft</option>
+                        <option value="issued">Issued</option>
+                        <option value="partial">Partial Payment</option>
+                        <option value="paid">Paid</option>
+                        <option value="overdue">Overdue</option>
+                    </select>
+                </div>
+
+                <div class="invoice-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total Invoiced</p>
+                        <p class="summary-value" id="totalInvoiced">Rs. 0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Paid</p>
+                        <p class="summary-value" id="totalPaid">Rs. 0</p>
+                    </div>
+                    <div class="summary-card highlight">
+                        <p class="summary-label">Outstanding</p>
+                        <p class="summary-value" id="totalOutstanding">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="invoicesTable">
+                        <thead>
+                            <tr>
+                                <th>Invoice No</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Due Date</th>
+                                <th>Items</th>
+                                <th>Amount (Rs)</th>
+                                <th>Paid (Rs)</th>
+                                <th>Balance (Rs)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoicesTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 3: Customer Ledger -->
+            <section class="tab-pane" id="customer-ledger">
+                <div class="tab-header">
+                    <h3>Customer Ledger</h3>
+                </div>
+
+                <div class="ledger-filters">
+                    <select class="filter-select" id="ledgerCustomerFilter">
+                        <option value="">All Customers</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                    <input type="date" class="filter-input" id="ledgerDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="ledgerDateTo">
+                    <select class="filter-select" id="ledgerTypeFilter">
+                        <option value="">All Types</option>
+                        <option value="debit">Debit (Invoice)</option>
+                        <option value="credit">Credit (Payment)</option>
+                    </select>
+                </div>
+
+                <div class="ledger-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total Invoices (Debit)</p>
+                        <p class="summary-value" id="totalLedgerDebit">Rs. 0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Total Payments (Credit)</p>
+                        <p class="summary-value" id="totalLedgerCredit">Rs. 0</p>
+                    </div>
+                    <div class="summary-card highlight">
+                        <p class="summary-label">Customer Balance</p>
+                        <p class="summary-value" id="totalLedgerBalance">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="ledgerTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Reference</th>
+                                <th>Type</th>
+                                <th>Amount (Rs)</th>
+                                <th>Balance (Rs)</th>
+                                <th>Remarks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledgerTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 4: Payment Receipts -->
+            <section class="tab-pane" id="receipts">
+                <div class="tab-header">
+                    <h3>Payment Receipts</h3>
+                    <button class="btn btn-primary" id="createReceiptBtn">💰 Record Receipt</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="receiptSearch" placeholder="Search by receipt number, customer...">
+                    <input type="date" class="filter-input" id="receiptDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="receiptDateTo">
+                    <select class="filter-select" id="receiptMethodFilter">
+                        <option value="">All Methods</option>
+                        <option value="cash">Cash</option>
+                        <option value="cheque">Cheque</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                        <option value="card">Card</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="receiptsTable">
+                        <thead>
+                            <tr>
+                                <th>Receipt No</th>
+                                <th>Customer</th>
+                                <th>Amount (Rs)</th>
+                                <th>Method</th>
+                                <th>Reference</th>
+                                <th>Date</th>
+                                <th>Remarks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="receiptsTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 5: Returns & Adjustments -->
+            <section class="tab-pane" id="returns">
+                <div class="tab-header">
+                    <h3>Returns & Adjustments</h3>
+                    <button class="btn btn-primary" id="createReturnBtn">↩️ Record Return</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="returnSearch" placeholder="Search by return number...">
+                    <input type="date" class="filter-input" id="returnDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="returnDateTo">
+                    <select class="filter-select" id="returnTypeFilter">
+                        <option value="">All Types</option>
+                        <option value="return">Return</option>
+                        <option value="adjustment">Adjustment</option>
+                        <option value="discount">Discount</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="returnsTable">
+                        <thead>
+                            <tr>
+                                <th>Reference No</th>
+                                <th>Customer</th>
+                                <th>Original Invoice</th>
+                                <th>Type</th>
+                                <th>Amount (Rs)</th>
+                                <th>Date</th>
+                                <th>Remarks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="returnsTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 6: Customer Statements -->
+            <section class="tab-pane" id="statements">
+                <div class="tab-header">
+                    <h3>Customer Statements</h3>
+                </div>
+
+                <div class="statement-selector">
+                    <select class="filter-select" id="statementCustomerSelect">
+                        <option value="">Select Customer to View Statement</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                    <input type="date" class="filter-input" id="statementDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="statementDateTo">
+                    <button class="btn btn-secondary" id="generateStatementBtn">📄 Generate Statement</button>
+                    <button class="btn btn-secondary" id="printStatementBtn">🖨️ Print Statement</button>
+                </div>
+
+                <div class="statement-preview" id="statementPreview">
+                    <!-- Statement HTML generated here -->
+                </div>
+            </section>
+
+            <!-- TAB 7: Reports -->
+            <section class="tab-pane" id="reports">
+                <div class="tab-header">
+                    <h3>Customer Reports</h3>
+                </div>
+
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">👥</div>
+                        <h4>Customer Summary</h4>
+                        <p>All customers with balances</p>
+                        <button class="btn btn-secondary" id="customerSummaryBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📊</div>
+                        <h4>Sales Analysis</h4>
+                        <p>Sales per customer</p>
+                        <button class="btn btn-secondary" id="salesAnalysisBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">⏰</div>
+                        <h4>Ageing Report</h4>
+                        <p>Overdue invoices analysis</p>
+                        <button class="btn btn-secondary" id="ageingReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">💰</div>
+                        <h4>Outstanding Balances</h4>
+                        <p>Outstanding payments</p>
+                        <button class="btn btn-secondary" id="balancesReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📈</div>
+                        <h4>Monthly Sales</h4>
+                        <p>Monthly sales trends</p>
+                        <button class="btn btn-secondary" id="monthlySalesBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">🏆</div>
+                        <h4>Top Customers</h4>
+                        <p>Best performing customers</p>
+                        <button class="btn btn-secondary" id="topCustomersBtn">View Report</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Add/Edit Customer Modal -->
+    <div class="modal" id="customerModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="customerModalTitle">Add New Customer</h3>
+                <button class="modal-close" data-modal="customerModal">✕</button>
+            </div>
+            <form class="modal-form" id="customerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Customer Code</label>
+                        <input type="text" name="customerCode" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Customer Name</label>
+                        <input type="text" name="customerName" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Customer Type</label>
+                        <select name="customerType" class="form-input" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="retail">Retail</option>
+                            <option value="wholesale">Wholesale</option>
+                            <option value="distributor">Distributor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="tel" name="contactNumber" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" name="city" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="address" class="form-input"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Credit Limit (Rs)</label>
+                        <input type="number" name="creditLimit" class="form-input" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Terms (days)</label>
+                        <input type="number" name="paymentTerms" class="form-input" min="0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" class="form-input">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="customerModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sales Invoice Modal -->
+    <div class="modal" id="invoiceModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Create Sales Invoice</h3>
+                <button class="modal-close" data-modal="invoiceModal">✕</button>
+            </div>
+            <form class="modal-form" id="invoiceForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Select Customer</label>
+                        <select name="customer" class="form-input" id="invoiceCustomer" required>
+                            <option value="">-- Select Customer --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Invoice Date</label>
+                        <input type="date" name="invoiceDate" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="invoice-items">
+                    <h4>Line Items</h4>
+                    <div id="itemsContainer">
+                        <div class="invoice-item">
+                            <input type="text" class="form-input" placeholder="Description" name="itemDescription">
+                            <input type="number" class="form-input" placeholder="Qty" name="itemQty" min="1">
+                            <input type="number" class="form-input" placeholder="Unit Price (Rs)" name="itemPrice" step="0.01">
+                            <input type="number" class="form-input" placeholder="Amount (Rs)" name="itemAmount" readonly>
+                            <button type="button" class="btn btn-small" id="removeItemBtn">✕</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="addItemBtn">➕ Add Line Item</button>
+                </div>
+
+                <div class="invoice-totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="invoiceSubtotal">Rs. 0</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Tax %</label>
+                        <input type="number" name="taxPercent" class="form-input" min="0" step="0.01" value="0">
+                    </div>
+                    <div class="total-row">
+                        <span>Tax:</span>
+                        <span id="invoiceTax">Rs. 0</span>
+                    </div>
+                    <div class="total-row highlight">
+                        <span>Total:</span>
+                        <span id="invoiceTotal">Rs. 0</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" name="dueDate" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="invoiceModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Invoice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Receipt Modal -->
+    <div class="modal" id="receiptModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Record Payment Receipt</h3>
+                <button class="modal-close" data-modal="receiptModal">✕</button>
+            </div>
+            <form class="modal-form" id="receiptForm">
+                <div class="form-group">
+                    <label>Select Customer</label>
+                    <select name="customer" class="form-input" id="receiptCustomer" required>
+                        <option value="">-- Select Customer --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Outstanding Balance (Rs)</label>
+                    <input type="number" name="balance" class="form-input" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Amount (Rs)</label>
+                    <input type="number" name="paymentAmount" class="form-input" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select name="paymentMethod" class="form-input" required>
+                        <option value="">-- Select Method --</option>
+                        <option value="cash">Cash</option>
+                        <option value="cheque">Cheque</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                        <option value="card">Card</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Reference Number</label>
+                    <input type="text" name="referenceNumber" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Payment Date</label>
+                    <input type="date" name="paymentDate" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="receiptModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Record Receipt</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="customers.js"></script>
+</body>
+</html>
