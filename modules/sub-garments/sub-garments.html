@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sub Garments - Hummingbird Clothing ERP</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/forms.css">
+    <link rel="stylesheet" href="../../assets/css/tables.css">
+    <link rel="stylesheet" href="../../assets/css/modals.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+    <link rel="stylesheet" href="sub-garments.css">
+</head>
+<body>
+    <div class="sub-garments-container">
+        
+        <!-- Header -->
+        <header class="sg-header">
+            <div class="header-top">
+                <h2 class="page-title">Sub Garments Management</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="newCuttingBtn">
+                        ✂️ New Cutting Invoice
+                    </button>
+                    <button class="btn btn-secondary" id="newFinishingBtn">
+                        🧹 Record Finishing
+                    </button>
+                    <button class="btn btn-secondary" id="newPaymentBtn">
+                        💳 Record Payment
+                    </button>
+                    <button class="btn btn-secondary" id="printStatementBtn">
+                        🖨️ Print Statement
+                    </button>
+                    <button class="btn btn-secondary" id="exportDataBtn">
+                        📥 Export Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <nav class="sg-tabs">
+                <button class="tab-btn active" data-tab="agent-management">👥 Agent Management</button>
+                <button class="tab-btn" data-tab="cutting-notes">✂️ Cutting Notes</button>
+                <button class="tab-btn" data-tab="accessories">📌 Accessories</button>
+                <button class="tab-btn" data-tab="finishing-receipts">🧹 Finishing</button>
+                <button class="tab-btn" data-tab="ledger">📊 Ledger</button>
+                <button class="tab-btn" data-tab="statements">📄 Statements</button>
+                <button class="tab-btn" data-tab="activity-logs">📝 Activity</button>
+                <button class="tab-btn" data-tab="reports">📈 Reports</button>
+            </nav>
+        </header>
+
+        <!-- Tab Content -->
+        <main class="sg-content">
+
+            <!-- TAB 1: Agent Management -->
+            <section class="tab-pane active" id="agent-management">
+                <div class="tab-header">
+                    <h3>Manage Sub Garment Agents</h3>
+                    <button class="btn btn-primary" id="addAgentBtn">➕ Add New Agent</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="agentSearch" placeholder="Search agents by name, code...">
+                    <select class="filter-select" id="agentStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="agentsTable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Agent Name</th>
+                                <th>Contact</th>
+                                <th>Status</th>
+                                <th>Total Invoices</th>
+                                <th>Outstanding Balance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="agentsTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 2: Cutting Issue Notes -->
+            <section class="tab-pane" id="cutting-notes">
+                <div class="tab-header">
+                    <h3>Cutting Issue Notes</h3>
+                    <button class="btn btn-primary" id="createCuttingBtn">✂️ Create New Cutting</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="cuttingSearch" placeholder="Search by invoice number, agent...">
+                    <select class="filter-select" id="cuttingStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending Finishing</option>
+                        <option value="finished">Finished</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                    <select class="filter-select" id="cuttingAgentFilter">
+                        <option value="">All Agents</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="cuttingTable">
+                        <thead>
+                            <tr>
+                                <th>Invoice No</th>
+                                <th>Agent</th>
+                                <th>Design</th>
+                                <th>Sizes</th>
+                                <th>Layers</th>
+                                <th>Expected Qty</th>
+                                <th>Unit Rate (Rs)</th>
+                                <th>Projected Value (Rs)</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuttingTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 3: Accessories Issue Notes -->
+            <section class="tab-pane" id="accessories">
+                <div class="tab-header">
+                    <h3>Accessories Issue Notes</h3>
+                    <button class="btn btn-primary" id="createAccessoriesBtn">📌 Issue Accessories</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="accessoriesSearch" placeholder="Search by invoice number...">
+                    <select class="filter-select" id="accessoriesCuttingFilter">
+                        <option value="">All Cutting Invoices</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="accessoriesTable">
+                        <thead>
+                            <tr>
+                                <th>Cutting Invoice</th>
+                                <th>Accessory Type</th>
+                                <th>Quantity</th>
+                                <th>Unit Cost (Rs)</th>
+                                <th>Total Cost (Rs)</th>
+                                <th>Date Issued</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accessoriesTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 4: Finishing Receipts -->
+            <section class="tab-pane" id="finishing-receipts">
+                <div class="tab-header">
+                    <h3>Finishing Receipts</h3>
+                    <button class="btn btn-primary" id="createFinishingBtn">🧹 Record Finishing Receipt</button>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="finishingSearch" placeholder="Search by invoice number...">
+                    <select class="filter-select" id="finishingAgentFilter">
+                        <option value="">All Agents</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="finishingTable">
+                        <thead>
+                            <tr>
+                                <th>Invoice No</th>
+                                <th>Agent</th>
+                                <th>Expected Qty</th>
+                                <th>Grade A</th>
+                                <th>Damaged</th>
+                                <th>Waste</th>
+                                <th>Shortage</th>
+                                <th>Unit Rate (Rs)</th>
+                                <th>Gross Bill (Rs)</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="finishingTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 5: Account Ledger -->
+            <section class="tab-pane" id="ledger">
+                <div class="tab-header">
+                    <h3>Account Ledger</h3>
+                    <div class="ledger-filters">
+                        <select class="filter-select" id="ledgerAgentFilter">
+                            <option value="">All Agents</option>
+                            <!-- Populated by JavaScript -->
+                        </select>
+                        <select class="filter-select" id="ledgerTypeFilter">
+                            <option value="">All Types</option>
+                            <option value="debit">Debit (Bill)</option>
+                            <option value="credit">Credit (Payment)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ledger-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total Gross Bills</p>
+                        <p class="summary-value" id="totalBills">Rs. 0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Total Payments</p>
+                        <p class="summary-value" id="totalPaymentsLedger">Rs. 0</p>
+                    </div>
+                    <div class="summary-card highlight">
+                        <p class="summary-label">Outstanding Balance</p>
+                        <p class="summary-value" id="outstandingLedger">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="ledgerTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Agent</th>
+                                <th>Reference</th>
+                                <th>Type</th>
+                                <th>Amount (Rs)</th>
+                                <th>Balance (Rs)</th>
+                                <th>Remarks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledgerTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 6: Agent Statements -->
+            <section class="tab-pane" id="statements">
+                <div class="tab-header">
+                    <h3>Agent Statements</h3>
+                </div>
+
+                <div class="statement-selector">
+                    <select class="filter-select" id="statementAgentSelect">
+                        <option value="">Select Agent to View Statement</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                    <button class="btn btn-secondary" id="generateStatementBtn">📄 Generate Statement</button>
+                    <button class="btn btn-secondary" id="printStatementBtn2">🖨️ Print Statement</button>
+                </div>
+
+                <div class="statement-preview" id="statementPreview">
+                    <!-- Statement HTML generated here -->
+                </div>
+            </section>
+
+            <!-- TAB 7: Activity Logs -->
+            <section class="tab-pane" id="activity-logs">
+                <div class="tab-header">
+                    <h3>Activity Logs</h3>
+                </div>
+
+                <div class="activity-filters">
+                    <input type="date" class="filter-input" id="activityDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="activityDateTo">
+                    <select class="filter-select" id="activityTypeFilter">
+                        <option value="">All Activities</option>
+                        <option value="create">Create</option>
+                        <option value="update">Update</option>
+                        <option value="delete">Delete</option>
+                        <option value="print">Print</option>
+                        <option value="export">Export</option>
+                    </select>
+                    <button class="btn btn-secondary" id="filterActivityBtn">🔍 Filter</button>
+                </div>
+
+                <div class="activity-timeline" id="activityTimeline">
+                    <!-- Activity logs populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- TAB 8: Reports -->
+            <section class="tab-pane" id="reports">
+                <div class="tab-header">
+                    <h3>Sub Garments Reports</h3>
+                </div>
+
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">📊</div>
+                        <h4>Production Summary</h4>
+                        <p>Total units expected vs finished</p>
+                        <button class="btn btn-secondary" id="prodSummaryBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">💰</div>
+                        <h4>Financial Report</h4>
+                        <p>Gross bills and agent balances</p>
+                        <button class="btn btn-secondary" id="financeReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">⚠️</div>
+                        <h4>Shortage Report</h4>
+                        <p>Missing and damaged units</p>
+                        <button class="btn btn-secondary" id="shortageReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">👥</div>
+                        <h4>Agent Performance</h4>
+                        <p>Individual agent metrics</p>
+                        <button class="btn btn-secondary" id="agentReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📅</div>
+                        <h4>Monthly Report</h4>
+                        <p>Monthly production & finance</p>
+                        <button class="btn btn-secondary" id="monthlyReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📈</div>
+                        <h4>Trend Analysis</h4>
+                        <p>Production trends over time</p>
+                        <button class="btn btn-secondary" id="trendReportBtn">View Report</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Add/Edit Agent Modal -->
+    <div class="modal" id="agentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="agentModalTitle">Add New Agent</h3>
+                <button class="modal-close" data-modal="agentModal">✕</button>
+            </div>
+            <form class="modal-form" id="agentForm">
+                <div class="form-group">
+                    <label>Agent Code</label>
+                    <input type="text" name="agentCode" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Agent Name</label>
+                    <input type="text" name="agentName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="tel" name="contactNumber" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea name="address" class="form-input"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" class="form-input">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="agentModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Agent</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cutting Invoice Modal -->
+    <div class="modal" id="cuttingModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Create Cutting Invoice</h3>
+                <button class="modal-close" data-modal="cuttingModal">✕</button>
+            </div>
+            <form class="modal-form" id="cuttingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Select Agent</label>
+                        <select name="agent" class="form-input" id="cuttingAgent" required>
+                            <option value="">-- Select Agent --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Design / Product</label>
+                        <input type="text" name="design" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Sizes (comma separated)</label>
+                        <input type="text" name="sizes" class="form-input" placeholder="S,M,L,XL">
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity per Size</label>
+                        <input type="number" name="quantityPerSize" class="form-input" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Layers</label>
+                        <input type="number" name="layers" class="form-input" min="1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Unit Rate (Rs)</label>
+                        <input type="number" name="unitRate" class="form-input" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Expected Qty (Auto)</label>
+                        <input type="number" name="expectedQty" class="form-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Projected Value (Rs)</label>
+                        <input type="number" name="projectedValue" class="form-input" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="cuttingModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Cutting Invoice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Finishing Receipt Modal -->
+    <div class="modal" id="finishingModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Record Finishing Receipt</h3>
+                <button class="modal-close" data-modal="finishingModal">✕</button>
+            </div>
+            <form class="modal-form" id="finishingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Select Cutting Invoice</label>
+                        <select name="cuttingInvoice" class="form-input" id="finishingCutting" required>
+                            <option value="">-- Select Invoice --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Grade A (Good)</label>
+                        <input type="number" name="gradeA" class="form-input" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Damaged Complete</label>
+                        <input type="number" name="damaged" class="form-input" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Waste</label>
+                        <input type="number" name="waste" class="form-input" min="0" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Expected Qty (Auto)</label>
+                        <input type="number" name="expectedQty" class="form-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Shortage (Auto)</label>
+                        <input type="number" name="shortage" class="form-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Gross Bill (Rs)</label>
+                        <input type="number" name="grossBill" class="form-input" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="finishingModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Record Receipt</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Record Payment</h3>
+                <button class="modal-close" data-modal="paymentModal">✕</button>
+            </div>
+            <form class="modal-form" id="paymentForm">
+                <div class="form-group">
+                    <label>Select Agent</label>
+                    <select name="agent" class="form-input" id="paymentAgent" required>
+                        <option value="">-- Select Agent --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Outstanding Balance (Rs)</label>
+                    <input type="number" name="balance" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Payment Amount (Rs)</label>
+                    <input type="number" name="paymentAmount" class="form-input" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select name="paymentMethod" class="form-input" required>
+                        <option value="">-- Select Method --</option>
+                        <option value="cash">Cash</option>
+                        <option value="cheque">Cheque</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cheque Number (if applicable)</label>
+                    <input type="text" name="chequeNumber" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="paymentModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Record Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="sub-garments.js"></script>
+</body>
+</html>
