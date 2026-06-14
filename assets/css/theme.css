@@ -1,0 +1,576 @@
+/* ============================================================
+   HUMMINGBIRD CLOTHING ERP
+   File: assets/css/theme.css
+   Purpose: Dark/Light Theme, Accent Colors, CSS Variables
+   Company: FujiSan Lanka Pvt Ltd
+   ============================================================ */
+
+
+/* ============================================================
+   ROOT VARIABLES — SHARED (Light Mode Default)
+   ============================================================ */
+
+:root {
+  /* Spacing System (8px base) */
+  --space-0:   0px;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-16:  64px;
+  --space-20:  80px;
+
+  /* Typography System */
+  --font-primary:     -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-mono:        'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+
+  --font-size-xs:     12px;
+  --font-size-sm:     13px;
+  --font-size-base:   14px;
+  --font-size-lg:     16px;
+  --font-size-xl:     18px;
+  --font-size-2xl:    20px;
+  --font-size-3xl:    24px;
+  --font-size-4xl:    28px;
+
+  --font-weight-normal:    400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+
+  --line-height-tight:     1.2;
+  --line-height-base:      1.5;
+  --line-height-relaxed:   1.75;
+
+  /* Border Radius */
+  --radius-sm:       4px;
+  --radius-md:       6px;
+  --radius-lg:       8px;
+  --radius-xl:       12px;
+  --radius-full:     9999px;
+
+  /* Transitions */
+  --transition-fast:  150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base:  200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:  300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-Index Scale */
+  --z-dropdown:      100;
+  --z-sticky:        500;
+  --z-fixed:         600;
+  --z-modal-backdrop:900;
+  --z-modal:         1000;
+  --z-popover:       1100;
+  --z-tooltip:       1200;
+  --z-notification:  1300;
+  --z-toast:         1400;
+  --z-loading:       9999;
+
+  /* Light Mode Colors (Default) */
+  --bg-primary:      #ffffff;
+  --bg-secondary:    #f5f5f5;
+  --bg-tertiary:     #e9e9e9;
+  --bg-hover:        #f0f0f0;
+  --bg-elevated:     #fafafa;
+
+  --text-primary:    #1a1a1a;
+  --text-secondary:  #525252;
+  --text-muted:      #818181;
+
+  --border-color:    #d4d4d4;
+  --border-hover:    #a3a3a3;
+
+  /* Glassmorphism (Light) */
+  --glass-bg:        rgba(255, 255, 255, 0.7);
+  --glass-blur:      8px;
+  --glass-border:    rgba(255, 255, 255, 0.6);
+
+  /* Accent Colors (Primary) */
+  --accent-primary:  #2563eb;
+  --accent-hover:    #1d4ed8;
+  --accent-active:   #1e40af;
+  --accent-bg:       #eff6ff;
+  --accent-shadow:   rgba(37, 99, 235, 0.2);
+
+  /* Status Colors */
+  --color-success:       #22c55e;
+  --color-success-dark:  #16a34a;
+  --color-success-bg:    #f0fdf4;
+
+  --color-danger:        #ef4444;
+  --color-danger-dark:   #dc2626;
+  --color-danger-bg:     #fef2f2;
+
+  --color-warning:       #f59e0b;
+  --color-warning-dark:  #d97706;
+  --color-warning-bg:    #fffbeb;
+
+  --color-info:          #0ea5e9;
+  --color-info-dark:     #0284c7;
+  --color-info-bg:       #f0f9ff;
+
+  /* Shadows */
+  --shadow-sm:       0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base:     0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg:       0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-card:     0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  /* Sidebar & Header */
+  --sidebar-width:   256px;
+  --sidebar-width-collapsed: 64px;
+  --header-height:   60px;
+
+  /* Table Stripes */
+  --table-stripe-bg: rgba(0, 0, 0, 0.02);
+}
+
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Mode Colors */
+    --bg-primary:      #0f0f0f;
+    --bg-secondary:    #1a1a1a;
+    --bg-tertiary:     #2a2a2a;
+    --bg-hover:        #262626;
+    --bg-elevated:     #1f1f1f;
+
+    --text-primary:    #fafafa;
+    --text-secondary:  #d4d4d4;
+    --text-muted:      #a3a3a3;
+
+    --border-color:    #404040;
+    --border-hover:    #5a5a5a;
+
+    /* Glassmorphism (Dark) */
+    --glass-bg:        rgba(30, 30, 30, 0.7);
+    --glass-blur:      8px;
+    --glass-border:    rgba(63, 63, 70, 0.4);
+
+    /* Accent Colors (Dark mode) */
+    --accent-primary:  #3b82f6;
+    --accent-hover:    #2563eb;
+    --accent-active:   #1d4ed8;
+    --accent-bg:       rgba(59, 130, 246, 0.1);
+    --accent-shadow:   rgba(59, 130, 246, 0.3);
+
+    /* Shadows (Dark mode - stronger) */
+    --shadow-sm:       0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-base:     0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-lg:       0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-card:     0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.4);
+
+    /* Table Stripes (Dark) */
+    --table-stripe-bg: rgba(255, 255, 255, 0.02);
+  }
+}
+
+/* ============================================================
+   MANUAL DARK MODE CLASS
+   ============================================================ */
+
+body.dark-mode,
+body[data-theme="dark"] {
+  /* Dark Mode Colors */
+  --bg-primary:      #0f0f0f;
+  --bg-secondary:    #1a1a1a;
+  --bg-tertiary:     #2a2a2a;
+  --bg-hover:        #262626;
+  --bg-elevated:     #1f1f1f;
+
+  --text-primary:    #fafafa;
+  --text-secondary:  #d4d4d4;
+  --text-muted:      #a3a3a3;
+
+  --border-color:    #404040;
+  --border-hover:    #5a5a5a;
+
+  /* Glassmorphism (Dark) */
+  --glass-bg:        rgba(30, 30, 30, 0.7);
+  --glass-blur:      8px;
+  --glass-border:    rgba(63, 63, 70, 0.4);
+
+  /* Accent Colors (Dark mode) */
+  --accent-primary:  #3b82f6;
+  --accent-hover:    #2563eb;
+  --accent-active:   #1d4ed8;
+  --accent-bg:       rgba(59, 130, 246, 0.1);
+  --accent-shadow:   rgba(59, 130, 246, 0.3);
+
+  /* Shadows (Dark mode - stronger) */
+  --shadow-sm:       0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-base:     0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-lg:       0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-card:     0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.4);
+
+  /* Table Stripes (Dark) */
+  --table-stripe-bg: rgba(255, 255, 255, 0.02);
+}
+
+/* ============================================================
+   MANUAL LIGHT MODE CLASS
+   ============================================================ */
+
+body.light-mode,
+body[data-theme="light"] {
+  /* Light Mode Colors */
+  --bg-primary:      #ffffff;
+  --bg-secondary:    #f5f5f5;
+  --bg-tertiary:     #e9e9e9;
+  --bg-hover:        #f0f0f0;
+  --bg-elevated:     #fafafa;
+
+  --text-primary:    #1a1a1a;
+  --text-secondary:  #525252;
+  --text-muted:      #818181;
+
+  --border-color:    #d4d4d4;
+  --border-hover:    #a3a3a3;
+
+  /* Glassmorphism (Light) */
+  --glass-bg:        rgba(255, 255, 255, 0.7);
+  --glass-blur:      8px;
+  --glass-border:    rgba(255, 255, 255, 0.6);
+
+  /* Accent Colors (Light mode) */
+  --accent-primary:  #2563eb;
+  --accent-hover:    #1d4ed8;
+  --accent-active:   #1e40af;
+  --accent-bg:       #eff6ff;
+  --accent-shadow:   rgba(37, 99, 235, 0.2);
+
+  /* Shadows (Light) */
+  --shadow-sm:       0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base:     0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg:       0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-card:     0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  /* Table Stripes (Light) */
+  --table-stripe-bg: rgba(0, 0, 0, 0.02);
+}
+
+/* ============================================================
+   ACCENT COLOR THEMES
+   ============================================================ */
+
+/* Blue Accent (Default) */
+:root,
+body[data-accent="blue"] {
+  --accent-primary:  #2563eb;
+  --accent-hover:    #1d4ed8;
+  --accent-active:   #1e40af;
+  --accent-bg:       #eff6ff;
+  --accent-shadow:   rgba(37, 99, 235, 0.2);
+}
+
+body.dark-mode[data-accent="blue"],
+body[data-theme="dark"][data-accent="blue"] {
+  --accent-primary:  #3b82f6;
+  --accent-hover:    #2563eb;
+  --accent-active:   #1d4ed8;
+  --accent-bg:       rgba(59, 130, 246, 0.1);
+  --accent-shadow:   rgba(59, 130, 246, 0.3);
+}
+
+/* Purple Accent */
+body[data-accent="purple"] {
+  --accent-primary:  #9333ea;
+  --accent-hover:    #7e22ce;
+  --accent-active:   #6b21a8;
+  --accent-bg:       #faf5ff;
+  --accent-shadow:   rgba(147, 51, 234, 0.2);
+}
+
+body.dark-mode[data-accent="purple"],
+body[data-theme="dark"][data-accent="purple"] {
+  --accent-primary:  #a855f7;
+  --accent-hover:    #9333ea;
+  --accent-active:   #7e22ce;
+  --accent-bg:       rgba(168, 85, 247, 0.1);
+  --accent-shadow:   rgba(168, 85, 247, 0.3);
+}
+
+/* Green Accent */
+body[data-accent="green"] {
+  --accent-primary:  #16a34a;
+  --accent-hover:    #15803d;
+  --accent-active:   #166534;
+  --accent-bg:       #f0fdf4;
+  --accent-shadow:   rgba(22, 163, 74, 0.2);
+}
+
+body.dark-mode[data-accent="green"],
+body[data-theme="dark"][data-accent="green"] {
+  --accent-primary:  #22c55e;
+  --accent-hover:    #16a34a;
+  --accent-active:   #15803d;
+  --accent-bg:       rgba(34, 197, 94, 0.1);
+  --accent-shadow:   rgba(34, 197, 94, 0.3);
+}
+
+/* Red Accent */
+body[data-accent="red"] {
+  --accent-primary:  #dc2626;
+  --accent-hover:    #b91c1c;
+  --accent-active:   #991b1b;
+  --accent-bg:       #fef2f2;
+  --accent-shadow:   rgba(220, 38, 38, 0.2);
+}
+
+body.dark-mode[data-accent="red"],
+body[data-theme="dark"][data-accent="red"] {
+  --accent-primary:  #ef4444;
+  --accent-hover:    #dc2626;
+  --accent-active:   #b91c1c;
+  --accent-bg:       rgba(239, 68, 68, 0.1);
+  --accent-shadow:   rgba(239, 68, 68, 0.3);
+}
+
+/* Cyan Accent */
+body[data-accent="cyan"] {
+  --accent-primary:  #0891b2;
+  --accent-hover:    #0e7490;
+  --accent-active:   #164e63;
+  --accent-bg:       #ecf8ff;
+  --accent-shadow:   rgba(8, 145, 178, 0.2);
+}
+
+body.dark-mode[data-accent="cyan"],
+body[data-theme="dark"][data-accent="cyan"] {
+  --accent-primary:  #06b6d4;
+  --accent-hover:    #0891b2;
+  --accent-active:   #0e7490;
+  --accent-bg:       rgba(6, 182, 212, 0.1);
+  --accent-shadow:   rgba(6, 182, 212, 0.3);
+}
+
+/* ============================================================
+   ELEMENT-SPECIFIC COLOR TOKENS
+   ============================================================ */
+
+/* Input/Form Fields */
+:root {
+  --input-bg:        var(--bg-secondary);
+  --input-border:    var(--border-color);
+  --input-text:      var(--text-primary);
+  --input-placeholder: var(--text-muted);
+  --input-focus-border: var(--accent-primary);
+  --input-disabled-bg: var(--bg-tertiary);
+  --input-disabled-text: var(--text-muted);
+}
+
+/* Tables */
+:root {
+  --table-header-bg:     var(--bg-secondary);
+  --table-header-text:   var(--text-primary);
+  --table-body-bg:       var(--bg-primary);
+  --table-body-text:     var(--text-primary);
+  --table-border:        var(--border-color);
+  --table-hover-bg:      var(--bg-hover);
+  --table-stripe-bg:     var(--table-stripe-bg);
+}
+
+/* Modal/Overlay */
+:root {
+  --modal-overlay-bg:    rgba(0, 0, 0, 0.5);
+  --modal-bg:            var(--bg-elevated);
+  --modal-border:        var(--border-color);
+}
+
+body.dark-mode,
+body[data-theme="dark"] {
+  --modal-overlay-bg:    rgba(0, 0, 0, 0.7);
+}
+
+/* Sidebar */
+:root {
+  --sidebar-bg:      var(--bg-secondary);
+  --sidebar-text:    var(--text-primary);
+  --sidebar-border:  var(--border-color);
+  --sidebar-hover:   var(--bg-hover);
+  --sidebar-active:  var(--accent-bg);
+  --sidebar-active-text: var(--accent-primary);
+}
+
+/* Header */
+:root {
+  --header-bg:       var(--bg-secondary);
+  --header-text:     var(--text-primary);
+  --header-border:   var(--border-color);
+}
+
+/* ============================================================
+   THEME TRANSITION
+   ============================================================ */
+
+html,
+body,
+.app-container {
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* ============================================================
+   ANIMATIONS & KEYFRAMES
+   ============================================================ */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ============================================================
+   SMOOTH GLASS MORPHISM EFFECT
+   ============================================================ */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+/* ============================================================
+   COLOR PALETTE REFERENCE
+   ============================================================ */
+
+/* For quick reference in HTML/JS:
+   
+   Light Mode (Default):
+   - Primary: #ffffff
+   - Secondary: #f5f5f5
+   - Text: #1a1a1a
+   
+   Dark Mode:
+   - Primary: #0f0f0f
+   - Secondary: #1a1a1a
+   - Text: #fafafa
+   
+   Accent Colors Available:
+   - Blue (default): #2563eb
+   - Purple: #9333ea
+   - Green: #16a34a
+   - Red: #dc2626
+   - Cyan: #0891b2
+   
+   Usage: body[data-theme="dark"] body[data-accent="purple"]
+*/
+
+/* ============================================================
+   END OF theme.css
+   ============================================================ */
