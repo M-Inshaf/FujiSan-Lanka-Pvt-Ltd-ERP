@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory - Hummingbird Clothing ERP</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/forms.css">
+    <link rel="stylesheet" href="../../assets/css/tables.css">
+    <link rel="stylesheet" href="../../assets/css/modals.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+    <link rel="stylesheet" href="inventory.css">
+</head>
+<body>
+    <div class="inventory-container">
+        
+        <!-- Header -->
+        <header class="inventory-header">
+            <div class="header-top">
+                <h2 class="page-title">Inventory Management</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="adjustStockBtn">
+                        ⚙️ Adjust Stock
+                    </button>
+                    <button class="btn btn-secondary" id="transferStockBtn">
+                        🔄 Transfer Stock
+                    </button>
+                    <button class="btn btn-secondary" id="stockTakeBtn">
+                        📋 Stock Take
+                    </button>
+                    <button class="btn btn-secondary" id="exportInventoryBtn">
+                        📥 Export Inventory
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <nav class="inventory-tabs">
+                <button class="tab-btn active" data-tab="fabric-inventory">🧵 Fabric Stock</button>
+                <button class="tab-btn" data-tab="accessories-inventory">📌 Accessories Stock</button>
+                <button class="tab-btn" data-tab="finished-goods">📦 Finished Goods</button>
+                <button class="tab-btn" data-tab="returned-goods">↩️ Returned Goods</button>
+                <button class="tab-btn" data-tab="stock-movements">🔄 Movements</button>
+                <button class="tab-btn" data-tab="low-stock">⚠️ Low Stock</button>
+                <button class="tab-btn" data-tab="reports">📈 Reports</button>
+            </nav>
+        </header>
+
+        <!-- Tab Content -->
+        <main class="inventory-content">
+
+            <!-- TAB 1: Fabric Inventory -->
+            <section class="tab-pane active" id="fabric-inventory">
+                <div class="tab-header">
+                    <h3>Fabric Stock Inventory</h3>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="fabricSearch" placeholder="Search by item code, description...">
+                    <select class="filter-select" id="fabricCategoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="polyester">Polyester</option>
+                        <option value="blend">Blend</option>
+                        <option value="silk">Silk</option>
+                    </select>
+                    <select class="filter-select" id="fabricStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="in_stock">In Stock</option>
+                        <option value="low_stock">Low Stock</option>
+                        <option value="out_of_stock">Out of Stock</option>
+                    </select>
+                </div>
+
+                <div class="inventory-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total Items</p>
+                        <p class="summary-value" id="totalFabricItems">0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Total Quantity</p>
+                        <p class="summary-value" id="totalFabricQty">0 m</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Stock Value</p>
+                        <p class="summary-value" id="totalFabricValue">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="fabricTable">
+                        <thead>
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Unit</th>
+                                <th>Current Stock</th>
+                                <th>Reorder Level</th>
+                                <th>Unit Cost (Rs)</th>
+                                <th>Stock Value (Rs)</th>
+                                <th>Last Updated</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fabricTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 2: Accessories Inventory -->
+            <section class="tab-pane" id="accessories-inventory">
+                <div class="tab-header">
+                    <h3>Accessories Stock Inventory</h3>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="accessoriesSearch" placeholder="Search by item code, description...">
+                    <select class="filter-select" id="accessoriesCategoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="buttons">Buttons</option>
+                        <option value="zippers">Zippers</option>
+                        <option value="thread">Thread</option>
+                        <option value="labels">Labels</option>
+                        <option value="tags">Tags</option>
+                    </select>
+                    <select class="filter-select" id="accessoriesStatusFilter">
+                        <option value="">All Status</option>
+                        <option value="in_stock">In Stock</option>
+                        <option value="low_stock">Low Stock</option>
+                        <option value="out_of_stock">Out of Stock</option>
+                    </select>
+                </div>
+
+                <div class="inventory-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total Items</p>
+                        <p class="summary-value" id="totalAccessoriesItems">0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Total Quantity</p>
+                        <p class="summary-value" id="totalAccessoriesQty">0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Stock Value</p>
+                        <p class="summary-value" id="totalAccessoriesValue">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="accessoriesTable">
+                        <thead>
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Unit</th>
+                                <th>Current Stock</th>
+                                <th>Reorder Level</th>
+                                <th>Unit Cost (Rs)</th>
+                                <th>Stock Value (Rs)</th>
+                                <th>Last Updated</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accessoriesTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 3: Finished Goods -->
+            <section class="tab-pane" id="finished-goods">
+                <div class="tab-header">
+                    <h3>Finished Goods Inventory</h3>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="finishedSearch" placeholder="Search by SKU, description...">
+                    <select class="filter-select" id="finishedSizeFilter">
+                        <option value="">All Sizes</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                    <select class="filter-select" id="finishedColorFilter">
+                        <option value="">All Colors</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="inventory-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total SKUs</p>
+                        <p class="summary-value" id="totalFinishedSKUs">0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Total Units</p>
+                        <p class="summary-value" id="totalFinishedQty">0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Finished Goods Value</p>
+                        <p class="summary-value" id="totalFinishedValue">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="finishedTable">
+                        <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>Product Name</th>
+                                <th>Size</th>
+                                <th>Color</th>
+                                <th>Current Stock</th>
+                                <th>Unit Cost (Rs)</th>
+                                <th>Stock Value (Rs)</th>
+                                <th>Date Added</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="finishedTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 4: Returned Goods -->
+            <section class="tab-pane" id="returned-goods">
+                <div class="tab-header">
+                    <h3>Returned Goods Inventory</h3>
+                </div>
+
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" id="returnedSearch" placeholder="Search by SKU, description...">
+                    <select class="filter-select" id="returnedReasonFilter">
+                        <option value="">All Reasons</option>
+                        <option value="damage">Damage</option>
+                        <option value="defect">Defect</option>
+                        <option value="customer_return">Customer Return</option>
+                        <option value="surplus">Surplus</option>
+                    </select>
+                    <input type="date" class="filter-input" id="returnedDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="returnedDateTo">
+                </div>
+
+                <div class="inventory-summary">
+                    <div class="summary-card">
+                        <p class="summary-label">Total Items</p>
+                        <p class="summary-value" id="totalReturnedItems">0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Total Quantity</p>
+                        <p class="summary-value" id="totalReturnedQty">0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="summary-label">Returned Goods Value</p>
+                        <p class="summary-value" id="totalReturnedValue">Rs. 0</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="returnedTable">
+                        <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Reason</th>
+                                <th>Return Date</th>
+                                <th>Unit Cost (Rs)</th>
+                                <th>Total Value (Rs)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="returnedTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 5: Stock Movements -->
+            <section class="tab-pane" id="stock-movements">
+                <div class="tab-header">
+                    <h3>Stock Movement History</h3>
+                </div>
+
+                <div class="movement-filters">
+                    <input type="date" class="filter-input" id="movementDateFrom">
+                    <span>to</span>
+                    <input type="date" class="filter-input" id="movementDateTo">
+                    <select class="filter-select" id="movementTypeFilter">
+                        <option value="">All Types</option>
+                        <option value="purchase">Purchase</option>
+                        <option value="issue">Issue to Production</option>
+                        <option value="receipt">Receipt</option>
+                        <option value="transfer">Transfer</option>
+                        <option value="return">Return</option>
+                        <option value="adjustment">Adjustment</option>
+                    </select>
+                    <select class="filter-select" id="movementItemFilter">
+                        <option value="">All Items</option>
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="movementsTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Item Code</th>
+                                <th>Item Description</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Unit Price (Rs)</th>
+                                <th>Reference</th>
+                                <th>Remarks</th>
+                                <th>Updated By</th>
+                            </tr>
+                        </thead>
+                        <tbody id="movementsTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 6: Low Stock Alert -->
+            <section class="tab-pane" id="low-stock">
+                <div class="tab-header">
+                    <h3>Low Stock & Reorder Alert</h3>
+                </div>
+
+                <div class="alert-filters">
+                    <select class="filter-select" id="alertTypeFilter">
+                        <option value="">All Alerts</option>
+                        <option value="low_stock">Low Stock</option>
+                        <option value="out_of_stock">Out of Stock</option>
+                        <option value="overstock">Overstock</option>
+                    </select>
+                    <select class="filter-select" id="alertPriorityFilter">
+                        <option value="">All Priorities</option>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                    </select>
+                </div>
+
+                <div class="alerts-grid" id="alertsGrid">
+                    <!-- Alert cards populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- TAB 7: Reports -->
+            <section class="tab-pane" id="reports">
+                <div class="tab-header">
+                    <h3>Inventory Reports</h3>
+                </div>
+
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">📊</div>
+                        <h4>Stock Summary</h4>
+                        <p>Complete inventory summary</p>
+                        <button class="btn btn-secondary" id="stockSummaryBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📈</div>
+                        <h4>Stock Valuation</h4>
+                        <p>Inventory value analysis</p>
+                        <button class="btn btn-secondary" id="valuationBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">🔄</div>
+                        <h4>Movement Report</h4>
+                        <p>Complete movement history</p>
+                        <button class="btn btn-secondary" id="movementReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">⚠️</div>
+                        <h4>Low Stock Report</h4>
+                        <p>Items below reorder level</p>
+                        <button class="btn btn-secondary" id="lowStockReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">🧵</div>
+                        <h4>Fabric Analysis</h4>
+                        <p>Fabric inventory details</p>
+                        <button class="btn btn-secondary" id="fabricReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📌</div>
+                        <h4>Accessories Analysis</h4>
+                        <p>Accessories inventory details</p>
+                        <button class="btn btn-secondary" id="accessoriesReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📦</div>
+                        <h4>Finished Goods Report</h4>
+                        <p>Completed products analysis</p>
+                        <button class="btn btn-secondary" id="finishedReportBtn">View Report</button>
+                    </div>
+
+                    <div class="report-card">
+                        <div class="report-icon">📅</div>
+                        <h4>Turnover Report</h4>
+                        <p>Stock turnover analysis</p>
+                        <button class="btn btn-secondary" id="turnoverReportBtn">View Report</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Adjust Stock Modal -->
+    <div class="modal" id="adjustStockModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Adjust Stock</h3>
+                <button class="modal-close" data-modal="adjustStockModal">✕</button>
+            </div>
+            <form class="modal-form" id="adjustStockForm">
+                <div class="form-group">
+                    <label>Select Item</label>
+                    <select name="itemCode" class="form-input" id="adjustItemSelect" required>
+                        <option value="">-- Select Item --</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Current Stock</label>
+                        <input type="number" name="currentStock" class="form-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Adjustment Type</label>
+                        <select name="adjustmentType" class="form-input" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="add">Add Stock</option>
+                            <option value="reduce">Reduce Stock</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Adjustment Quantity</label>
+                    <input type="number" name="adjustmentQty" class="form-input" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Reason</label>
+                    <select name="reason" class="form-input" required>
+                        <option value="">-- Select Reason --</option>
+                        <option value="physical_count">Physical Count Variance</option>
+                        <option value="damage">Damage</option>
+                        <option value="loss">Loss/Theft</option>
+                        <option value="correction">Correction</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="adjustStockModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Adjust Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Transfer Stock Modal -->
+    <div class="modal" id="transferStockModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Transfer Stock</h3>
+                <button class="modal-close" data-modal="transferStockModal">✕</button>
+            </div>
+            <form class="modal-form" id="transferStockForm">
+                <div class="form-group">
+                    <label>Select Item</label>
+                    <select name="itemCode" class="form-input" id="transferItemSelect" required>
+                        <option value="">-- Select Item --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Quantity to Transfer</label>
+                    <input type="number" name="transferQty" class="form-input" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label>From Location</label>
+                    <select name="fromLocation" class="form-input" required>
+                        <option value="">-- Select Location --</option>
+                        <option value="main_warehouse">Main Warehouse</option>
+                        <option value="production">Production Floor</option>
+                        <option value="finished_goods">Finished Goods Store</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>To Location</label>
+                    <select name="toLocation" class="form-input" required>
+                        <option value="">-- Select Location --</option>
+                        <option value="main_warehouse">Main Warehouse</option>
+                        <option value="production">Production Floor</option>
+                        <option value="finished_goods">Finished Goods Store</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="transferStockModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Transfer Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Stock Take Modal -->
+    <div class="modal" id="stockTakeModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Stock Take</h3>
+                <button class="modal-close" data-modal="stockTakeModal">✕</button>
+            </div>
+            <form class="modal-form" id="stockTakeForm">
+                <div class="form-group">
+                    <label>Stock Take Date</label>
+                    <input type="date" name="stockTakeDate" class="form-input" required>
+                </div>
+
+                <div class="stock-take-items">
+                    <h4>Physical Count</h4>
+                    <div id="stockTakeItemsContainer">
+                        <div class="stock-take-row">
+                            <input type="text" class="form-input" placeholder="Item Code" name="itemCode" readonly>
+                            <input type="text" class="form-input" placeholder="Description" name="description" readonly>
+                            <input type="number" class="form-input" placeholder="System Qty" name="systemQty" readonly>
+                            <input type="number" class="form-input" placeholder="Physical Count" name="physicalQty" required>
+                            <input type="number" class="form-input" placeholder="Variance" name="variance" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Conducted By</label>
+                    <input type="text" name="conductedBy" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <textarea name="remarks" class="form-input"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-modal="stockTakeModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Complete Stock Take</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="inventory.js"></script>
+</body>
+</html>
