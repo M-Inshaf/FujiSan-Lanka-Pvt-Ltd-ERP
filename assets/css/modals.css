@@ -1,0 +1,917 @@
+/* ============================================================
+   HUMMINGBIRD CLOTHING ERP
+   File: assets/css/modals.css
+   Purpose: Dialogs, Drawers, Confirmations, Overlays
+   Company: FujiSan Lanka Pvt Ltd
+   ============================================================ */
+
+
+/* ============================================================
+   1. MODAL BACKDROP / OVERLAY
+   ============================================================ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--modal-overlay-bg);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: var(--z-modal-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.modal-backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ============================================================
+   2. MODAL DIALOG (CENTER)
+   ============================================================ */
+
+.modal {
+  position: relative;
+  background-color: var(--modal-bg);
+  border: 1px solid var(--modal-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-modal);
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  opacity: 0;
+  transition:
+    transform var(--transition-base),
+    opacity var(--transition-base);
+  overflow: hidden;
+}
+
+.modal-backdrop.visible .modal {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Modal Sizes */
+.modal-sm {
+  width: 400px;
+}
+
+.modal-md {
+  width: 500px;
+}
+
+.modal-lg {
+  width: 700px;
+}
+
+.modal-xl {
+  width: 900px;
+}
+
+.modal-fullscreen {
+  width: 95vw;
+  height: 95vh;
+}
+
+@media (max-width: 768px) {
+  .modal-sm,
+  .modal-md,
+  .modal-lg,
+  .modal-xl {
+    width: 90vw;
+    max-width: 100%;
+  }
+
+  .modal-fullscreen {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+  }
+}
+
+/* ============================================================
+   3. MODAL HEADER
+   ============================================================ */
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.modal-title-icon {
+  font-size: 20px;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.modal-close:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   4. MODAL BODY
+   ============================================================ */
+
+.modal-body {
+  flex: 1;
+  padding: var(--space-5);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: var(--radius-full);
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ============================================================
+   5. MODAL FOOTER
+   ============================================================ */
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.modal-footer.left {
+  justify-content: flex-start;
+}
+
+.modal-footer.center {
+  justify-content: center;
+}
+
+.modal-footer.between {
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   6. DRAWER (SIDE PANEL)
+   ============================================================ */
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--modal-overlay-bg);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: var(--z-modal-backdrop);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.drawer-backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background-color: var(--modal-bg);
+  border-left: 1px solid var(--modal-border);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--transition-base);
+}
+
+.drawer-backdrop.visible .drawer {
+  transform: translateX(0);
+}
+
+/* Drawer from left */
+.drawer.left {
+  left: 0;
+  right: auto;
+  border-left: none;
+  border-right: 1px solid var(--modal-border);
+  transform: translateX(-100%);
+}
+
+.drawer-backdrop.visible .drawer.left {
+  transform: translateX(0);
+}
+
+/* Drawer Sizes */
+.drawer-sm {
+  width: 300px;
+}
+
+.drawer-md {
+  width: 400px;
+}
+
+.drawer-lg {
+  width: 500px;
+}
+
+.drawer-xl {
+  width: 600px;
+}
+
+@media (max-width: 768px) {
+  .drawer {
+    width: 100%;
+  }
+
+  .drawer-sm,
+  .drawer-md,
+  .drawer-lg,
+  .drawer-xl {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   7. DRAWER HEADER
+   ============================================================ */
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.drawer-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.drawer-close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.drawer-close:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   8. DRAWER BODY
+   ============================================================ */
+
+.drawer-body {
+  flex: 1;
+  padding: var(--space-5);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.drawer-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.drawer-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.drawer-body::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: var(--radius-full);
+}
+
+.drawer-body::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ============================================================
+   9. DRAWER FOOTER
+   ============================================================ */
+
+.drawer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.drawer-footer.left {
+  justify-content: flex-start;
+}
+
+.drawer-footer.center {
+  justify-content: center;
+}
+
+.drawer-footer.between {
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .drawer-footer {
+    flex-direction: column;
+  }
+
+  .drawer-footer .btn {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   10. CONFIRMATION DIALOG
+   ============================================================ */
+
+.confirm-dialog {
+  position: relative;
+  background-color: var(--modal-bg);
+  border: 1px solid var(--modal-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-modal);
+  width: 400px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  transform: scale(0.95);
+  opacity: 0;
+  transition:
+    transform var(--transition-base),
+    opacity var(--transition-base);
+}
+
+.modal-backdrop.visible .confirm-dialog {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.confirm-icon {
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.confirm-icon.success {
+  color: var(--color-success);
+}
+
+.confirm-icon.danger {
+  color: var(--color-danger);
+}
+
+.confirm-icon.warning {
+  color: var(--color-warning);
+}
+
+.confirm-icon.info {
+  color: var(--accent-primary);
+}
+
+.confirm-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.confirm-message {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+}
+
+.confirm-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* ============================================================
+   11. ALERT DIALOG
+   ============================================================ */
+
+.alert-dialog {
+  position: relative;
+  background-color: var(--modal-bg);
+  border: 1px solid var(--modal-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-modal);
+  width: 400px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  transform: scale(0.95);
+  opacity: 0;
+  transition:
+    transform var(--transition-base),
+    opacity var(--transition-base);
+}
+
+.modal-backdrop.visible .alert-dialog {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.alert-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.alert-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.alert-icon.success {
+  color: var(--color-success);
+}
+
+.alert-icon.danger {
+  color: var(--color-danger);
+}
+
+.alert-icon.warning {
+  color: var(--color-warning);
+}
+
+.alert-icon.info {
+  color: var(--accent-primary);
+}
+
+.alert-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.alert-message {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.alert-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* ============================================================
+   12. TOAST NOTIFICATIONS (POSITIONED)
+   ============================================================ */
+
+.toast-container {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast-container.top-right {
+  top: var(--space-6);
+  bottom: auto;
+}
+
+.toast-container.top-left {
+  top: var(--space-6);
+  bottom: auto;
+  left: var(--space-6);
+  right: auto;
+}
+
+.toast-container.bottom-left {
+  left: var(--space-6);
+  right: auto;
+}
+
+.toast-container.center {
+  left: 50%;
+  right: auto;
+  bottom: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+/* ============================================================
+   13. POPOVER
+   ============================================================ */
+
+.popover {
+  position: absolute;
+  background-color: var(--modal-bg);
+  border: 1px solid var(--modal-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-popover);
+  padding: var(--space-3) var(--space-4);
+  max-width: 300px;
+  min-width: 200px;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--transition-fast),
+    visibility var(--transition-fast),
+    transform var(--transition-fast);
+  pointer-events: none;
+}
+
+.popover.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Popover arrow */
+.popover::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: var(--modal-bg);
+  border: 1px solid var(--modal-border);
+  border-right: none;
+  border-bottom: none;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.popover.top::before {
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.popover.bottom::before {
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.popover.left::before {
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.popover.right::before {
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* ============================================================
+   14. TOOLTIP
+   ============================================================ */
+
+.tooltip {
+  position: absolute;
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  z-index: var(--z-tooltip);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--transition-fast),
+    visibility var(--transition-fast),
+    transform var(--transition-fast);
+  pointer-events: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Tooltip arrow */
+.tooltip::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-primary);
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.tooltip.top::before {
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.tooltip.bottom::before {
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* ============================================================
+   15. DROPDOWN MENU
+   ============================================================ */
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--space-2);
+  background-color: var(--modal-bg);
+  border: 1px solid var(--modal-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  min-width: 200px;
+  padding: var(--space-2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--transition-fast),
+    visibility var(--transition-fast),
+    transform var(--transition-fast);
+  pointer-events: none;
+}
+
+.dropdown-menu.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+.dropdown-item.danger {
+  color: var(--color-danger);
+}
+
+.dropdown-item.danger:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: var(--space-2) 0;
+}
+
+/* ============================================================
+   16. MODAL FORM
+   ============================================================ */
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.modal-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.modal-form-group-inline {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 600px) {
+  .modal-form-group-inline {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   17. LOADING SPINNER IN MODAL
+   ============================================================ */
+
+.modal-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-10);
+}
+
+.modal-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ============================================================
+   18. MODAL ANIMATION VARIANTS
+   ============================================================ */
+
+.modal.slide-in {
+  animation: slideInUp 0.3s ease;
+}
+
+.modal.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.scale-in {
+  animation: scaleIn 0.3s ease;
+}
+
+/* ============================================================
+   19. STACKED MODALS
+   ============================================================ */
+
+.modal-backdrop:nth-child(1) {
+  z-index: 900;
+}
+
+.modal-backdrop:nth-child(1) .modal {
+  z-index: 901;
+}
+
+.modal-backdrop:nth-child(2) {
+  z-index: 902;
+}
+
+.modal-backdrop:nth-child(2) .modal {
+  z-index: 903;
+}
+
+.modal-backdrop:nth-child(3) {
+  z-index: 904;
+}
+
+.modal-backdrop:nth-child(3) .modal {
+  z-index: 905;
+}
+
+/* ============================================================
+   20. ACCESSIBILITY
+   ============================================================ */
+
+.modal:focus-visible,
+.drawer:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .drawer,
+  .confirm-dialog,
+  .alert-dialog,
+  .modal-backdrop,
+  .drawer-backdrop,
+  .dropdown-menu,
+  .popover,
+  .tooltip {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   END OF modals.css
+   ============================================================ */
