@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Costing - Hummingbird ERP</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/forms.css">
+    <link rel="stylesheet" href="../../assets/css/tables.css">
+    <link rel="stylesheet" href="../../assets/css/modals.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+    <link rel="stylesheet" href="production-costing.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="brand">🐦 Hummingbird</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-item" data-module="dashboard">
+                    <span class="icon">📊</span>
+                    <span class="label">Dashboard</span>
+                </a>
+                <a href="../sub-garments/sub-garments.html" class="nav-item" data-module="sub-garments">
+                    <span class="icon">✂️</span>
+                    <span class="label">Sub Garments</span>
+                </a>
+                <a href="../customers/customers.html" class="nav-item" data-module="customers">
+                    <span class="icon">👥</span>
+                    <span class="label">Customers</span>
+                </a>
+                <a href="../suppliers/suppliers.html" class="nav-item" data-module="suppliers">
+                    <span class="icon">🏭</span>
+                    <span class="label">Suppliers</span>
+                </a>
+                <a href="../inventory/inventory.html" class="nav-item" data-module="inventory">
+                    <span class="icon">📦</span>
+                    <span class="label">Inventory</span>
+                </a>
+                <a href="../production-costing/production-costing.html" class="nav-item active" data-module="production-costing">
+                    <span class="icon">💰</span>
+                    <span class="label">Production Costing</span>
+                </a>
+                <a href="../expenses/expenses.html" class="nav-item" data-module="expenses">
+                    <span class="icon">💸</span>
+                    <span class="label">Expenses</span>
+                </a>
+                <a href="../staff/staff.html" class="nav-item" data-module="staff">
+                    <span class="icon">👨‍💼</span>
+                    <span class="label">Staff</span>
+                </a>
+                <a href="../reports/reports.html" class="nav-item" data-module="reports">
+                    <span class="icon">📈</span>
+                    <span class="label">Reports</span>
+                </a>
+                <a href="../cheque-tracker/cheque-tracker.html" class="nav-item" data-module="cheque-tracker">
+                    <span class="icon">🏦</span>
+                    <span class="label">Cheque Tracker</span>
+                </a>
+                <a href="../settings/settings.html" class="nav-item" data-module="settings">
+                    <span class="icon">⚙️</span>
+                    <span class="label">Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">☰</button>
+                    <h2 class="page-title">Production Costing</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="search" id="globalSearch" class="search-input" placeholder="Search production batches...">
+                    </div>
+                    <button class="header-btn" id="notificationsBtn" aria-label="Notifications">🔔</button>
+                    <button class="header-btn" id="profileBtn" aria-label="Profile">👤</button>
+                </div>
+            </header>
+
+            <!-- Tab Navigation -->
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="production-batches">
+                    <span class="icon">📋</span> Production Batches
+                </button>
+                <button class="tab-btn" data-tab="cost-breakdown">
+                    <span class="icon">💡</span> Cost Breakdown
+                </button>
+                <button class="tab-btn" data-tab="cost-summary">
+                    <span class="icon">📊</span> Cost Summary
+                </button>
+                <button class="tab-btn" data-tab="profit-analysis">
+                    <span class="icon">📈</span> Profit Analysis
+                </button>
+                <button class="tab-btn" data-tab="costing-reports">
+                    <span class="icon">🖨️</span> Reports
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-wrapper">
+
+                <!-- PRODUCTION BATCHES TAB -->
+                <section class="tab-content active" id="production-batches">
+                    <div class="tab-header">
+                        <h3>Production Batches</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-primary" id="newProductionBatchBtn">
+                                <span class="icon">➕</span> New Batch
+                            </button>
+                            <button class="btn btn-secondary" id="filterBatchesBtn">
+                                <span class="icon">🔍</span> Filter
+                            </button>
+                            <button class="btn btn-secondary" id="exportBatchesBtn">
+                                <span class="icon">📥</span> Export
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Batches Table -->
+                    <div class="table-container">
+                        <table class="data-table" id="batchesTable">
+                            <thead>
+                                <tr>
+                                    <th data-sortable="true">Batch ID</th>
+                                    <th data-sortable="true">Batch Date</th>
+                                    <th data-sortable="true">Item Name</th>
+                                    <th data-sortable="true">Quantity</th>
+                                    <th data-sortable="true">Status</th>
+                                    <th data-sortable="true">Total Cost</th>
+                                    <th data-sortable="true">Unit Cost</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="batchesTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="batchesPagination">
+                        <button class="pagination-btn" id="prevBatchPage">← Previous</button>
+                        <span class="pagination-info" id="batchPageInfo">Page 1 of 1</span>
+                        <button class="pagination-btn" id="nextBatchPage">Next →</button>
+                    </div>
+                </section>
+
+                <!-- COST BREAKDOWN TAB -->
+                <section class="tab-content" id="cost-breakdown">
+                    <div class="tab-header">
+                        <h3>Cost Breakdown</h3>
+                        <div class="tab-actions">
+                            <select class="form-select" id="selectBatchForBreakdown">
+                                <option value="">-- Select Batch --</option>
+                            </select>
+                            <button class="btn btn-secondary" id="printBreakdownBtn">
+                                <span class="icon">🖨️</span> Print
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown Cards -->
+                    <div class="breakdown-cards" id="costBreakdownCards">
+                        <!-- Material Cost Card -->
+                        <div class="cost-card">
+                            <div class="card-header">
+                                <h4>Material Cost</h4>
+                                <span class="icon">📦</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="cost-item">
+                                    <label>Fabric Cost:</label>
+                                    <span class="value" id="fabricCost">0.00</span>
+                                </div>
+                                <div class="cost-item">
+                                    <label>Accessories Cost:</label>
+                                    <span class="value" id="accessoriesCost">0.00</span>
+                                </div>
+                                <div class="cost-item border-top">
+                                    <label>Total Material:</label>
+                                    <span class="value total" id="totalMaterialCost">0.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Labor Cost Card -->
+                        <div class="cost-card">
+                            <div class="card-header">
+                                <h4>Labor Cost</h4>
+                                <span class="icon">👷</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="cost-item">
+                                    <label>Cutting Labor:</label>
+                                    <span class="value" id="cuttingLaborCost">0.00</span>
+                                </div>
+                                <div class="cost-item">
+                                    <label>Finishing Labor:</label>
+                                    <span class="value" id="finishingLaborCost">0.00</span>
+                                </div>
+                                <div class="cost-item">
+                                    <label>Other Labor:</label>
+                                    <span class="value" id="otherLaborCost">0.00</span>
+                                </div>
+                                <div class="cost-item border-top">
+                                    <label>Total Labor:</label>
+                                    <span class="value total" id="totalLaborCost">0.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Overhead Cost Card -->
+                        <div class="cost-card">
+                            <div class="card-header">
+                                <h4>Overhead Cost</h4>
+                                <span class="icon">⚙️</span>
+                            </div>
+                            <div class="card-content">
+                                <div class="cost-item">
+                                    <label>Electricity:</label>
+                                    <span class="value" id="electricityCost">0.00</span>
+                                </div>
+                                <div class="cost-item">
+                                    <label>Maintenance:</label>
+                                    <span class="value" id="maintenanceCost">0.00</span>
+                                </div>
+                                <div class="cost-item">
+                                    <label>Depreciation:</label>
+                                    <span class="value" id="depreciationCost">0.00</span>
+                                </div>
+                                <div class="cost-item border-top">
+                                    <label>Total Overhead:</label>
+                                    <span class="value total" id="totalOverheadCost">0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Breakdown Table -->
+                    <div class="breakdown-section">
+                        <h4>Detailed Cost Components</h4>
+                        <div class="table-container">
+                            <table class="data-table" id="detailedBreakdownTable">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true">Cost Category</th>
+                                        <th data-sortable="true">Description</th>
+                                        <th data-sortable="true">Amount</th>
+                                        <th data-sortable="true">% of Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detailedBreakdownBody">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- COST SUMMARY TAB -->
+                <section class="tab-content" id="cost-summary">
+                    <div class="tab-header">
+                        <h3>Cost Summary</h3>
+                        <div class="tab-actions">
+                            <input type="date" id="summaryStartDate" class="form-input" placeholder="From Date">
+                            <input type="date" id="summaryEndDate" class="form-input" placeholder="To Date">
+                            <button class="btn btn-secondary" id="generateSummaryBtn">
+                                <span class="icon">🔄</span> Generate
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="summary-cards" id="costSummaryCards">
+                        <div class="summary-card">
+                            <div class="card-label">Total Batches</div>
+                            <div class="card-value" id="summaryTotalBatches">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Total Items Produced</div>
+                            <div class="card-value" id="summaryTotalItems">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Total Production Cost</div>
+                            <div class="card-value" id="summaryTotalCost">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Average Unit Cost</div>
+                            <div class="card-value" id="summaryAvgUnitCost">0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Table -->
+                    <div class="table-container">
+                        <table class="data-table" id="costSummaryTable">
+                            <thead>
+                                <tr>
+                                    <th data-sortable="true">Item Name</th>
+                                    <th data-sortable="true">Total Produced</th>
+                                    <th data-sortable="true">Material Cost</th>
+                                    <th data-sortable="true">Labor Cost</th>
+                                    <th data-sortable="true">Overhead Cost</th>
+                                    <th data-sortable="true">Total Cost</th>
+                                    <th data-sortable="true">Unit Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody id="costSummaryTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- PROFIT ANALYSIS TAB -->
+                <section class="tab-content" id="profit-analysis">
+                    <div class="tab-header">
+                        <h3>Profit Analysis</h3>
+                        <div class="tab-actions">
+                            <select class="form-select" id="profitAnalysisMetric">
+                                <option value="by-item">By Item</option>
+                                <option value="by-batch">By Batch</option>
+                                <option value="by-period">By Period</option>
+                            </select>
+                            <button class="btn btn-secondary" id="printProfitBtn">
+                                <span class="icon">🖨️</span> Print
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Profit Metrics Cards -->
+                    <div class="profit-cards" id="profitMetricsCards">
+                        <div class="profit-card positive">
+                            <div class="card-label">Total Revenue</div>
+                            <div class="card-value" id="totalRevenue">0.00</div>
+                        </div>
+                        <div class="profit-card negative">
+                            <div class="card-label">Total Cost</div>
+                            <div class="card-value" id="totalProductionCost">0.00</div>
+                        </div>
+                        <div class="profit-card highlight">
+                            <div class="card-label">Gross Profit</div>
+                            <div class="card-value" id="grossProfit">0.00</div>
+                        </div>
+                        <div class="profit-card highlight">
+                            <div class="card-label">Profit Margin %</div>
+                            <div class="card-value" id="profitMarginPercent">0.00%</div>
+                        </div>
+                    </div>
+
+                    <!-- Profit Analysis Table -->
+                    <div class="table-container">
+                        <table class="data-table" id="profitAnalysisTable">
+                            <thead>
+                                <tr>
+                                    <th data-sortable="true">Batch/Item ID</th>
+                                    <th data-sortable="true">Description</th>
+                                    <th data-sortable="true">Revenue</th>
+                                    <th data-sortable="true">Production Cost</th>
+                                    <th data-sortable="true">Gross Profit</th>
+                                    <th data-sortable="true">Margin %</th>
+                                </tr>
+                            </thead>
+                            <tbody id="profitAnalysisTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Profit Chart Placeholder -->
+                    <div class="chart-container">
+                        <div id="profitChart" class="chart-placeholder">
+                            <p>Profit trend chart will be rendered here</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- REPORTS TAB -->
+                <section class="tab-content" id="costing-reports">
+                    <div class="tab-header">
+                        <h3>Production Costing Reports</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-secondary" id="newReportBtn">
+                                <span class="icon">➕</span> New Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Report Types -->
+                    <div class="reports-grid" id="reportsGrid">
+                        <!-- Cost Variance Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Cost Variance Report</h4>
+                                <span class="icon">📋</span>
+                            </div>
+                            <p class="report-description">Analyze differences between estimated and actual costs</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cost-variance">View</button>
+                                <button class="btn-small" data-report="cost-variance" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Production Efficiency Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Production Efficiency Report</h4>
+                                <span class="icon">⚡</span>
+                            </div>
+                            <p class="report-description">Track production efficiency and cost performance</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="efficiency">View</button>
+                                <button class="btn-small" data-report="efficiency" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Item Wise Costing Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Item Wise Costing Report</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Detailed cost breakdown for each item produced</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="item-wise">View</button>
+                                <button class="btn-small" data-report="item-wise" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Period Wise Costing Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Period Wise Costing Report</h4>
+                                <span class="icon">📈</span>
+                            </div>
+                            <p class="report-description">Cost analysis by time period</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="period-wise">View</button>
+                                <button class="btn-small" data-report="period-wise" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Standard vs Actual Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Standard vs Actual Report</h4>
+                                <span class="icon">🎯</span>
+                            </div>
+                            <p class="report-description">Compare standard costs with actual production costs</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="standard-actual">View</button>
+                                <button class="btn-small" data-report="standard-actual" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Margin Analysis Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Margin Analysis Report</h4>
+                                <span class="icon">💹</span>
+                            </div>
+                            <p class="report-description">Analyze profit margins across items and batches</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="margin-analysis">View</button>
+                                <button class="btn-small" data-report="margin-analysis" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recently Generated Reports -->
+                    <div class="recent-reports-section">
+                        <h4>Recently Generated Reports</h4>
+                        <div class="table-container">
+                            <table class="data-table" id="recentReportsTable">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true">Report Type</th>
+                                        <th data-sortable="true">Generated Date</th>
+                                        <th data-sortable="true">Period</th>
+                                        <th data-sortable="true">Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentReportsTableBody">
+                                    <!-- Populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- New Production Batch Modal -->
+    <div class="modal" id="newBatchModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Production Batch</h3>
+                <button class="modal-close" data-modal="newBatchModal">&times;</button>
+            </div>
+            <form id="newBatchForm" class="form">
+                <div class="form-group">
+                    <label for="batchDate">Batch Date</label>
+                    <input type="date" id="batchDate" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" id="itemName" class="form-input" placeholder="Enter item name" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemSKU">Item SKU</label>
+                    <input type="text" id="itemSKU" class="form-input" placeholder="Enter SKU" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productionQty">Production Quantity</label>
+                        <input type="number" id="productionQty" class="form-input" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="estimatedUnitCost">Estimated Unit Cost</label>
+                        <input type="number" id="estimatedUnitCost" class="form-input" placeholder="0.00" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="batchNotes">Notes</label>
+                    <textarea id="batchNotes" class="form-textarea" placeholder="Add any notes for this batch" rows="4"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Batch</button>
+                    <button type="button" class="btn btn-secondary" data-modal="newBatchModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Batch Modal -->
+    <div class="modal" id="editBatchModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Production Batch</h3>
+                <button class="modal-close" data-modal="editBatchModal">&times;</button>
+            </div>
+            <form id="editBatchForm" class="form">
+                <input type="hidden" id="editBatchId">
+                <div class="form-group">
+                    <label for="editBatchDate">Batch Date</label>
+                    <input type="date" id="editBatchDate" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemName">Item Name</label>
+                    <input type="text" id="editItemName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemSKU">Item SKU</label>
+                    <input type="text" id="editItemSKU" class="form-input" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editProductionQty">Production Quantity</label>
+                        <input type="number" id="editProductionQty" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEstimatedUnitCost">Estimated Unit Cost</label>
+                        <input type="number" id="editEstimatedUnitCost" class="form-input" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="editBatchStatus">Status</label>
+                    <select id="editBatchStatus" class="form-select" required>
+                        <option value="planning">Planning</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="on-hold">On Hold</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editBatchNotes">Notes</label>
+                    <textarea id="editBatchNotes" class="form-textarea" rows="4"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Batch</button>
+                    <button type="button" class="btn btn-secondary" data-modal="editBatchModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cost Breakdown Details Modal -->
+    <div class="modal" id="costBreakdownModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Cost Breakdown</h3>
+                <button class="modal-close" data-modal="costBreakdownModal">&times;</button>
+            </div>
+            <form id="costBreakdownForm" class="form">
+                <div class="form-group">
+                    <label for="costCategory">Cost Category</label>
+                    <select id="costCategory" class="form-select" required>
+                        <option value="">-- Select Category --</option>
+                        <option value="fabric">Fabric</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="cutting-labor">Cutting Labor</option>
+                        <option value="finishing-labor">Finishing Labor</option>
+                        <option value="electricity">Electricity</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="depreciation">Depreciation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="costDescription">Description</label>
+                    <input type="text" id="costDescription" class="form-input" placeholder="Enter cost description" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="costAmount">Amount</label>
+                        <input type="number" id="costAmount" class="form-input" placeholder="0.00" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="costQuantity">Quantity/Units</label>
+                        <input type="number" id="costQuantity" class="form-input" placeholder="0" step="0.01">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Cost</button>
+                    <button type="button" class="btn btn-secondary" data-modal="costBreakdownModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Report Modal -->
+    <div class="modal" id="viewReportModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="reportTitle">Report</h3>
+                <button class="modal-close" data-modal="viewReportModal">&times;</button>
+            </div>
+            <div class="report-content" id="reportContent">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="printReportBtn">🖨️ Print</button>
+                <button class="btn btn-secondary" id="exportReportBtn">📥 Export to Excel</button>
+                <button class="btn btn-secondary" data-modal="viewReportModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal" id="confirmDeleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button class="modal-close" data-modal="confirmDeleteModal">&times;</button>
+            </div>
+            <p id="deleteMessage">Are you sure you want to delete this item?</p>
+            <div class="form-actions">
+                <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                <button class="btn btn-secondary" data-modal="confirmDeleteModal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="production-costing.js"></script>
+</body>
+</html>
