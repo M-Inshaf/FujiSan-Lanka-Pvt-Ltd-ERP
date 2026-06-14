@@ -1,0 +1,786 @@
+/* ============================================================
+   HUMMINGBIRD CLOTHING ERP
+   File: assets/css/tables.css
+   Purpose: Data Tables, Pagination, Filters, Sorting
+   Company: FujiSan Lanka Pvt Ltd
+   ============================================================ */
+
+
+/* ============================================================
+   1. TABLE WRAPPER
+   ============================================================ */
+
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  overflow: hidden;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-lg);
+}
+
+/* ============================================================
+   2. BASE TABLE STYLING
+   ============================================================ */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.table thead {
+  background-color: var(--table-header-bg);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.table tbody {
+  background-color: var(--table-body-bg);
+}
+
+.table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--table-header-text);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--table-body-text);
+}
+
+.table th:first-child {
+  padding-left: var(--space-5);
+}
+
+.table td:first-child {
+  padding-left: var(--space-5);
+}
+
+.table th:last-child,
+.table td:last-child {
+  padding-right: var(--space-5);
+}
+
+/* ============================================================
+   3. TABLE ROW STYLING
+   ============================================================ */
+
+.table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: var(--table-stripe-bg);
+}
+
+.table tbody tr:hover {
+  background-color: var(--table-hover-bg);
+}
+
+.table tbody tr.active {
+  background-color: var(--accent-bg);
+}
+
+/* ============================================================
+   4. TABLE HEADER SORTING
+   ============================================================ */
+
+.table-sortable {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+}
+
+.table-sortable:hover {
+  color: var(--accent-primary);
+}
+
+.table-sort-icon {
+  font-size: 12px;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
+}
+
+.table-sortable:hover .table-sort-icon {
+  opacity: 1;
+}
+
+.table-sortable.active .table-sort-icon {
+  opacity: 1;
+  color: var(--accent-primary);
+}
+
+/* ============================================================
+   5. TABLE CHECKBOX COLUMN
+   ============================================================ */
+
+.table-checkbox-col {
+  width: 48px;
+  text-align: center;
+}
+
+.table-checkbox-col input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+}
+
+/* ============================================================
+   6. TABLE ACTION BUTTONS
+   ============================================================ */
+
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  justify-content: flex-end;
+}
+
+.table-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.table-action-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.table-action-btn.danger:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+}
+
+.table-action-btn.success:hover {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+/* ============================================================
+   7. TABLE CELL TYPES
+   ============================================================ */
+
+/* Text cell */
+.table-cell-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Numeric cell (right-aligned) */
+.table-cell-number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+
+/* Badge cell */
+.table-cell-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Expandable cell (pointer) */
+.table-cell-expand {
+  cursor: pointer;
+  color: var(--accent-primary);
+}
+
+/* Status cell */
+.table-cell-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.table-cell-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.table-cell-status-dot.active {
+  background-color: var(--color-success);
+}
+
+.table-cell-status-dot.inactive {
+  background-color: var(--text-muted);
+}
+
+.table-cell-status-dot.pending {
+  background-color: var(--color-warning);
+}
+
+/* ============================================================
+   8. TABLE DENSITY MODES
+   ============================================================ */
+
+/* Compact */
+.table.table-compact th,
+.table.table-compact td {
+  padding: var(--space-2) var(--space-3);
+}
+
+.table.table-compact th:first-child {
+  padding-left: var(--space-3);
+}
+
+.table.table-compact td:first-child {
+  padding-left: var(--space-3);
+}
+
+.table.table-compact th:last-child,
+.table.table-compact td:last-child {
+  padding-right: var(--space-3);
+}
+
+/* Comfortable */
+.table.table-comfortable th,
+.table.table-comfortable td {
+  padding: var(--space-4) var(--space-5);
+}
+
+/* ============================================================
+   9. EXPANDABLE ROWS
+   ============================================================ */
+
+.table-expand-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: transform var(--transition-fast);
+}
+
+.table-expand-toggle.expanded {
+  transform: rotate(180deg);
+}
+
+.table-expand-row {
+  display: none;
+}
+
+.table-expand-row.visible {
+  display: table-row;
+}
+
+.table-expand-content {
+  padding: var(--space-4);
+  background-color: var(--bg-secondary);
+}
+
+/* ============================================================
+   10. TABLE TOOLBAR (Above Table)
+   ============================================================ */
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding: var(--space-3);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.table-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 0;
+}
+
+.table-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.table-record-count {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   11. TABLE SEARCH & FILTER
+   ============================================================ */
+
+.table-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  width: 300px;
+  max-width: 100%;
+}
+
+.table-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--input-text);
+  font-size: var(--font-size-sm);
+}
+
+.table-search-input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.table-search-icon {
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+.table-search-clear {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 16px;
+  transition: color var(--transition-fast);
+}
+
+.table-search-clear:hover {
+  color: var(--text-primary);
+}
+
+/* Filter Button */
+.table-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.table-filter-btn:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
+}
+
+.table-filter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ============================================================
+   12. FILTER DROPDOWN
+   ============================================================ */
+
+.table-filter-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-2);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  min-width: 250px;
+  display: none;
+}
+
+.table-filter-dropdown.visible {
+  display: block;
+  animation: slideInDown 0.2s ease;
+}
+
+.table-filter-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.table-filter-option:last-child {
+  border-bottom: none;
+}
+
+.table-filter-option:hover {
+  background-color: var(--bg-hover);
+}
+
+.table-filter-checkbox {
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+}
+
+/* ============================================================
+   13. TABLE PAGINATION
+   ============================================================ */
+
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+}
+
+.pagination-info {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pagination-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.pagination-btn:hover:not(:disabled) {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-btn.active {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+  font-weight: var(--font-weight-semibold);
+}
+
+.pagination-number {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  padding: 0 var(--space-2);
+}
+
+/* Pagination size selector */
+.pagination-size {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pagination-size-select {
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+}
+
+/* ============================================================
+   14. TABLE STATS ROW
+   ============================================================ */
+
+.table-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-4);
+}
+
+.table-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.table-stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.table-stat-value {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+@media (max-width: 1024px) {
+  .table-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .table-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   15. EMPTY TABLE STATE
+   ============================================================ */
+
+.table-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.table-empty-icon {
+  font-size: 48px;
+  opacity: 0.3;
+}
+
+.table-empty-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+}
+
+.table-empty-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  max-width: 320px;
+}
+
+/* ============================================================
+   16. LOADING STATE
+   ============================================================ */
+
+.table-loading {
+  position: relative;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.table-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+/* ============================================================
+   17. RESPONSIVE TABLE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    gap: var(--space-2);
+  }
+
+  .table {
+    font-size: var(--font-size-xs);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .table th:first-child {
+    padding-left: var(--space-3);
+  }
+
+  .table td:first-child {
+    padding-left: var(--space-3);
+  }
+
+  .table th:last-child,
+  .table td:last-child {
+    padding-right: var(--space-3);
+  }
+
+  /* Hide less important columns on mobile */
+  .table-hide-mobile {
+    display: none;
+  }
+
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-toolbar-left,
+  .table-toolbar-right {
+    width: 100%;
+  }
+
+  .table-toolbar-right {
+    flex-direction: column;
+  }
+
+  .table-search {
+    width: 100%;
+  }
+
+  .table-pagination {
+    flex-direction: column;
+  }
+
+  .pagination-controls {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   18. STICKY HEADER
+   ============================================================ */
+
+.table-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ============================================================
+   19. TABLE EXPORTS & DOWNLOADS
+   ============================================================ */
+
+.table-export-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.table-export-btn {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.table-export-btn:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
+}
+
+/* ============================================================
+   20. COLUMN VISIBILITY TOGGLE
+   ============================================================ */
+
+.table-columns-toggle {
+  position: relative;
+  display: inline-block;
+}
+
+.table-columns-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--space-2);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  min-width: 200px;
+  display: none;
+  padding: var(--space-2);
+}
+
+.table-columns-menu.visible {
+  display: block;
+  animation: slideInDown 0.2s ease;
+}
+
+.table-columns-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.table-columns-item:hover {
+  background-color: var(--bg-hover);
+}
+
+/* ============================================================
+   END OF tables.css
+   ============================================================ */
