@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Hummingbird ERP</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+    <link rel="stylesheet" href="../../assets/css/layout.css">
+    <link rel="stylesheet" href="../../assets/css/forms.css">
+    <link rel="stylesheet" href="../../assets/css/tables.css">
+    <link rel="stylesheet" href="../../assets/css/modals.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+    <link rel="stylesheet" href="reports.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="brand">🐦 Hummingbird</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../../index.html" class="nav-item" data-module="dashboard">
+                    <span class="icon">📊</span>
+                    <span class="label">Dashboard</span>
+                </a>
+                <a href="../sub-garments/sub-garments.html" class="nav-item" data-module="sub-garments">
+                    <span class="icon">✂️</span>
+                    <span class="label">Sub Garments</span>
+                </a>
+                <a href="../customers/customers.html" class="nav-item" data-module="customers">
+                    <span class="icon">👥</span>
+                    <span class="label">Customers</span>
+                </a>
+                <a href="../suppliers/suppliers.html" class="nav-item" data-module="suppliers">
+                    <span class="icon">🏭</span>
+                    <span class="label">Suppliers</span>
+                </a>
+                <a href="../inventory/inventory.html" class="nav-item" data-module="inventory">
+                    <span class="icon">📦</span>
+                    <span class="label">Inventory</span>
+                </a>
+                <a href="../production-costing/production-costing.html" class="nav-item" data-module="production-costing">
+                    <span class="icon">💰</span>
+                    <span class="label">Production Costing</span>
+                </a>
+                <a href="../expenses/expenses.html" class="nav-item" data-module="expenses">
+                    <span class="icon">💸</span>
+                    <span class="label">Expenses</span>
+                </a>
+                <a href="../staff/staff.html" class="nav-item" data-module="staff">
+                    <span class="icon">👨</span>
+                    <span class="label">Staff</span>
+                </a>
+                <a href="../reports/reports.html" class="nav-item active" data-module="reports">
+                    <span class="icon">📈</span>
+                    <span class="label">Reports</span>
+                </a>
+                <a href="../cheque-tracker/cheque-tracker.html" class="nav-item" data-module="cheque-tracker">
+                    <span class="icon">🏦</span>
+                    <span class="label">Cheque Tracker</span>
+                </a>
+                <a href="../settings/settings.html" class="nav-item" data-module="settings">
+                    <span class="icon">⚙️</span>
+                    <span class="label">Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">☰</button>
+                    <h2 class="page-title">Reports & Analytics</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="search" id="globalSearch" class="search-input" placeholder="Search reports...">
+                    </div>
+                    <button class="header-btn" id="notificationsBtn" aria-label="Notifications">🔔</button>
+                    <button class="header-btn" id="profileBtn" aria-label="Profile">👤</button>
+                </div>
+            </header>
+
+            <!-- Tab Navigation -->
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="financial">
+                    <span class="icon">💰</span> Financial
+                </button>
+                <button class="tab-btn" data-tab="inventory">
+                    <span class="icon">📦</span> Inventory
+                </button>
+                <button class="tab-btn" data-tab="production">
+                    <span class="icon">🏭</span> Production
+                </button>
+                <button class="tab-btn" data-tab="customers">
+                    <span class="icon">👥</span> Customers
+                </button>
+                <button class="tab-btn" data-tab="suppliers">
+                    <span class="icon">🏢</span> Suppliers
+                </button>
+                <button class="tab-btn" data-tab="staff">
+                    <span class="icon">👨‍💼</span> Staff
+                </button>
+                <button class="tab-btn" data-tab="operations">
+                    <span class="icon">⚙️</span> Operations
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-wrapper">
+
+                <!-- FINANCIAL REPORTS TAB -->
+                <section class="tab-content active" id="financial">
+                    <div class="tab-header">
+                        <h3>Financial Reports</h3>
+                        <div class="tab-actions">
+                            <input type="date" id="financialStartDate" class="form-input">
+                            <input type="date" id="financialEndDate" class="form-input">
+                            <button class="btn btn-secondary" id="financialRefreshBtn">
+                                <span class="icon">🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Financial Summary Cards -->
+                    <div class="summary-cards" id="financialSummaryCards">
+                        <div class="summary-card positive">
+                            <div class="card-label">Total Revenue</div>
+                            <div class="card-value" id="totalRevenue">0.00</div>
+                        </div>
+                        <div class="summary-card negative">
+                            <div class="card-label">Total Expenses</div>
+                            <div class="card-value" id="totalExpenses">0.00</div>
+                        </div>
+                        <div class="summary-card highlight">
+                            <div class="card-label">Gross Profit</div>
+                            <div class="card-value" id="grossProfit">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Profit Margin</div>
+                            <div class="card-value" id="profitMarginPercent">0.00%</div>
+                        </div>
+                    </div>
+
+                    <!-- Financial Reports Grid -->
+                    <div class="reports-grid" id="financialReportsGrid">
+                        <!-- Income Statement -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Income Statement</h4>
+                                <span class="icon">📋</span>
+                            </div>
+                            <p class="report-description">Revenue, expenses, and profit summary</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="income-statement">View</button>
+                                <button class="btn-small" data-report="income-statement" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Cash Flow Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Cash Flow Report</h4>
+                                <span class="icon">💳</span>
+                            </div>
+                            <p class="report-description">Incoming and outgoing cash flow analysis</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cash-flow">View</button>
+                                <button class="btn-small" data-report="cash-flow" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Balance Sheet -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Balance Sheet</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Assets, liabilities, and equity overview</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="balance-sheet">View</button>
+                                <button class="btn-small" data-report="balance-sheet" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Trial Balance -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Trial Balance</h4>
+                                <span class="icon">✓</span>
+                            </div>
+                            <p class="report-description">Account balances verification</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="trial-balance">View</button>
+                                <button class="btn-small" data-report="trial-balance" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Receivables Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Receivables Report</h4>
+                                <span class="icon">📥</span>
+                            </div>
+                            <p class="report-description">Customer outstanding amounts</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="receivables">View</button>
+                                <button class="btn-small" data-report="receivables" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Payables Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Payables Report</h4>
+                                <span class="icon">📤</span>
+                            </div>
+                            <p class="report-description">Supplier outstanding amounts</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="payables">View</button>
+                                <button class="btn-small" data-report="payables" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- INVENTORY REPORTS TAB -->
+                <section class="tab-content" id="inventory">
+                    <div class="tab-header">
+                        <h3>Inventory Reports</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-secondary" id="inventoryRefreshBtn">
+                                <span class="icon">🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Inventory Summary Cards -->
+                    <div class="summary-cards" id="inventorySummaryCards">
+                        <div class="summary-card">
+                            <div class="card-label">Total Stock Value</div>
+                            <div class="card-value" id="totalStockValue">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Total Stock Items</div>
+                            <div class="card-value" id="totalStockItems">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Low Stock Items</div>
+                            <div class="card-value alert" id="lowStockItems">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Stock Turnover</div>
+                            <div class="card-value" id="stockTurnover">0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Inventory Reports Grid -->
+                    <div class="reports-grid" id="inventoryReportsGrid">
+                        <!-- Stock Summary -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Stock Summary</h4>
+                                <span class="icon">📋</span>
+                            </div>
+                            <p class="report-description">Current stock levels and value</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="stock-summary">View</button>
+                                <button class="btn-small" data-report="stock-summary" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Stock Movement Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Stock Movement Report</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Inbound and outbound movements</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="stock-movement">View</button>
+                                <button class="btn-small" data-report="stock-movement" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Low Stock Alert -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Low Stock Alert</h4>
+                                <span class="icon">⚠️</span>
+                            </div>
+                            <p class="report-description">Items below reorder level</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="low-stock">View</button>
+                                <button class="btn-small" data-report="low-stock" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Stock Aging Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Stock Aging Report</h4>
+                                <span class="icon">📅</span>
+                            </div>
+                            <p class="report-description">Items by age in inventory</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="stock-aging">View</button>
+                                <button class="btn-small" data-report="stock-aging" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Stock Valuation -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Stock Valuation</h4>
+                                <span class="icon">💰</span>
+                            </div>
+                            <p class="report-description">Inventory value assessment</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="stock-valuation">View</button>
+                                <button class="btn-small" data-report="stock-valuation" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Dead Stock Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Dead Stock Report</h4>
+                                <span class="icon">❌</span>
+                            </div>
+                            <p class="report-description">Non-moving inventory items</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="dead-stock">View</button>
+                                <button class="btn-small" data-report="dead-stock" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PRODUCTION REPORTS TAB -->
+                <section class="tab-content" id="production">
+                    <div class="tab-header">
+                        <h3>Production Reports</h3>
+                        <div class="tab-actions">
+                            <input type="date" id="productionStartDate" class="form-input">
+                            <input type="date" id="productionEndDate" class="form-input">
+                            <button class="btn btn-secondary" id="productionRefreshBtn">
+                                <span class="icon">🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Production Summary Cards -->
+                    <div class="summary-cards" id="productionSummaryCards">
+                        <div class="summary-card">
+                            <div class="card-label">Total Production Cost</div>
+                            <div class="card-value" id="totalProdCost">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Items Produced</div>
+                            <div class="card-value" id="itemsProduced">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Avg Unit Cost</div>
+                            <div class="card-value" id="avgUnitCost">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Production Efficiency</div>
+                            <div class="card-value" id="prodEfficiency">0%</div>
+                        </div>
+                    </div>
+
+                    <!-- Production Reports Grid -->
+                    <div class="reports-grid" id="productionReportsGrid">
+                        <!-- Production Summary -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Production Summary</h4>
+                                <span class="icon">📋</span>
+                            </div>
+                            <p class="report-description">Overall production metrics</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="prod-summary">View</button>
+                                <button class="btn-small" data-report="prod-summary" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Batch Performance -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Batch Performance</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Performance metrics by batch</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="batch-perf">View</button>
+                                <button class="btn-small" data-report="batch-perf" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Cost Analysis -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Cost Analysis</h4>
+                                <span class="icon">💡</span>
+                            </div>
+                            <p class="report-description">Detailed cost breakdown</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cost-analysis">View</button>
+                                <button class="btn-small" data-report="cost-analysis" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Quality Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Quality Report</h4>
+                                <span class="icon">✓</span>
+                            </div>
+                            <p class="report-description">Quality metrics and defects</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="quality">View</button>
+                                <button class="btn-small" data-report="quality" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Production Variance -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Production Variance</h4>
+                                <span class="icon">📈</span>
+                            </div>
+                            <p class="report-description">Actual vs planned analysis</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="prod-variance">View</button>
+                                <button class="btn-small" data-report="prod-variance" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Waste & Loss -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Waste & Loss Report</h4>
+                                <span class="icon">📉</span>
+                            </div>
+                            <p class="report-description">Waste and loss tracking</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="waste-loss">View</button>
+                                <button class="btn-small" data-report="waste-loss" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CUSTOMER REPORTS TAB -->
+                <section class="tab-content" id="customers">
+                    <div class="tab-header">
+                        <h3>Customer Reports</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-secondary" id="customersRefreshBtn">
+                                <span class="icon">🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer Summary Cards -->
+                    <div class="summary-cards" id="customerSummaryCards">
+                        <div class="summary-card">
+                            <div class="card-label">Total Customers</div>
+                            <div class="card-value" id="totalCustomers">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Total Sales</div>
+                            <div class="card-value" id="totalSales">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Receivables</div>
+                            <div class="card-value" id="totalReceivables">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Avg Order Value</div>
+                            <div class="card-value" id="avgOrderValue">0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Customer Reports Grid -->
+                    <div class="reports-grid" id="customerReportsGrid">
+                        <!-- Customer Summary -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Customer Summary</h4>
+                                <span class="icon">👥</span>
+                            </div>
+                            <p class="report-description">Customer details and contact information</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cust-summary">View</button>
+                                <button class="btn-small" data-report="cust-summary" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Sales by Customer -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Sales by Customer</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Sales revenue per customer</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="sales-by-cust">View</button>
+                                <button class="btn-small" data-report="sales-by-cust" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Customer Outstanding -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Customer Outstanding</h4>
+                                <span class="icon">💰</span>
+                            </div>
+                            <p class="report-description">Receivables aging analysis</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cust-outstanding">View</button>
+                                <button class="btn-small" data-report="cust-outstanding" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Customer Performance -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Customer Performance</h4>
+                                <span class="icon">⭐</span>
+                            </div>
+                            <p class="report-description">Customer metrics and rankings</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cust-perf">View</button>
+                                <button class="btn-small" data-report="cust-perf" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Top Customers -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Top Customers</h4>
+                                <span class="icon">🏆</span>
+                            </div>
+                            <p class="report-description">Best performing customers</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="top-customers">View</button>
+                                <button class="btn-small" data-report="top-customers" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Customer Turnover -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Customer Turnover</h4>
+                                <span class="icon">📈</span>
+                            </div>
+                            <p class="report-description">Customer acquisition and retention</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cust-turnover">View</button>
+                                <button class="btn-small" data-report="cust-turnover" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SUPPLIERS REPORTS TAB -->
+                <section class="tab-content" id="suppliers">
+                    <div class="tab-header">
+                        <h3>Supplier Reports</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-secondary" id="suppliersRefreshBtn">
+                                <span class="icon">🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Supplier Summary Cards -->
+                    <div class="summary-cards" id="supplierSummaryCards">
+                        <div class="summary-card">
+                            <div class="card-label">Total Suppliers</div>
+                            <div class="card-value" id="totalSuppliers">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Total Purchases</div>
+                            <div class="card-value" id="totalPurchases">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Payables</div>
+                            <div class="card-value" id="totalPayables">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Avg Purchase</div>
+                            <div class="card-value" id="avgPurchase">0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Supplier Reports Grid -->
+                    <div class="reports-grid" id="supplierReportsGrid">
+                        <!-- Supplier Summary -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Supplier Summary</h4>
+                                <span class="icon">🏢</span>
+                            </div>
+                            <p class="report-description">Supplier details and contact information</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="supp-summary">View</button>
+                                <button class="btn-small" data-report="supp-summary" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Purchases by Supplier -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Purchases by Supplier</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Purchase amounts per supplier</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="purch-by-supp">View</button>
+                                <button class="btn-small" data-report="purch-by-supp" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Supplier Outstanding -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Supplier Outstanding</h4>
+                                <span class="icon">💰</span>
+                            </div>
+                            <p class="report-description">Payables aging analysis</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="supp-outstanding">View</button>
+                                <button class="btn-small" data-report="supp-outstanding" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Supplier Performance -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Supplier Performance</h4>
+                                <span class="icon">⭐</span>
+                            </div>
+                            <p class="report-description">Supplier quality and timeliness metrics</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="supp-perf">View</button>
+                                <button class="btn-small" data-report="supp-perf" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Top Suppliers -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Top Suppliers</h4>
+                                <span class="icon">🏆</span>
+                            </div>
+                            <p class="report-description">Best performing suppliers</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="top-suppliers">View</button>
+                                <button class="btn-small" data-report="top-suppliers" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Purchase Price Trend -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Purchase Price Trend</h4>
+                                <span class="icon">📈</span>
+                            </div>
+                            <p class="report-description">Price trends over time</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="price-trend">View</button>
+                                <button class="btn-small" data-report="price-trend" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STAFF REPORTS TAB -->
+                <section class="tab-content" id="staff">
+                    <div class="tab-header">
+                        <h3>Staff Reports</h3>
+                        <div class="tab-actions">
+                            <button class="btn btn-secondary" id="staffRefreshBtn">
+                                <span class="icon">🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Staff Summary Cards -->
+                    <div class="summary-cards" id="staffSummaryCards">
+                        <div class="summary-card">
+                            <div class="card-label">Total Staff</div>
+                            <div class="card-value" id="staffCount">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Monthly Payroll</div>
+                            <div class="card-value" id="monthlyPayrollReport">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Avg Attendance</div>
+                            <div class="card-value" id="avgAttendance">0%</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">On Leave</div>
+                            <div class="card-value" id="staffOnLeave">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Staff Reports Grid -->
+                    <div class="reports-grid" id="staffReportsGrid">
+                        <!-- Staff Directory -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Staff Directory</h4>
+                                <span class="icon">👥</span>
+                            </div>
+                            <p class="report-description">Complete staff listing and details</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="staff-dir">View</button>
+                                <button class="btn-small" data-report="staff-dir" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Payroll Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Payroll Report</h4>
+                                <span class="icon">💰</span>
+                            </div>
+                            <p class="report-description">Detailed payroll information</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="payroll-rep">View</button>
+                                <button class="btn-small" data-report="payroll-rep" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Attendance Report -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Attendance Report</h4>
+                                <span class="icon">✓</span>
+                            </div>
+                            <p class="report-description">Attendance tracking and analysis</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="attend-rep">View</button>
+                                <button class="btn-small" data-report="attend-rep" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Department Wise -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Department Wise Report</h4>
+                                <span class="icon">🏢</span>
+                            </div>
+                            <p class="report-description">Staff distribution by department</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="dept-rep">View</button>
+                                <button class="btn-small" data-report="dept-rep" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Salary Analysis -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Salary Analysis</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Salary structure and distribution</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="salary-anal">View</button>
+                                <button class="btn-small" data-report="salary-anal" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Leave Balance -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Leave Balance Report</h4>
+                                <span class="icon">📋</span>
+                            </div>
+                            <p class="report-description">Leave usage and balance tracking</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="leave-bal">View</button>
+                                <button class="btn-small" data-report="leave-bal" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- OPERATIONS REPORTS TAB -->
+                <section class="tab-content" id="operations">
+                    <div class="tab-header">
+                        <h3>Operations & Expense Reports</h3>
+                        <div class="tab-actions">
+                            <input type="date" id="opsStartDate" class="form-input">
+                            <input type="date" id="opsEndDate" class="form-input">
+                            <button class="btn btn-secondary" id="opsRefreshBtn">
+                                <span class="icon">🔄</span> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Operations Summary Cards -->
+                    <div class="summary-cards" id="opsSummaryCards">
+                        <div class="summary-card">
+                            <div class="card-label">Total Expenses</div>
+                            <div class="card-value" id="totalExpensesOps">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Operational Exp</div>
+                            <div class="card-value" id="operationalExpOps">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Production Exp</div>
+                            <div class="card-value" id="productionExpOps">0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-label">Outstanding Cheques</div>
+                            <div class="card-value" id="outstandingCheques">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Operations Reports Grid -->
+                    <div class="reports-grid" id="opsReportsGrid">
+                        <!-- Expense Summary -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Expense Summary</h4>
+                                <span class="icon">💸</span>
+                            </div>
+                            <p class="report-description">Overall expense tracking</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="exp-summary">View</button>
+                                <button class="btn-small" data-report="exp-summary" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Category Wise Expense -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Category Wise Expense</h4>
+                                <span class="icon">📊</span>
+                            </div>
+                            <p class="report-description">Expenses by category</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="exp-category">View</button>
+                                <button class="btn-small" data-report="exp-category" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Operational vs Production -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Operational vs Production</h4>
+                                <span class="icon">⚖️</span>
+                            </div>
+                            <p class="report-description">Expense type comparison</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="exp-comp">View</button>
+                                <button class="btn-small" data-report="exp-comp" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Budget vs Actual -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Budget vs Actual</h4>
+                                <span class="icon">🎯</span>
+                            </div>
+                            <p class="report-description">Budget performance analysis</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="budget-actual">View</button>
+                                <button class="btn-small" data-report="budget-actual" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Cheque Status -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Cheque Status Report</h4>
+                                <span class="icon">🏦</span>
+                            </div>
+                            <p class="report-description">Issued and received cheques tracking</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="cheque-status">View</button>
+                                <button class="btn-small" data-report="cheque-status" data-action="export">Export</button>
+                            </div>
+                        </div>
+
+                        <!-- Bank Reconciliation -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4>Bank Reconciliation</h4>
+                                <span class="icon">🏦</span>
+                            </div>
+                            <p class="report-description">Bank and book reconciliation</p>
+                            <div class="report-actions">
+                                <button class="btn-small" data-report="bank-recon">View</button>
+                                <button class="btn-small" data-report="bank-recon" data-action="export">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- View Report Modal -->
+    <div class="modal" id="viewReportModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="reportTitle">Report</h3>
+                <button class="modal-close" data-modal="viewReportModal">&times;</button>
+            </div>
+            <div class="report-content" id="reportContent">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="printReportBtn">🖨️ Print</button>
+                <button class="btn btn-secondary" id="exportReportBtn">📥 Export to Excel</button>
+                <button class="btn btn-secondary" id="emailReportBtn">✉️ Email Report</button>
+                <button class="btn btn-secondary" data-modal="viewReportModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Report Modal -->
+    <div class="modal" id="scheduleReportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Schedule Report Generation</h3>
+                <button class="modal-close" data-modal="scheduleReportModal">&times;</button>
+            </div>
+            <form id="scheduleReportForm" class="form">
+                <div class="form-group">
+                    <label for="reportFrequency">Frequency</label>
+                    <select id="reportFrequency" class="form-select" required>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reportEmail">Email To</label>
+                    <input type="email" id="reportEmail" class="form-input" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Schedule</button>
+                    <button type="button" class="btn btn-secondary" data-modal="scheduleReportModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="reports.js"></script>
+</body>
+</html>
