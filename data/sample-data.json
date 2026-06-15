@@ -1,0 +1,215 @@
+{
+  "subGarments": [
+    {
+      "id": "SG001",
+      "agentName": "Ravi Kumar",
+      "invoiceNumber": "INV-2024-001",
+      "issueDate": "2024-06-01",
+      "quantity": 500,
+      "layers": 5,
+      "sizesPerLayer": 4,
+      "quantityPerSize": 25,
+      "expectedQty": 500,
+      "accessories": [
+        {"name": "Buttons", "quantity": 500},
+        {"name": "Thread", "quantity": 100}
+      ],
+      "cuttingNotes": "Cut carefully, fabric sensitive",
+      "ratePerUnit": 2.50,
+      "gradeA": 480,
+      "damaged": 15,
+      "waste": 5,
+      "shortage": 0,
+      "grossBill": 1237.50,
+      "status": "completed",
+      "finishingReceipt": {
+        "receivedDate": "2024-06-10",
+        "quantity": 495,
+        "notes": "Good condition"
+      },
+      "paymentReceipt": {
+        "date": "2024-06-15",
+        "amount": 1237.50,
+        "method": "cash"
+      }
+    },
+    {
+      "id": "SG002",
+      "agentName": "Priya Sharma",
+      "invoiceNumber": "INV-2024-002",
+      "issueDate": "2024-06-05",
+      "quantity": 300,
+      "layers": 3,
+      "sizesPerLayer": 4,
+      "quantityPerSize": 25,
+      "expectedQty": 300,
+      "accessories": [{"name": "Zippers", "quantity": 300}],
+      "cuttingNotes": "Standard cutting",
+      "ratePerUnit": 3.00,
+      "gradeA": 290,
+      "damaged": 8,
+      "waste": 2,
+      "shortage": 0,
+      "grossBill": 894.00,
+      "status": "pending",
+      "finishingReceipt": null,
+      "paymentReceipt": null
+    }
+  ],
+  "customers": [
+    {
+      "id": "CUST001",
+      "name": "Global Textiles Ltd",
+      "contactPerson": "John Doe",
+      "email": "john@globaltextiles.com",
+      "phone": "+94771234567",
+      "address": "123 Main St, Colombo",
+      "creditLimit": 50000,
+      "outstandingBalance": 12500,
+      "transactions": [
+        {"date": "2024-06-01", "type": "invoice", "amount": 15000, "balance": 15000},
+        {"date": "2024-06-10", "type": "payment", "amount": 2500, "balance": 12500}
+      ]
+    },
+    {
+      "id": "CUST002",
+      "name": "Fashion Brands Inc",
+      "contactPerson": "Sarah Smith",
+      "email": "sarah@fashionbrands.com",
+      "phone": "+94772345678",
+      "address": "456 Oak Ave, Kandy",
+      "creditLimit": 30000,
+      "outstandingBalance": 0,
+      "transactions": [
+        {"date": "2024-05-20", "type": "invoice", "amount": 8000, "balance": 8000},
+        {"date": "2024-06-05", "type": "payment", "amount": 8000, "balance": 0}
+      ]
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "SUP001",
+      "name": "Fabric World",
+      "contactPerson": "Ahmed Khan",
+      "email": "ahmed@fabricworld.com",
+      "phone": "+94773456789",
+      "address": "789 Textile Rd, Galle",
+      "paymentTerms": "Net 30",
+      "orders": [
+        {"id": "ORD001", "date": "2024-06-01", "amount": 25000, "status": "delivered"}
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "id": "INV001",
+      "itemName": "Cotton Fabric Roll",
+      "category": "Raw Materials",
+      "currentStock": 500,
+      "unitCost": 50.00,
+      "stockValue": 25000,
+      "location": "Warehouse A",
+      "reorderLevel": 100,
+      "lastRestocked": "2024-06-01"
+    },
+    {
+      "id": "INV002",
+      "itemName": "Polyester Thread",
+      "category": "Accessories",
+      "currentStock": 1000,
+      "unitCost": 2.00,
+      "stockValue": 2000,
+      "location": "Warehouse B",
+      "reorderLevel": 200,
+      "lastRestocked": "2024-05-25"
+    }
+  ],
+  "productionCosting": [
+    {
+      "id": "PC001",
+      "process": "Cutting",
+      "ratePerUnit": 1.50,
+      "applicableFrom": "2024-01-01"
+    },
+    {
+      "id": "PC002",
+      "process": "Stitching",
+      "ratePerUnit": 2.50,
+      "applicableFrom": "2024-01-01"
+    },
+    {
+      "id": "PC003",
+      "process": "Finishing",
+      "ratePerUnit": 1.00,
+      "applicableFrom": "2024-01-01"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "EXP001",
+      "category": "Utilities",
+      "description": "Electricity Bill - June",
+      "amount": 5000,
+      "date": "2024-06-01",
+      "status": "paid"
+    },
+    {
+      "id": "EXP002",
+      "category": "Maintenance",
+      "description": "Machine Repair",
+      "amount": 8500,
+      "date": "2024-06-05",
+      "status": "pending"
+    }
+  ],
+  "staff": [
+    {
+      "id": "STAFF001",
+      "name": "Kasun Perera",
+      "position": "Supervisor",
+      "email": "kasun@fujisan.com",
+      "phone": "+94774567890",
+      "salary": 45000,
+      "joinDate": "2023-01-15",
+      "status": "active"
+    },
+    {
+      "id": "STAFF002",
+      "name": "Lakshmi Nair",
+      "position": "Quality Inspector",
+      "email": "lakshmi@fujisan.com",
+      "phone": "+94775678901",
+      "salary": 35000,
+      "joinDate": "2023-06-01",
+      "status": "active"
+    }
+  ],
+  "cheques": [
+    {
+      "id": "CHQ001",
+      "chequeNumber": "123456",
+      "issueDate": "2024-06-01",
+      "amount": 50000,
+      "status": "cleared",
+      "clearanceDate": "2024-06-05",
+      "payee": "Global Textiles Ltd"
+    },
+    {
+      "id": "CHQ002",
+      "chequeNumber": "123457",
+      "issueDate": "2024-06-10",
+      "amount": 30000,
+      "status": "pending",
+      "clearanceDate": null,
+      "payee": "Fabric World"
+    }
+  ],
+  "settings": {
+    "companyName": "FujiSan Lanka Pvt Ltd",
+    "theme": "dark",
+    "accentColor": "blue",
+    "currency": "LKR",
+    "dateFormat": "DD/MM/YYYY",
+    "language": "en"
+  }
+}
