@@ -1,0 +1,476 @@
+/* ============================================================================
+   SUPPLIERS.CSS - Suppliers Module Styling
+   ============================================================================
+   Purpose: Suppliers module styling - supplier management and tracking
+   ============================================================================ */
+
+/* ============================================================================
+   MODULE CONTAINER
+   ============================================================================ */
+
+.suppliers-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+}
+
+.suppliers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.suppliers-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.suppliers-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ============================================================================
+   SEARCH & FILTERS
+   ============================================================================ */
+
+.suppliers-search-bar {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-sm);
+  backdrop-filter: blur(10px);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.suppliers-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  outline: none;
+}
+
+.suppliers-search-input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.suppliers-filter-btn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal) var(--easing-ease-out);
+}
+
+.suppliers-filter-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.suppliers-filter-btn.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+/* ============================================================================
+   SUPPLIER STATS
+   ============================================================================ */
+
+.suppliers-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.supplier-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--spacing-sm);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.supplier-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.supplier-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================================================
+   SUPPLIER CARDS GRID
+   ============================================================================ */
+
+.suppliers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.supplier-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal) var(--easing-ease-out);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.supplier-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-color-light));
+  opacity: 0;
+  transition: opacity var(--transition-normal) var(--easing-ease-out);
+}
+
+.supplier-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent-color-transparent);
+}
+
+.supplier-card:hover::before {
+  opacity: 1;
+}
+
+.supplier-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.supplier-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  background: rgba(var(--accent-rgb), 0.1);
+  border-radius: 4px;
+  color: var(--accent-color);
+}
+
+.supplier-badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.supplier-info {
+  margin-bottom: var(--spacing-md);
+}
+
+.supplier-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.supplier-code {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================================================
+   SUPPLIER CONTACT
+   ============================================================================ */
+
+.supplier-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.contact-entry-icon {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.contact-entry-value {
+  color: var(--color-text-primary);
+}
+
+/* ============================================================================
+   SUPPLIER PRICING
+   ============================================================================ */
+
+.supplier-pricing {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pricing-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--spacing-xs);
+  background: var(--color-bg-tertiary);
+  border-radius: 6px;
+}
+
+.pricing-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pricing-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================================================
+   SUPPLIER ACTIONS
+   ============================================================================ */
+
+.supplier-card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.supplier-action-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal) var(--easing-ease-out);
+}
+
+.supplier-action-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.supplier-action-btn.primary {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+.supplier-action-btn.primary:hover {
+  background: var(--accent-color-dark);
+}
+
+/* ============================================================================
+   SUPPLIER TABLE
+   ============================================================================ */
+
+.suppliers-table-container {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.suppliers-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.suppliers-table thead {
+  background: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.suppliers-table th {
+  padding: var(--spacing-sm);
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-right: 1px solid var(--color-border);
+}
+
+.suppliers-table th:last-child {
+  border-right: none;
+}
+
+.suppliers-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-normal) var(--easing-ease-out);
+}
+
+.suppliers-table tbody tr:hover {
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.suppliers-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.suppliers-table td {
+  padding: var(--spacing-sm);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  border-right: 1px solid var(--color-border);
+}
+
+.suppliers-table td:last-child {
+  border-right: none;
+}
+
+.supplier-name-cell {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.supplier-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: white;
+  flex-shrink: 0;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  .suppliers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .suppliers-container {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .suppliers-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .suppliers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .suppliers-search-bar {
+    flex-direction: column;
+  }
+
+  .suppliers-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .supplier-pricing {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .suppliers-container {
+    padding: var(--spacing-xs);
+  }
+
+  .suppliers-title {
+    font-size: 22px;
+  }
+
+  .supplier-card {
+    padding: var(--spacing-sm);
+  }
+
+  .suppliers-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .supplier-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .supplier-badge {
+    align-self: flex-start;
+    margin-top: var(--spacing-xs);
+  }
+}
+
+/* ============================================================================
+   END OF SUPPLIERS.CSS
+   ============================================================================ */
