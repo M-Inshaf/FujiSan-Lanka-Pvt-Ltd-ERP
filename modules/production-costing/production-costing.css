@@ -1,0 +1,526 @@
+/* ============================================================================
+   PRODUCTION-COSTING.CSS - Production Costing Module Styling
+   ============================================================================
+   Purpose: Production Costing module - cost tracking and calculations
+   ============================================================================ */
+
+/* ============================================================================
+   MODULE CONTAINER
+   ============================================================================ */
+
+.production-costing-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+}
+
+.production-costing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.production-costing-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.production-costing-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ============================================================================
+   COST SUMMARY
+   ============================================================================ */
+
+.cost-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cost-summary-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.cost-summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-color-light));
+  opacity: 0;
+  transition: opacity var(--transition-normal) var(--easing-ease-out);
+}
+
+.cost-summary-card:hover::before {
+  opacity: 1;
+}
+
+.cost-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.cost-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 8px;
+}
+
+.cost-change {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cost-change.positive {
+  color: var(--color-danger);
+}
+
+.cost-change.negative {
+  color: var(--color-success);
+}
+
+/* ============================================================================
+   COST BREAKDOWN
+   ============================================================================ */
+
+.cost-breakdown {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  margin-bottom: var(--spacing-lg);
+}
+
+.cost-breakdown-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breakdown-list {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  transition: all var(--transition-normal) var(--easing-ease-out);
+}
+
+.breakdown-item:hover {
+  border-color: var(--accent-color-transparent);
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.breakdown-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.breakdown-item-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+  margin: 0 12px;
+}
+
+.breakdown-item-percentage {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  min-width: 50px;
+  text-align: right;
+}
+
+/* ============================================================================
+   COST DISTRIBUTION CHART
+   ============================================================================ */
+
+.cost-distribution {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  margin-bottom: var(--spacing-lg);
+}
+
+.distribution-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.distribution-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  position: relative;
+}
+
+.distribution-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-secondary);
+}
+
+.distribution-placeholder-icon {
+  font-size: 48px;
+  opacity: 0.3;
+}
+
+/* ============================================================================
+   PRODUCTION ITEMS COSTING
+   ============================================================================ */
+
+.production-items-costing {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.production-items-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.production-items-table thead {
+  background: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.production-items-table th {
+  padding: var(--spacing-sm);
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-right: 1px solid var(--color-border);
+}
+
+.production-items-table th:last-child {
+  border-right: none;
+}
+
+.production-items-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-normal) var(--easing-ease-out);
+}
+
+.production-items-table tbody tr:hover {
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.production-items-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.production-items-table td {
+  padding: var(--spacing-sm);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  border-right: 1px solid var(--color-border);
+}
+
+.production-items-table td:last-child {
+  border-right: none;
+}
+
+.cost-cell {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+}
+
+.cost-cell.highlight {
+  color: var(--accent-color);
+}
+
+/* ============================================================================
+   MATERIAL COSTS
+   ============================================================================ */
+
+.material-costs {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  margin-bottom: var(--spacing-lg);
+}
+
+.material-costs-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.material-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.material-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--spacing-sm);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.material-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.material-quantity {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.material-unit-cost {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.material-total-cost {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-color);
+  font-family: 'Courier New', monospace;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ============================================================================
+   LABOR COSTS
+   ============================================================================ */
+
+.labor-costs {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  margin-bottom: var(--spacing-lg);
+}
+
+.labor-costs-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.labor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.labor-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--spacing-sm);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.labor-role {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.labor-hours {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.labor-rate {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.labor-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-color);
+  font-family: 'Courier New', monospace;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ============================================================================
+   OVERHEAD & MARGINS
+   ============================================================================ */
+
+.overhead-margins {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+}
+
+.overhead-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.overhead-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: var(--spacing-sm);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.overhead-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.overhead-input {
+  width: 100%;
+}
+
+.overhead-calculated {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-color);
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .production-costing-container {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .production-costing-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .cost-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  .material-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .labor-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .overhead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .breakdown-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .production-costing-container {
+    padding: var(--spacing-xs);
+  }
+
+  .production-costing-title {
+    font-size: 22px;
+  }
+
+  .cost-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .cost-value {
+    font-size: 22px;
+  }
+
+  .breakdown-item {
+    padding: var(--spacing-xs);
+  }
+
+  .distribution-chart {
+    min-height: 250px;
+  }
+}
+
+/* ============================================================================
+   END OF PRODUCTION-COSTING.CSS
+   ============================================================================ */
