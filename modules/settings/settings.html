@@ -1,0 +1,621 @@
+<!-- HUMMINGBIRD CLOTHING ERP - SETTINGS MODULE -->
+<!-- modules/settings/settings.html -->
+
+<div id="settings-module" class="module-container">
+  
+  <!-- SETTINGS HEADER -->
+  <div class="module-header">
+    <div class="header-content">
+      <h1 class="module-title">⚙️ Settings</h1>
+      <p class="module-subtitle">Manage application preferences, themes, and data</p>
+    </div>
+  </div>
+
+  <!-- SETTINGS TABS NAVIGATION -->
+  <div class="settings-nav-tabs">
+    <button class="nav-tab active" data-tab="appearance">
+      🎨 Appearance
+    </button>
+    <button class="nav-tab" data-tab="master-data">
+      📋 Master Data
+    </button>
+    <button class="nav-tab" data-tab="backup">
+      💾 Backup & Restore
+    </button>
+    <button class="nav-tab" data-tab="system">
+      🔧 System
+    </button>
+  </div>
+
+  <!-- SETTINGS CONTENT -->
+  <div class="settings-content">
+
+    <!-- TAB 1: APPEARANCE SETTINGS -->
+    <div class="settings-tab active" id="tab-appearance" data-tab="appearance">
+      
+      <div class="settings-section">
+        <h2 class="section-title">Theme Settings</h2>
+        <p class="section-description">Customize the visual appearance of your application</p>
+
+        <!-- THEME MODE SELECTION -->
+        <div class="settings-card">
+          <div class="setting-item">
+            <div class="setting-label">
+              <label class="setting-title">Application Theme</label>
+              <p class="setting-description">Choose between Light and Dark mode</p>
+            </div>
+            <div class="theme-mode-selector">
+              <button class="theme-btn" id="theme-light-btn" data-theme="light">
+                ☀️ Light
+              </button>
+              <button class="theme-btn" id="theme-dark-btn" data-theme="dark">
+                🌙 Dark
+              </button>
+              <button class="theme-btn" id="theme-auto-btn" data-theme="auto">
+                🔄 Auto
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACCENT COLOR SELECTION -->
+        <div class="settings-card">
+          <div class="setting-item">
+            <div class="setting-label">
+              <label class="setting-title">Accent Color</label>
+              <p class="setting-description">Select your preferred accent color theme</p>
+            </div>
+            <div class="accent-color-selector">
+              <button class="color-option" id="accent-blue" data-accent="blue" style="background-color: #3B82F6;" title="Blue">
+                <span class="color-check">✓</span>
+              </button>
+              <button class="color-option" id="accent-purple" data-accent="purple" style="background-color: #A855F7;" title="Purple">
+                <span class="color-check">✓</span>
+              </button>
+              <button class="color-option" id="accent-green" data-accent="green" style="background-color: #10B981;" title="Green">
+                <span class="color-check">✓</span>
+              </button>
+              <button class="color-option" id="accent-red" data-accent="red" style="background-color: #EF4444;" title="Red">
+                <span class="color-check">✓</span>
+              </button>
+              <button class="color-option" id="accent-cyan" data-accent="cyan" style="background-color: #06B6D4;" title="Cyan">
+                <span class="color-check">✓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANIMATION & EFFECTS -->
+        <div class="settings-card">
+          <div class="setting-item">
+            <div class="setting-label">
+              <label class="setting-title">Animations</label>
+              <p class="setting-description">Enable or disable interface animations</p>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="animations-toggle" class="toggle-input" checked>
+              <label for="animations-toggle" class="toggle-label">
+                <span class="toggle-slider"></span>
+                <span class="toggle-text" id="animations-text">Enabled</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TAB 2: MASTER DATA SETTINGS -->
+    <div class="settings-tab" id="tab-master-data" data-tab="master-data">
+      
+      <div class="settings-section">
+        <h2 class="section-title">Master Data Management</h2>
+        <p class="section-description">Configure and manage master data for your operations</p>
+
+        <!-- AGENTS CONFIGURATION -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">👤 Agent Management</h3>
+            <button class="btn-primary btn-sm" id="btn-add-agent">+ Add Agent</button>
+          </div>
+          <div class="card-content">
+            <div class="master-data-table">
+              <div class="table-header">
+                <div class="table-cell">Agent Name</div>
+                <div class="table-cell">Contact</div>
+                <div class="table-cell">Status</div>
+                <div class="table-cell text-center">Actions</div>
+              </div>
+              <div id="agents-list" class="table-body">
+                <!-- Agents will be populated here -->
+                <div class="empty-state">
+                  <p>No agents configured yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCT CATEGORIES -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">📦 Product Categories</h3>
+            <button class="btn-primary btn-sm" id="btn-add-category">+ Add Category</button>
+          </div>
+          <div class="card-content">
+            <div class="master-data-table">
+              <div class="table-header">
+                <div class="table-cell">Category Name</div>
+                <div class="table-cell">Description</div>
+                <div class="table-cell">Items Count</div>
+                <div class="table-cell text-center">Actions</div>
+              </div>
+              <div id="categories-list" class="table-body">
+                <!-- Categories will be populated here -->
+                <div class="empty-state">
+                  <p>No categories configured yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPENSE CATEGORIES -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">💳 Expense Categories</h3>
+            <button class="btn-primary btn-sm" id="btn-add-expense-category">+ Add Category</button>
+          </div>
+          <div class="card-content">
+            <div class="master-data-table">
+              <div class="table-header">
+                <div class="table-cell">Category Name</div>
+                <div class="table-cell">Description</div>
+                <div class="table-cell">Active</div>
+                <div class="table-cell text-center">Actions</div>
+              </div>
+              <div id="expense-categories-list" class="table-body">
+                <!-- Expense categories will be populated here -->
+                <div class="empty-state">
+                  <p>No expense categories configured yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UNITS OF MEASUREMENT -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">📏 Units of Measurement</h3>
+            <button class="btn-primary btn-sm" id="btn-add-unit">+ Add Unit</button>
+          </div>
+          <div class="card-content">
+            <div class="master-data-table">
+              <div class="table-header">
+                <div class="table-cell">Unit Name</div>
+                <div class="table-cell">Symbol</div>
+                <div class="table-cell">Description</div>
+                <div class="table-cell text-center">Actions</div>
+              </div>
+              <div id="units-list" class="table-body">
+                <!-- Units will be populated here -->
+                <div class="empty-state">
+                  <p>No units configured yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TAB 3: BACKUP & RESTORE -->
+    <div class="settings-tab" id="tab-backup" data-tab="backup">
+      
+      <div class="settings-section">
+        <h2 class="section-title">Data Backup & Restore</h2>
+        <p class="section-description">Manage your application data backups and restore points</p>
+
+        <!-- BACKUP SETTINGS -->
+        <div class="settings-card">
+          <div class="setting-item">
+            <div class="setting-label">
+              <label class="setting-title">Automatic Backup</label>
+              <p class="setting-description">Enable automatic daily backups at midnight</p>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="auto-backup-toggle" class="toggle-input" checked>
+              <label for="auto-backup-toggle" class="toggle-label">
+                <span class="toggle-slider"></span>
+                <span class="toggle-text" id="auto-backup-text">Enabled</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACKUP FREQUENCY -->
+        <div class="settings-card">
+          <div class="setting-item">
+            <div class="setting-label">
+              <label class="setting-title">Backup Frequency</label>
+              <p class="setting-description">How often to create automatic backups</p>
+            </div>
+            <div class="form-group">
+              <select id="backup-frequency" class="form-select">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- MANUAL BACKUP -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">💾 Create Manual Backup</h3>
+          </div>
+          <div class="card-content">
+            <div class="backup-info">
+              <p>Create an instant backup of your entire application data</p>
+              <p class="text-muted">Last backup: <span id="last-backup-time">Never</span></p>
+            </div>
+            <button class="btn-primary btn-lg" id="btn-create-backup">
+              💾 Create Backup Now
+            </button>
+          </div>
+        </div>
+
+        <!-- RESTORE FROM BACKUP -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">↩️ Restore from Backup</h3>
+          </div>
+          <div class="card-content">
+            <div id="backups-list" class="backups-container">
+              <!-- Backups will be listed here -->
+              <div class="empty-state">
+                <p>No backups available</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DATA EXPORT -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">📤 Export Data</h3>
+          </div>
+          <div class="card-content">
+            <p class="mb-3">Export your data in various formats for analysis or sharing</p>
+            <div class="button-group">
+              <button class="btn-secondary" id="btn-export-json">
+                📄 Export as JSON
+              </button>
+              <button class="btn-secondary" id="btn-export-excel">
+                📊 Export as Excel
+              </button>
+              <button class="btn-secondary" id="btn-export-csv">
+                📋 Export as CSV
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DATA DANGER ZONE -->
+        <div class="settings-card danger-zone">
+          <div class="card-header">
+            <h3 class="card-title">⚠️ Danger Zone</h3>
+          </div>
+          <div class="card-content">
+            <div class="danger-item">
+              <div class="setting-label">
+                <label class="setting-title">Clear All Data</label>
+                <p class="setting-description">This action cannot be undone. All application data will be permanently deleted.</p>
+              </div>
+              <button class="btn-danger" id="btn-clear-all-data">
+                🗑️ Clear All Data
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TAB 4: SYSTEM SETTINGS -->
+    <div class="settings-tab" id="tab-system" data-tab="system">
+      
+      <div class="settings-section">
+        <h2 class="section-title">System Information</h2>
+        <p class="section-description">View system details and application information</p>
+
+        <!-- ABOUT APPLICATION -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">ℹ️ About Application</h3>
+          </div>
+          <div class="card-content">
+            <div class="info-grid">
+              <div class="info-item">
+                <label>Application Name</label>
+                <value>Hummingbird Clothing ERP</value>
+              </div>
+              <div class="info-item">
+                <label>Version</label>
+                <value id="app-version">1.0.0</value>
+              </div>
+              <div class="info-item">
+                <label>Company</label>
+                <value>FujiSan Lanka Pvt Ltd</value>
+              </div>
+              <div class="info-item">
+                <label>Build Date</label>
+                <value id="build-date">-</value>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DATABASE INFO -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">💾 Database Information</h3>
+          </div>
+          <div class="card-content">
+            <div class="info-grid">
+              <div class="info-item">
+                <label>Storage Type</label>
+                <value>LocalStorage + IndexedDB</value>
+              </div>
+              <div class="info-item">
+                <label>Used Storage</label>
+                <value id="storage-used">-</value>
+              </div>
+              <div class="info-item">
+                <label>Total Records</label>
+                <value id="total-records">-</value>
+              </div>
+              <div class="info-item">
+                <label>Last Sync</label>
+                <value id="last-sync">Never</value>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- APP PERFORMANCE -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">⚡ Performance</h3>
+          </div>
+          <div class="card-content">
+            <div class="info-grid">
+              <div class="info-item">
+                <label>Memory Usage</label>
+                <value id="memory-usage">-</value>
+              </div>
+              <div class="info-item">
+                <label>Uptime</label>
+                <value id="app-uptime">-</value>
+              </div>
+              <div class="info-item">
+                <label>API Response Time</label>
+                <value id="api-response-time">-</value>
+              </div>
+              <div class="info-item">
+                <label>Database Queries</label>
+                <value id="db-queries">-</value>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTIFICATION PREFERENCES -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">🔔 Notifications</h3>
+          </div>
+          <div class="card-content">
+            <div class="setting-item">
+              <div class="setting-label">
+                <label class="setting-title">Desktop Notifications</label>
+                <p class="setting-description">Receive desktop notifications for important events</p>
+              </div>
+              <div class="toggle-switch">
+                <input type="checkbox" id="desktop-notifications-toggle" class="toggle-input" checked>
+                <label for="desktop-notifications-toggle" class="toggle-label">
+                  <span class="toggle-slider"></span>
+                  <span class="toggle-text" id="notifications-text">Enabled</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-label">
+                <label class="setting-title">Sound Notifications</label>
+                <p class="setting-description">Play sound for important alerts</p>
+              </div>
+              <div class="toggle-switch">
+                <input type="checkbox" id="sound-notifications-toggle" class="toggle-input" checked>
+                <label for="sound-notifications-toggle" class="toggle-label">
+                  <span class="toggle-slider"></span>
+                  <span class="toggle-text" id="sound-notifications-text">Enabled</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-label">
+                <label class="setting-title">Activity Logging</label>
+                <p class="setting-description">Log all application activities for audit trail</p>
+              </div>
+              <div class="toggle-switch">
+                <input type="checkbox" id="activity-logging-toggle" class="toggle-input" checked>
+                <label for="activity-logging-toggle" class="toggle-label">
+                  <span class="toggle-slider"></span>
+                  <span class="toggle-text" id="activity-logging-text">Enabled</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEVELOPER OPTIONS -->
+        <div class="settings-card">
+          <div class="card-header">
+            <h3 class="card-title">👨‍💻 Developer Options</h3>
+          </div>
+          <div class="card-content">
+            <button class="btn-secondary btn-sm" id="btn-open-devtools">
+              🔧 Open Developer Tools
+            </button>
+            <button class="btn-secondary btn-sm" id="btn-view-logs">
+              📜 View Application Logs
+            </button>
+            <button class="btn-secondary btn-sm" id="btn-reset-cache">
+              🔄 Reset Cache
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODALS -->
+
+<!-- ADD AGENT MODAL -->
+<div id="modal-add-agent" class="modal" style="display: none;">
+  <div class="modal-backdrop"></div>
+  <div class="modal-container modal-md">
+    <div class="modal-header">
+      <h2 class="modal-title">Add New Agent</h2>
+      <button class="modal-close" data-modal="modal-add-agent">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="form-add-agent" class="form">
+        <div class="form-group">
+          <label for="agent-name" class="form-label">Agent Name *</label>
+          <input type="text" id="agent-name" class="form-input" placeholder="Enter agent name" required>
+        </div>
+        <div class="form-group">
+          <label for="agent-phone" class="form-label">Phone Number</label>
+          <input type="tel" id="agent-phone" class="form-input" placeholder="Enter phone number">
+        </div>
+        <div class="form-group">
+          <label for="agent-email" class="form-label">Email</label>
+          <input type="email" id="agent-email" class="form-input" placeholder="Enter email address">
+        </div>
+        <div class="form-group">
+          <label for="agent-address" class="form-label">Address</label>
+          <textarea id="agent-address" class="form-textarea" placeholder="Enter address"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="agent-status" class="form-label">Status</label>
+          <select id="agent-status" class="form-select">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" data-modal="modal-add-agent">Cancel</button>
+      <button class="btn-primary" id="btn-save-agent">Save Agent</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD CATEGORY MODAL -->
+<div id="modal-add-category" class="modal" style="display: none;">
+  <div class="modal-backdrop"></div>
+  <div class="modal-container modal-md">
+    <div class="modal-header">
+      <h2 class="modal-title">Add New Category</h2>
+      <button class="modal-close" data-modal="modal-add-category">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="form-add-category" class="form">
+        <div class="form-group">
+          <label for="category-name" class="form-label">Category Name *</label>
+          <input type="text" id="category-name" class="form-input" placeholder="Enter category name" required>
+        </div>
+        <div class="form-group">
+          <label for="category-description" class="form-label">Description</label>
+          <textarea id="category-description" class="form-textarea" placeholder="Enter category description"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" data-modal="modal-add-category">Cancel</button>
+      <button class="btn-primary" id="btn-save-category">Save Category</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM CLEAR DATA MODAL -->
+<div id="modal-confirm-clear" class="modal" style="display: none;">
+  <div class="modal-backdrop"></div>
+  <div class="modal-container modal-sm">
+    <div class="modal-header">
+      <h2 class="modal-title">⚠️ Clear All Data</h2>
+      <button class="modal-close" data-modal="modal-confirm-clear">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Warning:</strong> This action cannot be undone.</p>
+      <p>Are you sure you want to permanently delete all application data?</p>
+      <div class="form-group mt-3">
+        <label class="form-label">Type "DELETE" to confirm:</label>
+        <input type="text" id="confirm-delete-text" class="form-input" placeholder="Type DELETE">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" data-modal="modal-confirm-clear">Cancel</button>
+      <button class="btn-danger" id="btn-confirm-clear" disabled>Clear All Data</button>
+    </div>
+  </div>
+</div>
+
+<!-- BACKUP RESTORE MODAL -->
+<div id="modal-restore-backup" class="modal" style="display: none;">
+  <div class="modal-backdrop"></div>
+  <div class="modal-container modal-md">
+    <div class="modal-header">
+      <h2 class="modal-title">↩️ Restore Backup</h2>
+      <button class="modal-close" data-modal="modal-restore-backup">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>This will restore your data to the selected backup point. Current data will be backed up first.</p>
+      <p><strong>Backup Date:</strong> <span id="restore-backup-date">-</span></p>
+      <p><strong>Data Size:</strong> <span id="restore-backup-size">-</span></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" data-modal="modal-restore-backup">Cancel</button>
+      <button class="btn-warning" id="btn-confirm-restore">Restore This Backup</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS TOAST -->
+<div id="toast-success" class="toast toast-success" style="display: none;">
+  <div class="toast-icon">✓</div>
+  <div class="toast-message" id="toast-message">Operation completed successfully</div>
+  <button class="toast-close">&times;</button>
+</div>
+
+<!-- ERROR TOAST -->
+<div id="toast-error" class="toast toast-error" style="display: none;">
+  <div class="toast-icon">✕</div>
+  <div class="toast-message" id="toast-error-message">An error occurred</div>
+  <button class="toast-close">&times;</button>
+</div>
