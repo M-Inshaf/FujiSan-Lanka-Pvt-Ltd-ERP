@@ -6,26 +6,26 @@
     <title>FujiSan Lanka ERP - Hummingbird Clothing</title>
 
     <!-- Global Styles -->
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/forms.css">
-    <link rel="stylesheet" href="assets/css/tables.css">
-    <link rel="stylesheet" href="assets/css/modals.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/theme.css">
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/forms.css">
+    <link rel="stylesheet" href="./assets/css/tables.css">
+    <link rel="stylesheet" href="./assets/css/modals.css">
+    <link rel="stylesheet" href="./assets/css/animations.css">
 
     <!-- Module Styles -->
-    <link rel="stylesheet" href="modules/dashboard/dashboard.css">
-    <link rel="stylesheet" href="modules/sub-garments/sub-garments.css">
-    <link rel="stylesheet" href="modules/customers/customers.css">
-    <link rel="stylesheet" href="modules/suppliers/suppliers.css">
-    <link rel="stylesheet" href="modules/inventory/inventory.css">
-    <link rel="stylesheet" href="modules/production-costing/production-costing.css">
-    <link rel="stylesheet" href="modules/expenses/expenses.css">
-    <link rel="stylesheet" href="modules/staff/staff.css">
-    <link rel="stylesheet" href="modules/reports/reports.css">
-    <link rel="stylesheet" href="modules/cheque-tracker/cheque-tracker.css">
-    <link rel="stylesheet" href="modules/settings/settings.css">
+    <link rel="stylesheet" href="./modules/dashboard/dashboard.css">
+    <link rel="stylesheet" href="./modules/sub-garments/sub-garments.css">
+    <link rel="stylesheet" href="./modules/customers/customers.css">
+    <link rel="stylesheet" href="./modules/suppliers/suppliers.css">
+    <link rel="stylesheet" href="./modules/inventory/inventory.css">
+    <link rel="stylesheet" href="./modules/production-costing/production-costing.css">
+    <link rel="stylesheet" href="./modules/expenses/expenses.css">
+    <link rel="stylesheet" href="./modules/staff/staff.css">
+    <link rel="stylesheet" href="./modules/reports/reports.css">
+    <link rel="stylesheet" href="./modules/cheque-tracker/cheque-tracker.css">
+    <link rel="stylesheet" href="./modules/settings/settings.css">
 
     <style>
         /* Main Layout Structure */
@@ -98,167 +98,92 @@
             color: var(--text-secondary);
             cursor: pointer;
             padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 6px;
             transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sidebar-collapse-btn:hover {
-            background: var(--bg-hover);
-            color: var(--text-primary);
-        }
-
-        /* Sidebar Menu */
-        .sidebar-menu {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px 8px;
-        }
-
-        .sidebar-menu::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar-menu::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .sidebar-menu::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 3px;
-        }
-
-        .sidebar-menu::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary);
-        }
-
-        .menu-section {
-            margin-bottom: 8px;
-        }
-
-        .menu-section-title {
-            padding: 12px 12px 8px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--text-tertiary);
-            letter-spacing: 0.5px;
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar.collapsed .menu-section-title {
-            opacity: 0;
-            height: 0;
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            user-select: none;
-            white-space: nowrap;
-            font-size: 14px;
-            position: relative;
-        }
-
-        .menu-item:hover {
-            background: var(--bg-hover);
-            color: var(--text-primary);
-        }
-
-        .menu-item.active {
-            background: linear-gradient(90deg, rgba(255, 107, 107, 0.2) 0%, transparent 100%);
-            color: #ff6b6b;
-            font-weight: 500;
-        }
-
-        .menu-item.active::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #ff6b6b;
-            border-radius: 0 3px 3px 0;
-        }
-
-        .menu-item-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
             flex-shrink: 0;
         }
 
-        .menu-item-label {
-            flex: 1;
-            transition: opacity 0.3s ease;
+        .sidebar-collapse-btn:hover {
+            background: var(--bg-tertiary);
         }
 
-        .sidebar.collapsed .menu-item-label {
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--info-color);
+            color: white;
+            border-left-color: white;
+        }
+
+        .sidebar.collapsed .nav-item {
+            padding: 12px 8px;
+            justify-content: center;
+        }
+
+        .sidebar.collapsed .nav-item-label {
             opacity: 0;
             width: 0;
             overflow: hidden;
         }
 
-        /* Sidebar Footer */
         .sidebar-footer {
-            padding: 12px 8px;
+            padding: 16px;
             border-top: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
-        .sidebar-footer-item {
+        .sidebar-actions {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
+            gap: 8px;
+        }
+
+        .sidebar-action-btn {
+            flex: 1;
+            padding: 8px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 4px;
             color: var(--text-secondary);
             cursor: pointer;
-            border-radius: 8px;
             transition: all 0.2s ease;
-            font-size: 14px;
+            font-size: 12px;
         }
 
-        .sidebar-footer-item:hover {
-            background: var(--bg-hover);
-            color: var(--text-primary);
-        }
-
-        .sidebar-footer-item-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .sidebar-footer-item-label {
-            flex: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar.collapsed .sidebar-footer-item-label {
-            opacity: 0;
-            width: 0;
-            overflow: hidden;
+        .sidebar-action-btn:hover {
+            background: var(--info-color);
+            color: white;
         }
 
         /* Main Content Area */
@@ -267,665 +192,605 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background: var(--bg-primary);
         }
 
-        /* Top Navbar */
-        .navbar {
-            height: 60px;
+        .top-bar {
+            height: 64px;
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
-            flex-shrink: 0;
-        }
-
-        .navbar-left {
-            display: flex;
-            align-items: center;
             gap: 16px;
         }
 
-        .navbar-title {
-            font-size: 16px;
+        .top-bar-title {
+            font-size: 18px;
             font-weight: 600;
             color: var(--text-primary);
         }
 
-        .navbar-center {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .navbar-right {
+        .top-bar-actions {
             display: flex;
             align-items: center;
             gap: 16px;
+            margin-left: auto;
         }
 
-        .navbar-button {
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            outline: none;
+            width: 150px;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .top-bar-icon-btn {
             background: none;
             border: none;
             color: var(--text-secondary);
             cursor: pointer;
-            padding: 8px;
-            border-radius: 6px;
+            padding: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s ease;
             font-size: 18px;
+        }
+
+        .top-bar-icon-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--error-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .navbar-button:hover {
-            background: var(--bg-hover);
-            color: var(--text-primary);
+        .user-menu:hover {
+            background: var(--info-color);
+            color: white;
         }
 
-        .theme-toggle {
-            position: relative;
-            width: 48px;
+        .user-avatar {
+            width: 28px;
             height: 28px;
-            background: var(--bg-tertiary);
-            border-radius: 14px;
-            cursor: pointer;
-            border: none;
-            display: flex;
-            align-items: center;
-            padding: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle.dark {
-            background: #2d3748;
-        }
-
-        .theme-toggle-circle {
-            width: 24px;
-            height: 24px;
-            background: white;
             border-radius: 50%;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
         }
 
-        .theme-toggle.dark .theme-toggle-circle {
-            transform: translateX(20px);
-        }
-
-        /* Content Area */
         .content-area {
             flex: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            overflow-y: auto;
+            padding: 24px;
+            background: var(--bg-primary);
         }
 
-        /* Tabs */
-        .module-tabs {
-            display: flex;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            overflow-x: auto;
-            overflow-y: hidden;
-            flex-shrink: 0;
-            padding: 0 12px;
-        }
-
-        .module-tabs::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .module-tabs::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .module-tabs::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 2px;
-        }
-
-        .module-tab {
-            padding: 12px 16px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            position: relative;
-            transition: color 0.2s ease;
-        }
-
-        .module-tab:hover {
-            color: var(--text-primary);
-        }
-
-        .module-tab.active {
-            color: #ff6b6b;
-        }
-
-        .module-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: #ff6b6b;
-        }
-
-        .module-tab-close {
-            margin-left: 8px;
-            color: var(--text-tertiary);
-            cursor: pointer;
-            font-size: 16px;
-            transition: color 0.2s ease;
-        }
-
-        .module-tab-close:hover {
-            color: var(--text-primary);
-        }
-
-        /* Module Content Container */
-        .modules-container {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .module-content {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Module Container */
+        .module-container {
             width: 100%;
             height: 100%;
-            overflow: auto;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        .module-content.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .module-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .module-content::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .module-content::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
-        }
-
-        .module-content::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary);
+        .module-container.hidden {
+            display: none;
         }
 
         /* Status Bar */
         .status-bar {
-            height: 32px;
-            background: var(--bg-tertiary);
+            height: 40px;
+            background: var(--bg-secondary);
             border-top: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            padding: 0 16px;
+            padding: 0 24px;
+            justify-content: space-between;
             font-size: 12px;
-            color: var(--text-tertiary);
-            flex-shrink: 0;
+            color: var(--text-secondary);
         }
 
-        .status-bar-item {
+        .status-bar-left,
+        .status-bar-right {
             display: flex;
+            gap: 16px;
             align-items: center;
-            gap: 8px;
-            margin-right: 24px;
         }
 
-        .status-indicator {
+        /* Loading Indicator */
+        .app-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            gap: 16px;
+        }
+
+        .app-loading.hidden {
+            display: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--info-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Scrollbar Styles */
+        ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
-            border-radius: 50%;
-            background: #4caf50;
         }
 
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .sidebar {
-                position: absolute;
-                height: 100%;
-                left: 0;
-                top: 0;
-                box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
-            }
-
-            .sidebar.collapsed {
-                width: 0;
-                opacity: 0;
-            }
-
-            .app-container.sidebar-open .sidebar {
-                width: 280px;
-            }
-
-            .main-content {
-                width: 100%;
-            }
+        ::-webkit-scrollbar-track {
+            background: var(--scroll-track);
         }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-            }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scroll-thumb);
+            border-radius: 4px;
+        }
 
-            .app-container {
-                flex-direction: column;
-            }
-
-            .sidebar-menu {
-                display: none;
-                padding: 0;
-            }
-
-            .sidebar.expanded .sidebar-menu {
-                display: block;
-            }
-
-            .navbar {
-                padding: 0 16px;
-            }
-
-            .navbar-title {
-                font-size: 14px;
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
         }
     </style>
 </head>
 
 <body>
-    <div class="app-container">
-        <!-- Sidebar Navigation -->
-        <div class="sidebar" id="sidebar">
+    <!-- Loading Indicator -->
+    <div class="app-loading" id="appLoading">
+        <div class="spinner"></div>
+        <div class="loading-text">Initializing Hummingbird ERP...</div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container" id="appContainer" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-brand">
                     <div class="sidebar-brand-icon">🐦</div>
                     <span>Hummingbird</span>
                 </div>
-                <button class="sidebar-collapse-btn" id="sidebarToggle" title="Toggle Sidebar">
+                <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" title="Toggle Sidebar">
                     ☰
                 </button>
             </div>
 
-            <div class="sidebar-menu">
-                <!-- Core Operations -->
-                <div class="menu-section">
-                    <div class="menu-section-title">Operations</div>
-                    <div class="menu-item active" data-module="dashboard">
-                        <div class="menu-item-icon">📊</div>
-                        <div class="menu-item-label">Dashboard</div>
-                    </div>
-                    <div class="menu-item" data-module="sub-garments">
-                        <div class="menu-item-icon">👔</div>
-                        <div class="menu-item-label">Sub Garments</div>
-                    </div>
-                    <div class="menu-item" data-module="production-costing">
-                        <div class="menu-item-icon">💰</div>
-                        <div class="menu-item-label">Production Costing</div>
-                    </div>
-                </div>
-
-                <!-- Inventory & Sourcing -->
-                <div class="menu-section">
-                    <div class="menu-section-title">Inventory</div>
-                    <div class="menu-item" data-module="inventory">
-                        <div class="menu-item-icon">📦</div>
-                        <div class="menu-item-label">Inventory</div>
-                    </div>
-                    <div class="menu-item" data-module="suppliers">
-                        <div class="menu-item-icon">🏭</div>
-                        <div class="menu-item-label">Suppliers</div>
-                    </div>
-                </div>
-
-                <!-- Sales & Customers -->
-                <div class="menu-section">
-                    <div class="menu-section-title">Sales</div>
-                    <div class="menu-item" data-module="customers">
-                        <div class="menu-item-icon">👥</div>
-                        <div class="menu-item-label">Customers</div>
-                    </div>
-                </div>
-
-                <!-- Finance -->
-                <div class="menu-section">
-                    <div class="menu-section-title">Finance</div>
-                    <div class="menu-item" data-module="expenses">
-                        <div class="menu-item-icon">💳</div>
-                        <div class="menu-item-label">Expenses</div>
-                    </div>
-                    <div class="menu-item" data-module="cheque-tracker">
-                        <div class="menu-item-icon">🏦</div>
-                        <div class="menu-item-label">Cheque Tracker</div>
-                    </div>
-                </div>
-
-                <!-- Organization -->
-                <div class="menu-section">
-                    <div class="menu-section-title">Organization</div>
-                    <div class="menu-item" data-module="staff">
-                        <div class="menu-item-icon">👨‍💼</div>
-                        <div class="menu-item-label">Staff</div>
-                    </div>
-                </div>
-
-                <!-- Reports & Analytics -->
-                <div class="menu-section">
-                    <div class="menu-section-title">Analytics</div>
-                    <div class="menu-item" data-module="reports">
-                        <div class="menu-item-icon">📈</div>
-                        <div class="menu-item-label">Reports</div>
-                    </div>
-                </div>
-            </div>
+            <nav class="sidebar-nav" id="sidebarNav">
+                <!-- Nav items will be populated by JavaScript -->
+            </nav>
 
             <div class="sidebar-footer">
-                <div class="sidebar-footer-item" id="settingsBtn">
-                    <div class="sidebar-footer-item-icon">⚙️</div>
-                    <div class="sidebar-footer-item-label">Settings</div>
+                <div class="sidebar-actions">
+                    <button class="sidebar-action-btn" id="themeToggle" title="Toggle Theme">
+                        🌙 Theme
+                    </button>
+                    <button class="sidebar-action-btn" id="settingsBtn" title="Settings">
+                        ⚙️ Settings
+                    </button>
                 </div>
             </div>
-        </div>
+        </aside>
 
-        <!-- Main Content Area -->
+        <!-- Main Content -->
         <div class="main-content">
-            <!-- Top Navbar -->
-            <div class="navbar">
-                <div class="navbar-left">
-                    <button class="navbar-button" id="navbarMenuToggle" title="Toggle Menu">
-                        ☰
-                    </button>
-                    <div class="navbar-title" id="navbarTitle">Dashboard</div>
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-bar-title" id="pageTitle">Dashboard</div>
+
+                <div class="search-box">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search..." id="globalSearch">
                 </div>
 
-                <div class="navbar-center">
-                    <!-- Breadcrumb or search can go here -->
-                </div>
-
-                <div class="navbar-right">
-                    <button class="navbar-button" id="notificationBtn" title="Notifications">
+                <div class="top-bar-actions">
+                    <button class="top-bar-icon-btn" id="notificationsBtn" title="Notifications">
                         🔔
+                        <span class="notification-badge">3</span>
                     </button>
-                    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
-                        <div class="theme-toggle-circle">☀️</div>
+                    <button class="top-bar-icon-btn" id="refreshBtn" title="Refresh">
+                        🔄
                     </button>
+                    <div class="user-menu" id="userMenu">
+                        <div class="user-avatar">U</div>
+                        <span>User</span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Module Tabs -->
-            <div class="module-tabs" id="moduleTabs">
-                <!-- Tabs will be dynamically added here -->
             </div>
 
             <!-- Content Area -->
-            <div class="content-area">
-                <div class="modules-container" id="modulesContainer">
-                    <!-- Module contents will be loaded here -->
-                </div>
+            <div class="content-area" id="contentArea">
+                <!-- Module content will be loaded here -->
             </div>
 
             <!-- Status Bar -->
             <div class="status-bar">
-                <div class="status-bar-item">
-                    <div class="status-indicator"></div>
-                    <span>System Online</span>
+                <div class="status-bar-left">
+                    <span>Ready</span>
+                    <span id="lastSyncTime">Last sync: --:--:--</span>
                 </div>
-                <div class="status-bar-item" id="lastSyncTime">
-                    Last sync: Just now
+                <div class="status-bar-right">
+                    <span id="statusMessage">Connected</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Storage Utilities -->
-    <script src="utils/storage.js"></script>
+    <!-- UTILITY SCRIPTS (Load First) -->
+    <script src="./utils/storage.js"></script>
+    <script src="./utils/calculations.js"></script>
+    <script src="./utils/formatter.js"></script>
+    <script src="./utils/export.js"></script>
+    <script src="./utils/pdf-generator.js"></script>
+    <script src="./utils/pdf-styles.js"></script>
+    <script src="./utils/excel-exporter.js"></script>
 
-    <!-- Core Utilities -->
-    <script src="utils/calculations.js"></script>
-    <script src="utils/formatter.js"></script>
-    <script src="utils/export.js"></script>
+    <!-- SYSTEM SCRIPTS (Load Second) -->
+    <script src="./systems/backup-restore.js"></script>
+    <script src="./systems/theme-manager.js"></script>
+    <script src="./systems/app-config.js"></script>
 
-    <!-- PDF & Excel Generation -->
-    <script src="utils/pdf-generator.js"></script>
-    <script src="utils/pdf-styles.js"></script>
-    <script src="utils/excel-exporter.js"></script>
+    <!-- MODULE SCRIPTS (Load Third) -->
+    <script src="./modules/dashboard/dashboard.js"></script>
+    <script src="./modules/sub-garments/sub-garments.js"></script>
+    <script src="./modules/customers/customers.js"></script>
+    <script src="./modules/suppliers/suppliers.js"></script>
+    <script src="./modules/inventory/inventory.js"></script>
+    <script src="./modules/production-costing/production-costing.js"></script>
+    <script src="./modules/expenses/expenses.js"></script>
+    <script src="./modules/staff/staff.js"></script>
+    <script src="./modules/reports/reports.js"></script>
+    <script src="./modules/cheque-tracker/cheque-tracker.js"></script>
+    <script src="./modules/settings/settings.js"></script>
 
-    <!-- Module Scripts -->
-    <script src="modules/dashboard/dashboard.js" defer></script>
-    <script src="modules/sub-garments/sub-garments.js" defer></script>
-    <script src="modules/customers/customers.js" defer></script>
-    <script src="modules/suppliers/suppliers.js" defer></script>
-    <script src="modules/inventory/inventory.js" defer></script>
-    <script src="modules/production-costing/production-costing.js" defer></script>
-    <script src="modules/expenses/expenses.js" defer></script>
-    <script src="modules/staff/staff.js" defer></script>
-    <script src="modules/reports/reports.js" defer></script>
-    <script src="modules/cheque-tracker/cheque-tracker.js" defer></script>
-    <script src="modules/settings/settings.js" defer></script>
-
+    <!-- MAIN APP INITIALIZATION (Load Last) -->
     <script>
-        // ===== Main Application Controller =====
+        /**
+         * Main Application Controller
+         * Handles initialization, module loading, and UI management
+         */
         class AppController {
             constructor() {
-                this.activeModules = new Map();
                 this.currentModule = 'dashboard';
-                this.theme = this.getTheme();
+                this.modules = {
+                    dashboard: DashboardModule,
+                    subGarments: SubGarmentsModule,
+                    customers: CustomersModule,
+                    suppliers: SuppliersModule,
+                    inventory: InventoryModule,
+                    productionCosting: ProductionCostingModule,
+                    expenses: ExpensesModule,
+                    staff: StaffModule,
+                    reports: ReportsModule,
+                    chequeTracker: ChequeTrackerModule,
+                    settings: SettingsModule
+                };
+                this.theme = 'light';
+                this.moduleInstances = {};
                 this.init();
             }
 
-            init() {
-                this.setupEventListeners();
-                this.setupTheme();
-                this.loadModule('dashboard');
+            async init() {
+                try {
+                    console.log('🚀 Initializing Hummingbird ERP...');
+
+                    // Wait for storage to be ready
+                    await this.waitForStorageReady();
+                    console.log('✅ Storage ready');
+
+                    // Initialize theme
+                    this.setupTheme();
+                    console.log('✅ Theme loaded');
+
+                    // Load sample data if needed
+                    await this.loadSampleDataIfNeeded();
+                    console.log('✅ Data loaded');
+
+                    // Setup UI
+                    this.setupNavigation();
+                    console.log('✅ Navigation setup');
+
+                    // Load initial module
+                    await this.loadModule(this.currentModule);
+                    console.log('✅ Dashboard loaded');
+
+                    // Setup event listeners
+                    this.setupEventListeners();
+                    console.log('✅ Event listeners setup');
+
+                    // Show app, hide loading
+                    this.showApp();
+                    console.log('✅ App initialized successfully!');
+                } catch (error) {
+                    console.error('❌ Initialization error:', error);
+                    this.showError(`Failed to initialize: ${error.message}`);
+                }
             }
 
-            setupEventListeners() {
-                // Sidebar toggle
-                document.getElementById('sidebarToggle').addEventListener('click', () => {
-                    this.toggleSidebar();
-                });
+            /**
+             * Wait for storage to be initialized (with timeout)
+             */
+            waitForStorageReady() {
+                return new Promise((resolve, reject) => {
+                    let attempts = 0;
+                    const maxAttempts = 20; // 2 seconds with 100ms intervals
+                    const checkInterval = setInterval(() => {
+                        attempts++;
 
-                // Navbar menu toggle (for mobile)
-                document.getElementById('navbarMenuToggle').addEventListener('click', () => {
+                        // Check if storage is ready
+                        if (typeof storage !== 'undefined' && storage.db) {
+                            clearInterval(checkInterval);
+                            resolve();
+                        } else if (attempts >= maxAttempts) {
+                            clearInterval(checkInterval);
+                            reject(new Error('Storage initialization timeout'));
+                        }
+                    }, 100);
+                });
+            }
+
+            /**
+             * Load sample data on first run
+             */
+            async loadSampleDataIfNeeded() {
+                try {
+                    const hasData = await storage.readAll('subGarments');
+                    if (hasData && hasData.length > 0) {
+                        return; // Data already exists
+                    }
+
+                    // Load sample data
+                    console.log('Loading sample data...');
+                    const response = await fetch('./data/sample-data.json');
+                    const sampleData = await response.json();
+
+                    // Store sample data
+                    for (const [storeName, items] of Object.entries(sampleData)) {
+                        if (Array.isArray(items)) {
+                            for (const item of items) {
+                                try {
+                                    await storage.create(storeName, item);
+                                } catch (e) {
+                                    // Item might already exist, continue
+                                }
+                            }
+                        }
+                    }
+
+                    console.log('✅ Sample data loaded');
+                } catch (error) {
+                    console.warn('Could not load sample data:', error);
+                    // Non-critical error, continue without sample data
+                }
+            }
+
+            /**
+             * Setup navigation menu
+             */
+            setupNavigation() {
+                const navContainer = document.getElementById('sidebarNav');
+                navContainer.innerHTML = '';
+
+                const navItems = [
+                    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+                    { id: 'subGarments', label: 'Sub Garments', icon: '👕' },
+                    { id: 'customers', label: 'Customers', icon: '👥' },
+                    { id: 'suppliers', label: 'Suppliers', icon: '🏭' },
+                    { id: 'inventory', label: 'Inventory', icon: '📦' },
+                    { id: 'productionCosting', label: 'Production Costing', icon: '💰' },
+                    { id: 'expenses', label: 'Expenses', icon: '💸' },
+                    { id: 'staff', label: 'Staff', icon: '👔' },
+                    { id: 'reports', label: 'Reports', icon: '📋' },
+                    { id: 'chequeTracker', label: 'Cheque Tracker', icon: '🏦' }
+                ];
+
+                navItems.forEach(item => {
+                    const navItem = document.createElement('div');
+                    navItem.className = `nav-item ${item.id === this.currentModule ? 'active' : ''}`;
+                    navItem.innerHTML = `
+                        <span>${item.icon}</span>
+                        <span class="nav-item-label">${item.label}</span>
+                    `;
+                    navItem.addEventListener('click', () => this.loadModule(item.id));
+                    navContainer.appendChild(navItem);
+                });
+            }
+
+            /**
+             * Load a module
+             */
+            async loadModule(moduleName) {
+                try {
+                    console.log(`Loading module: ${moduleName}`);
+
+                    // Update active nav item
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    event?.target?.closest('.nav-item')?.classList.add('active');
+
+                    // Create module instance if not exists
+                    if (!this.moduleInstances[moduleName]) {
+                        const ModuleClass = this.modules[moduleName];
+                        if (!ModuleClass) {
+                            throw new Error(`Module not found: ${moduleName}`);
+                        }
+                        this.moduleInstances[moduleName] = new ModuleClass();
+                    }
+
+                    // Update title
+                    const titles = {
+                        dashboard: 'Dashboard',
+                        subGarments: 'Sub Garments',
+                        customers: 'Customers',
+                        suppliers: 'Suppliers',
+                        inventory: 'Inventory',
+                        productionCosting: 'Production Costing',
+                        expenses: 'Expenses',
+                        staff: 'Staff',
+                        reports: 'Reports',
+                        chequeTracker: 'Cheque Tracker',
+                        settings: 'Settings'
+                    };
+                    document.getElementById('pageTitle').textContent = titles[moduleName] || 'Module';
+
+                    this.currentModule = moduleName;
+                    console.log(`✅ Loaded: ${moduleName}`);
+                } catch (error) {
+                    console.error(`❌ Failed to load module: ${moduleName}`, error);
+                    this.showError(`Failed to load ${moduleName}`);
+                }
+            }
+
+            /**
+             * Setup event listeners
+             */
+            setupEventListeners() {
+                // Sidebar collapse
+                document.getElementById('sidebarCollapseBtn')?.addEventListener('click', () => {
                     this.toggleSidebar();
                 });
 
                 // Theme toggle
-                document.getElementById('themeToggle').addEventListener('click', () => {
+                document.getElementById('themeToggle')?.addEventListener('click', () => {
                     this.toggleTheme();
                 });
 
-                // Menu items
-                document.querySelectorAll('.menu-item').forEach(item => {
-                    item.addEventListener('click', (e) => {
-                        const module = e.currentTarget.dataset.module;
-                        this.loadModule(module);
-                    });
+                // Notifications
+                document.getElementById('notificationsBtn')?.addEventListener('click', () => {
+                    this.showNotifications();
                 });
 
-                // Settings
-                document.getElementById('settingsBtn').addEventListener('click', () => {
+                // Refresh button
+                document.getElementById('refreshBtn')?.addEventListener('click', () => {
+                    window.location.reload();
+                });
+
+                // Settings button
+                document.getElementById('settingsBtn')?.addEventListener('click', () => {
                     this.loadModule('settings');
                 });
 
-                // Notification button
-                document.getElementById('notificationBtn').addEventListener('click', () => {
-                    this.showNotifications();
+                // User menu
+                document.getElementById('userMenu')?.addEventListener('click', () => {
+                    alert('User menu clicked');
+                });
+
+                // Global search
+                document.getElementById('globalSearch')?.addEventListener('input', (e) => {
+                    console.log('Search:', e.target.value);
                 });
             }
 
-            loadModule(moduleName) {
-                // Update sidebar active state
-                document.querySelectorAll('.menu-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                document.querySelector(`[data-module="${moduleName}"]`)?.classList.add('active');
-
-                // If module already loaded, just show it
-                if (this.activeModules.has(moduleName)) {
-                    this.showModule(moduleName);
-                    return;
-                }
-
-                // Load module HTML
-                fetch(`modules/${moduleName}/${moduleName}.html`)
-                    .then(response => response.text())
-                    .then(html => {
-                        const container = document.getElementById('modulesContainer');
-                        const moduleDiv = document.createElement('div');
-                        moduleDiv.className = 'module-content';
-                        moduleDiv.id = `module-${moduleName}`;
-                        moduleDiv.innerHTML = html;
-                        container.appendChild(moduleDiv);
-
-                        // Add to active modules
-                        this.activeModules.set(moduleName, moduleDiv);
-
-                        // Initialize module if it has an init function
-                        if (window[`init${this.camelCase(moduleName)}`]) {
-                            window[`init${this.camelCase(moduleName)}`]();
-                        }
-
-                        // Add tab
-                        this.addTab(moduleName);
-
-                        // Show module
-                        this.showModule(moduleName);
-
-                        // Update navbar title
-                        this.updateNavbarTitle(moduleName);
-                    })
-                    .catch(err => console.error(`Failed to load module ${moduleName}:`, err));
+            /**
+             * Show app (hide loading screen)
+             */
+            showApp() {
+                document.getElementById('appLoading').classList.add('hidden');
+                document.getElementById('appContainer').style.display = 'flex';
             }
 
-            showModule(moduleName) {
-                // Hide all modules
-                document.querySelectorAll('.module-content').forEach(mod => {
-                    mod.classList.remove('active');
-                });
-
-                // Show selected module
-                document.getElementById(`module-${moduleName}`)?.classList.add('active');
-
-                // Update tabs
-                document.querySelectorAll('.module-tab').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                document.querySelector(`[data-tab="${moduleName}"]`)?.classList.add('active');
-
-                this.currentModule = moduleName;
-                this.updateNavbarTitle(moduleName);
+            /**
+             * Show error message
+             */
+            showError(message) {
+                const loading = document.getElementById('appLoading');
+                loading.querySelector('.spinner').style.display = 'none';
+                loading.querySelector('.loading-text').textContent = `Error: ${message}`;
             }
 
-            addTab(moduleName) {
-                const tabsContainer = document.getElementById('moduleTabs');
-                
-                // Check if tab already exists
-                if (document.querySelector(`[data-tab="${moduleName}"]`)) {
-                    return;
-                }
-
-                const tab = document.createElement('button');
-                tab.className = 'module-tab active';
-                tab.dataset.tab = moduleName;
-                tab.innerHTML = `
-                    <span>${this.formatModuleName(moduleName)}</span>
-                    <span class="module-tab-close">✕</span>
-                `;
-
-                // Click to show module
-                tab.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('module-tab-close')) {
-                        this.showModule(moduleName);
-                    }
-                });
-
-                // Close tab
-                tab.querySelector('.module-tab-close').addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.closeTab(moduleName);
-                });
-
-                tabsContainer.appendChild(tab);
-            }
-
-            closeTab(moduleName) {
-                const tab = document.querySelector(`[data-tab="${moduleName}"]`);
-                tab?.remove();
-
-                this.activeModules.delete(moduleName);
-
-                // If closed module was active, switch to another
-                if (this.currentModule === moduleName) {
-                    const remaining = Array.from(this.activeModules.keys());
-                    if (remaining.length > 0) {
-                        this.showModule(remaining[0]);
-                    } else {
-                        this.loadModule('dashboard');
-                    }
-                }
-            }
-
-            updateNavbarTitle(moduleName) {
-                document.getElementById('navbarTitle').textContent = this.formatModuleName(moduleName);
-            }
-
-            formatModuleName(moduleName) {
-                return moduleName
-                    .split('-')
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ');
-            }
-
-            camelCase(str) {
-                return str
-                    .split('-')
-                    .map((word, index) => {
-                        if (index === 0) return word;
-                        return word.charAt(0).toUpperCase() + word.slice(1);
-                    })
-                    .join('');
-            }
-
+            /**
+             * Toggle sidebar collapse
+             */
             toggleSidebar() {
                 const sidebar = document.getElementById('sidebar');
                 sidebar.classList.toggle('collapsed');
-                this.saveSidebarState(sidebar.classList.contains('collapsed'));
+                localStorage.setItem('sidebar-collapsed', sidebar.classList.contains('collapsed'));
             }
 
+            /**
+             * Toggle theme
+             */
             toggleTheme() {
                 const newTheme = this.theme === 'light' ? 'dark' : 'light';
                 this.setTheme(newTheme);
                 this.theme = newTheme;
             }
 
+            /**
+             * Setup theme from saved preference
+             */
             setupTheme() {
+                this.theme = this.getTheme();
                 document.documentElement.dataset.theme = this.theme;
                 const toggle = document.getElementById('themeToggle');
                 if (this.theme === 'dark') {
@@ -933,12 +798,18 @@
                 }
             }
 
+            /**
+             * Get saved theme or system preference
+             */
             getTheme() {
                 const saved = localStorage.getItem('app-theme');
                 if (saved) return saved;
                 return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             }
 
+            /**
+             * Set theme and save
+             */
             setTheme(theme) {
                 document.documentElement.dataset.theme = theme;
                 localStorage.setItem('app-theme', theme);
@@ -950,25 +821,34 @@
                 }
             }
 
-            saveSidebarState(isCollapsed) {
-                localStorage.setItem('sidebar-collapsed', isCollapsed);
-            }
-
+            /**
+             * Show notifications
+             */
             showNotifications() {
                 alert('📬 No new notifications');
             }
         }
 
-        // Initialize app when DOM is ready
+        /**
+         * Initialize app when all scripts are loaded
+         */
         document.addEventListener('DOMContentLoaded', () => {
-            window.app = new AppController();
+            // Small delay to ensure all scripts are loaded
+            setTimeout(() => {
+                window.app = new AppController();
+            }, 500);
         });
 
-        // Update last sync time
+        /**
+         * Update last sync time every minute
+         */
         setInterval(() => {
             const now = new Date();
             const timeStr = now.toLocaleTimeString();
-            document.getElementById('lastSyncTime').textContent = `Last sync: ${timeStr}`;
+            const syncElement = document.getElementById('lastSyncTime');
+            if (syncElement) {
+                syncElement.textContent = `Last sync: ${timeStr}`;
+            }
         }, 60000);
     </script>
 </body>
