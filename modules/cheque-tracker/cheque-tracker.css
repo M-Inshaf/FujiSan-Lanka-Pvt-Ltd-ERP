@@ -1,0 +1,613 @@
+/* ============================================================================
+   CHEQUE-TRACKER.CSS - Cheque Tracker Module Styling
+   ============================================================================
+   Purpose: Cheque Tracker module styling - cheque management and tracking
+   ============================================================================ */
+
+/* ============================================================================
+   MODULE CONTAINER
+   ============================================================================ */
+
+.cheque-tracker-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+}
+
+.cheque-tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cheque-tracker-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.cheque-tracker-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ============================================================================
+   CHEQUE STATUS OVERVIEW
+   ============================================================================ */
+
+.cheque-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cheque-overview-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.overview-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.overview-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 8px;
+}
+
+.overview-amount {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================================================
+   CHEQUE STATUS TABS
+   ============================================================================ */
+
+.cheque-status-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--color-border);
+  overflow-x: auto;
+}
+
+.cheque-status-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--color-text-secondary);
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  transition: all var(--transition-normal) var(--easing-ease-out);
+}
+
+.cheque-status-tab:hover {
+  color: var(--color-text-primary);
+}
+
+.cheque-status-tab.active {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+}
+
+/* ============================================================================
+   SEARCH & FILTERS
+   ============================================================================ */
+
+.cheque-search-bar {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-sm);
+  backdrop-filter: blur(10px);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cheque-search-input {
+  flex: 1;
+  min-width: 200px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  outline: none;
+}
+
+.cheque-search-input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.cheque-filter-btn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal) var(--easing-ease-out);
+  white-space: nowrap;
+}
+
+.cheque-filter-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.cheque-filter-btn.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+/* ============================================================================
+   CHEQUE CARDS GRID
+   ============================================================================ */
+
+.cheque-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.cheque-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal) var(--easing-ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.cheque-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-color-light));
+  opacity: 0;
+  transition: opacity var(--transition-normal) var(--easing-ease-out);
+}
+
+.cheque-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent-color-transparent);
+}
+
+.cheque-card:hover::before {
+  opacity: 1;
+}
+
+.cheque-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cheque-number {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.cheque-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(var(--accent-rgb), 0.1);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
+.cheque-status-badge.cleared {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+}
+
+.cheque-status-badge.bounced {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+}
+
+.cheque-status-badge.pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+}
+
+.status-indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  background: var(--accent-color);
+}
+
+/* ============================================================================
+   CHEQUE DETAILS
+   ============================================================================ */
+
+.cheque-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cheque-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.cheque-detail-label {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.cheque-detail-value {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  text-align: right;
+  font-family: 'Courier New', monospace;
+}
+
+.cheque-amount {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+/* ============================================================================
+   CHEQUE DATES
+   ============================================================================ */
+
+.cheque-dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.date-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.date-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.date-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================================================
+   CHEQUE ACTIONS
+   ============================================================================ */
+
+.cheque-card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.cheque-action-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal) var(--easing-ease-out);
+}
+
+.cheque-action-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.cheque-action-btn.primary {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+.cheque-action-btn.primary:hover {
+  background: var(--accent-color-dark);
+}
+
+/* ============================================================================
+   CHEQUE TABLE
+   ============================================================================ */
+
+.cheque-table-container {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.cheque-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cheque-table thead {
+  background: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cheque-table th {
+  padding: var(--spacing-sm);
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-right: 1px solid var(--color-border);
+}
+
+.cheque-table th:last-child {
+  border-right: none;
+}
+
+.cheque-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-normal) var(--easing-ease-out);
+}
+
+.cheque-table tbody tr:hover {
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.cheque-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.cheque-table td {
+  padding: var(--spacing-sm);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  border-right: 1px solid var(--color-border);
+}
+
+.cheque-table td:last-child {
+  border-right: none;
+}
+
+.cheque-number-cell {
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.cheque-bank-cell {
+  font-size: 12px;
+}
+
+.cheque-amount-cell {
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+/* ============================================================================
+   TIMELINE/HISTORY
+   ============================================================================ */
+
+.cheque-timeline {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  margin-bottom: var(--spacing-lg);
+}
+
+.timeline-header {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.timeline-events {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  position: relative;
+}
+
+.timeline-events::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.timeline-event {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding-left: 48px;
+  position: relative;
+}
+
+.timeline-event-dot {
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  background: var(--color-bg-tertiary);
+  border: 2px solid var(--accent-color);
+  border-radius: 50%;
+}
+
+.timeline-event-time {
+  font-size: 11px;
+  color: var(--color-text-disabled);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 2px;
+}
+
+.timeline-event-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.timeline-event-description {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  .cheque-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .cheque-tracker-container {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .cheque-tracker-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .cheque-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cheque-overview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cheque-search-bar {
+    flex-direction: column;
+  }
+
+  .cheque-dates {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .cheque-tracker-container {
+    padding: var(--spacing-xs);
+  }
+
+  .cheque-tracker-title {
+    font-size: 22px;
+  }
+
+  .cheque-card {
+    padding: var(--spacing-sm);
+  }
+
+  .cheque-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .cheque-status-tabs {
+    font-size: 12px;
+  }
+
+  .cheque-status-tab {
+    padding: 10px 14px;
+  }
+
+  .cheque-card-actions {
+    flex-direction: column;
+  }
+
+  .cheque-detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .cheque-detail-value {
+    text-align: left;
+  }
+}
+
+/* ============================================================================
+   END OF CHEQUE-TRACKER.CSS
+   ============================================================================ */
