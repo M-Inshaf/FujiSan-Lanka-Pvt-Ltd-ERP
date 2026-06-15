@@ -1,0 +1,565 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Hummingbird Clothing ERP - Database Schema",
+  "version": "1.0.0",
+  "description": "Complete JSON database schema for Hummingbird Clothing ERP system",
+  
+  "database": {
+    "metadata": {
+      "appName": "Hummingbird Clothing ERP",
+      "company": "FujiSan Lanka Pvt Ltd",
+      "version": "1.0.0",
+      "buildDate": "2024-01-01",
+      "lastUpdated": "2024-01-01T00:00:00Z",
+      "timezone": "Asia/Colombo"
+    },
+
+    "collections": {
+
+      "agents": {
+        "description": "Agent/Sub-contractor management for production work",
+        "schema": {
+          "agentId": "string (UUID)",
+          "agentName": "string (required, unique)",
+          "phone": "string",
+          "email": "string",
+          "address": "string",
+          "bank": "string",
+          "accountNumber": "string",
+          "accountHolder": "string",
+          "status": "enum: active|inactive",
+          "outstandingBalance": "number (default: 0)",
+          "totalDebit": "number (default: 0)",
+          "totalCredit": "number (default: 0)",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "agentId": "agent-001",
+          "agentName": "John Doe",
+          "phone": "+94771234567",
+          "email": "john@example.com",
+          "address": "123 Main Street, Colombo",
+          "bank": "Bank of Ceylon",
+          "accountNumber": "123456789",
+          "accountHolder": "John Doe",
+          "status": "active",
+          "outstandingBalance": 0,
+          "totalDebit": 0,
+          "totalCredit": 0,
+          "notes": "Skilled production agent",
+          "createdDate": "2024-01-01T10:00:00Z",
+          "modifiedDate": "2024-01-01T10:00:00Z"
+        }
+      },
+
+      "customers": {
+        "description": "Customer information and transaction history",
+        "schema": {
+          "customerId": "string (UUID)",
+          "customerName": "string (required)",
+          "companyName": "string",
+          "email": "string",
+          "phone": "string",
+          "address": "string",
+          "city": "string",
+          "country": "string",
+          "taxId": "string",
+          "creditLimit": "number (default: 0)",
+          "creditUsed": "number (default: 0)",
+          "status": "enum: active|inactive|suspended",
+          "outstandingBalance": "number (default: 0)",
+          "totalTransactions": "number (default: 0)",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "customerId": "cust-001",
+          "customerName": "ABC Retail Store",
+          "companyName": "ABC Trading Ltd",
+          "email": "info@abcretail.com",
+          "phone": "+94112345678",
+          "address": "456 Trade Street, Colombo",
+          "city": "Colombo",
+          "country": "Sri Lanka",
+          "taxId": "LK123456789",
+          "creditLimit": 100000,
+          "creditUsed": 0,
+          "status": "active",
+          "outstandingBalance": 0,
+          "totalTransactions": 0,
+          "notes": "Major retail customer",
+          "createdDate": "2024-01-01T10:00:00Z",
+          "modifiedDate": "2024-01-01T10:00:00Z"
+        }
+      },
+
+      "suppliers": {
+        "description": "Supplier and vendor management",
+        "schema": {
+          "supplierId": "string (UUID)",
+          "supplierName": "string (required)",
+          "companyName": "string",
+          "email": "string",
+          "phone": "string",
+          "address": "string",
+          "city": "string",
+          "country": "string",
+          "paymentTerms": "string",
+          "leadTime": "number (days)",
+          "minOrder": "number",
+          "status": "enum: active|inactive|pending",
+          "outstandingPayment": "number (default: 0)",
+          "totalOrders": "number (default: 0)",
+          "lastOrderDate": "ISO8601 timestamp",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "supplierId": "supp-001",
+          "supplierName": "Quality Textiles Ltd",
+          "companyName": "Quality Textiles Ltd",
+          "email": "sales@qualitytextiles.com",
+          "phone": "+94114567890",
+          "address": "789 Industry Road, Colombo",
+          "city": "Colombo",
+          "country": "Sri Lanka",
+          "paymentTerms": "Net 30",
+          "leadTime": 7,
+          "minOrder": 1000,
+          "status": "active",
+          "outstandingPayment": 0,
+          "totalOrders": 0,
+          "lastOrderDate": null,
+          "notes": "Primary fabric supplier",
+          "createdDate": "2024-01-01T10:00:00Z",
+          "modifiedDate": "2024-01-01T10:00:00Z"
+        }
+      },
+
+      "subGarments": {
+        "description": "Sub-garment production orders (Core Module)",
+        "schema": {
+          "subGarmentId": "string (UUID)",
+          "invoiceNumber": "string (required, unique)",
+          "agentId": "string (foreign key to agents)",
+          "issueDate": "ISO8601 date",
+          "dueDate": "ISO8601 date",
+          "productDescription": "string",
+          "layers": "number (required)",
+          "sizes": "array of strings",
+          "qtyPerSize": "number (required)",
+          "expectedQty": "number (calculated: layers × sizes.length × qtyPerSize)",
+          "ratePerUnit": "number (required)",
+          "accessories": "array of objects {name: string, quantity: number, unit: string}",
+          "cuttingNotes": "string",
+          "status": "enum: pending|in-progress|completed|cancelled",
+          "gradeA": "number (default: 0)",
+          "damaged": "number (default: 0)",
+          "waste": "number (default: 0)",
+          "shortage": "number (calculated: expectedQty - (gradeA + damaged) - waste)",
+          "grossBill": "number (calculated: (gradeA + damaged) × ratePerUnit)",
+          "totalAmount": "number",
+          "paymentStatus": "enum: pending|partial|paid|overdue",
+          "paidAmount": "number (default: 0)",
+          "outstandingBalance": "number (calculated: totalAmount - paidAmount)",
+          "finishingReceipts": "array of objects {date, quantity, notes}",
+          "paymentReceipts": "array of objects {date, amount, method, chequeNumber}",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "subGarmentId": "sg-001",
+          "invoiceNumber": "INV-2024-001",
+          "agentId": "agent-001",
+          "issueDate": "2024-01-01",
+          "dueDate": "2024-01-15",
+          "productDescription": "Cotton T-Shirts",
+          "layers": 2,
+          "sizes": ["S", "M", "L", "XL"],
+          "qtyPerSize": 100,
+          "expectedQty": 800,
+          "ratePerUnit": 250,
+          "accessories": [
+            {"name": "Buttons", "quantity": 2400, "unit": "pcs"},
+            {"name": "Thread", "quantity": 5, "unit": "spools"}
+          ],
+          "cuttingNotes": "Cut with 1cm seam allowance",
+          "status": "in-progress",
+          "gradeA": 750,
+          "damaged": 20,
+          "waste": 30,
+          "shortage": 0,
+          "grossBill": 192500,
+          "totalAmount": 192500,
+          "paymentStatus": "pending",
+          "paidAmount": 0,
+          "outstandingBalance": 192500,
+          "finishingReceipts": [],
+          "paymentReceipts": [],
+          "notes": "Rush order - high priority",
+          "createdDate": "2024-01-01T10:00:00Z",
+          "modifiedDate": "2024-01-01T10:00:00Z"
+        }
+      },
+
+      "inventory": {
+        "description": "Inventory and stock management",
+        "schema": {
+          "itemId": "string (UUID)",
+          "itemName": "string (required)",
+          "sku": "string (unique)",
+          "category": "string",
+          "supplier": "string",
+          "description": "string",
+          "unit": "string (e.g., pcs, meters, kg)",
+          "currentStock": "number (default: 0)",
+          "minimumStock": "number (default: 0)",
+          "maximumStock": "number (default: 0)",
+          "reorderPoint": "number (default: 0)",
+          "unitCost": "number",
+          "unitPrice": "number",
+          "stockValue": "number (calculated: currentStock × unitCost)",
+          "location": "string",
+          "lastRestockDate": "ISO8601 date",
+          "expiryDate": "ISO8601 date",
+          "batch": "string",
+          "status": "enum: active|inactive|discontinued",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "itemId": "inv-001",
+          "itemName": "Cotton Fabric White",
+          "sku": "FAB-COT-WHT-001",
+          "category": "Fabrics",
+          "supplier": "supp-001",
+          "description": "100% Cotton white fabric for t-shirts",
+          "unit": "meters",
+          "currentStock": 5000,
+          "minimumStock": 1000,
+          "maximumStock": 10000,
+          "reorderPoint": 2000,
+          "unitCost": 150,
+          "unitPrice": 200,
+          "stockValue": 750000,
+          "location": "Warehouse A - Shelf 1",
+          "lastRestockDate": "2024-01-15",
+          "expiryDate": null,
+          "batch": "BATCH-2024-001",
+          "status": "active",
+          "notes": "High quality cotton",
+          "createdDate": "2024-01-01T10:00:00Z",
+          "modifiedDate": "2024-01-01T10:00:00Z"
+        }
+      },
+
+      "productionCosting": {
+        "description": "Production cost tracking and rate management",
+        "schema": {
+          "costingId": "string (UUID)",
+          "productName": "string (required)",
+          "productCategory": "string",
+          "costingDate": "ISO8601 date",
+          "costComponents": "array of objects {name, quantity, unitCost, totalCost}",
+          "laborCost": "number",
+          "overheadCost": "number",
+          "materialCost": "number (sum of cost components)",
+          "totalProductionCost": "number (calculated: materialCost + laborCost + overheadCost)",
+          "unitsProduced": "number",
+          "costPerUnit": "number (calculated: totalProductionCost / unitsProduced)",
+          "sellingPrice": "number",
+          "profitMargin": "number (calculated: (sellingPrice - costPerUnit) / sellingPrice × 100)",
+          "status": "enum: draft|active|archived",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "costingId": "cost-001",
+          "productName": "Cotton T-Shirt",
+          "productCategory": "Apparel",
+          "costingDate": "2024-01-01",
+          "costComponents": [
+            {"name": "Fabric", "quantity": 1.5, "unitCost": 150, "totalCost": 225},
+            {"name": "Buttons", "quantity": 6, "unitCost": 5, "totalCost": 30},
+            {"name": "Thread", "quantity": 0.1, "unitCost": 100, "totalCost": 10}
+          ],
+          "laborCost": 75,
+          "overheadCost": 50,
+          "materialCost": 265,
+          "totalProductionCost": 390,
+          "unitsProduced": 100,
+          "costPerUnit": 3.9,
+          "sellingPrice": 8.5,
+          "profitMargin": 54.12,
+          "status": "active",
+          "notes": "Standard costing for basic t-shirt",
+          "createdDate": "2024-01-01T10:00:00Z",
+          "modifiedDate": "2024-01-01T10:00:00Z"
+        }
+      },
+
+      "expenses": {
+        "description": "Operating expenses and cost tracking",
+        "schema": {
+          "expenseId": "string (UUID)",
+          "expenseDate": "ISO8601 date",
+          "category": "string (required)",
+          "description": "string",
+          "amount": "number (required)",
+          "paymentMethod": "enum: cash|cheque|bank-transfer|credit-card",
+          "paymentReference": "string",
+          "employee": "string (who reported)",
+          "vendor": "string",
+          "department": "string",
+          "approvalStatus": "enum: pending|approved|rejected",
+          "attachments": "array of strings (file paths/URLs)",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "expenseId": "exp-001",
+          "expenseDate": "2024-01-10",
+          "category": "Utilities",
+          "description": "Monthly electricity bill",
+          "amount": 15000,
+          "paymentMethod": "bank-transfer",
+          "paymentReference": "TRF-2024-001",
+          "employee": "emp-001",
+          "vendor": "Ceylon Electricity Board",
+          "department": "Operations",
+          "approvalStatus": "approved",
+          "attachments": [],
+          "notes": "January 2024 electricity payment",
+          "createdDate": "2024-01-10T10:00:00Z",
+          "modifiedDate": "2024-01-10T10:00:00Z"
+        }
+      },
+
+      "staff": {
+        "description": "Employee and staff management",
+        "schema": {
+          "employeeId": "string (UUID)",
+          "firstName": "string (required)",
+          "lastName": "string (required)",
+          "email": "string",
+          "phone": "string",
+          "address": "string",
+          "dateOfBirth": "ISO8601 date",
+          "joiningDate": "ISO8601 date",
+          "department": "string",
+          "position": "string",
+          "salary": "number",
+          "salaryFrequency": "enum: daily|weekly|monthly",
+          "bankAccount": "string",
+          "taxId": "string",
+          "status": "enum: active|inactive|on-leave|terminated",
+          "attendance": "array of objects {date, status: present|absent|leave}",
+          "performance": "object {rating, notes, lastReview}",
+          "documents": "array of objects {type, uploadDate, expiryDate}",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "employeeId": "emp-001",
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "email": "jane@company.com",
+          "phone": "+94779876543",
+          "address": "456 Employee Lane, Colombo",
+          "dateOfBirth": "1990-05-15",
+          "joiningDate": "2022-01-01",
+          "department": "Production",
+          "position": "Production Supervisor",
+          "salary": 50000,
+          "salaryFrequency": "monthly",
+          "bankAccount": "1234567890",
+          "taxId": "LK987654321",
+          "status": "active",
+          "attendance": [],
+          "performance": {"rating": 4.5, "notes": "Excellent performer", "lastReview": "2024-01-01"},
+          "documents": [],
+          "notes": "Experienced supervisor",
+          "createdDate": "2024-01-01T10:00:00Z",
+          "modifiedDate": "2024-01-01T10:00:00Z"
+        }
+      },
+
+      "cheques": {
+        "description": "Cheque tracking and financial management",
+        "schema": {
+          "chequeId": "string (UUID)",
+          "chequeNumber": "string (required, unique)",
+          "date": "ISO8601 date",
+          "amount": "number (required)",
+          "issuedBy": "string",
+          "issuedTo": "string",
+          "bank": "string",
+          "accountNumber": "string",
+          "purpose": "string",
+          "status": "enum: pending|cleared|bounced|cancelled|post-dated",
+          "clearanceDate": "ISO8601 date",
+          "attachments": "array of strings",
+          "notes": "string",
+          "relatedTransaction": "object {type, id}",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "chequeId": "chq-001",
+          "chequeNumber": "123456",
+          "date": "2024-01-15",
+          "amount": 100000,
+          "issuedBy": "Company",
+          "issuedTo": "Agent XYZ",
+          "bank": "Bank of Ceylon",
+          "accountNumber": "123456789",
+          "purpose": "Sub-garment payment",
+          "status": "pending",
+          "clearanceDate": null,
+          "attachments": [],
+          "notes": "Payment for order INV-2024-001",
+          "relatedTransaction": {"type": "sub-garment", "id": "sg-001"},
+          "createdDate": "2024-01-15T10:00:00Z",
+          "modifiedDate": "2024-01-15T10:00:00Z"
+        }
+      },
+
+      "reports": {
+        "description": "Saved reports and analytics",
+        "schema": {
+          "reportId": "string (UUID)",
+          "reportName": "string (required)",
+          "reportType": "enum: sales|inventory|production|expense|financial|custom",
+          "description": "string",
+          "dateRange": "object {from: date, to: date}",
+          "filters": "object (dynamic based on report type)",
+          "generatedDate": "ISO8601 timestamp",
+          "generatedBy": "string",
+          "data": "array of objects (report data)",
+          "summary": "object (totals and aggregations)",
+          "format": "enum: table|chart|summary",
+          "isScheduled": "boolean",
+          "schedule": "object {frequency, nextRun} (if scheduled)",
+          "notes": "string",
+          "createdDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "reportId": "rep-001",
+          "reportName": "Monthly Sales Report - January 2024",
+          "reportType": "sales",
+          "description": "Complete sales summary for January 2024",
+          "dateRange": {"from": "2024-01-01", "to": "2024-01-31"},
+          "filters": {"agent": "all", "status": "completed"},
+          "generatedDate": "2024-02-01T10:00:00Z",
+          "generatedBy": "emp-001",
+          "data": [],
+          "summary": {"totalSales": 1000000, "totalOrders": 50, "averageOrderValue": 20000},
+          "format": "summary",
+          "isScheduled": false,
+          "schedule": null,
+          "notes": "Auto-generated monthly report",
+          "createdDate": "2024-02-01T10:00:00Z"
+        }
+      },
+
+      "activityLogs": {
+        "description": "Audit trail and activity logging",
+        "schema": {
+          "logId": "string (UUID)",
+          "timestamp": "ISO8601 timestamp",
+          "userId": "string",
+          "action": "string (e.g., CREATE, UPDATE, DELETE, VIEW)",
+          "module": "string",
+          "recordId": "string",
+          "recordType": "string",
+          "previousValues": "object (for updates)",
+          "newValues": "object (for updates)",
+          "ipAddress": "string",
+          "status": "enum: success|failure",
+          "errorMessage": "string (if failure)",
+          "notes": "string"
+        },
+        "example": {
+          "logId": "log-001",
+          "timestamp": "2024-01-01T10:00:00Z",
+          "userId": "emp-001",
+          "action": "CREATE",
+          "module": "SubGarments",
+          "recordId": "sg-001",
+          "recordType": "SubGarment",
+          "previousValues": null,
+          "newValues": {"invoiceNumber": "INV-2024-001", "agentId": "agent-001"},
+          "ipAddress": "192.168.1.1",
+          "status": "success",
+          "errorMessage": null,
+          "notes": "Sub-garment order created"
+        }
+      },
+
+      "settings": {
+        "description": "Application settings and configuration",
+        "schema": {
+          "settingId": "string (UUID)",
+          "settingKey": "string (required, unique)",
+          "settingValue": "any",
+          "settingType": "enum: string|number|boolean|object|array",
+          "category": "string",
+          "description": "string",
+          "createdDate": "ISO8601 timestamp",
+          "modifiedDate": "ISO8601 timestamp"
+        },
+        "example": {
+          "settingId": "set-001",
+          "settingKey": "theme",
+          "settingValue": "dark",
+          "settingType": "string",
+          "category": "appearance",
+          "description": "Application theme preference",
+          "createdDate": "2024-01-01T10:00:00Z",
+          "modifiedDate": "2024-01-01T10:00:00Z"
+        }
+      }
+
+    },
+
+    "relationships": {
+      "description": "Data relationships and foreign keys",
+      "subGarments": {
+        "agentId": "agents.agentId"
+      },
+      "inventory": {
+        "supplier": "suppliers.supplierId"
+      },
+      "cheques": {
+        "relatedTransaction.id": "Polymorphic relationship to subGarments or expenses"
+      }
+    },
+
+    "calculations": {
+      "subGarments": {
+        "expectedQty": "layers × sizes.length × qtyPerSize",
+        "shortage": "expectedQty - (gradeA + damaged) - waste",
+        "grossBill": "(gradeA + damaged) × ratePerUnit",
+        "outstandingBalance": "totalAmount - paidAmount"
+      },
+      "inventory": {
+        "stockValue": "currentStock × unitCost"
+      },
+      "productionCosting": {
+        "materialCost": "sum of cost components",
+        "totalProductionCost": "materialCost + laborCost + overheadCost",
+        "costPerUnit": "totalProductionCost / unitsProduced",
+        "profitMargin": "(sellingPrice - costPerUnit) / sellingPrice × 100"
+      }
+    }
+  }
+}
